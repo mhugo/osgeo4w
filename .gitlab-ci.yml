@@ -1,0 +1,5 @@
+protobuf_build:
+  stage: build
+  script:
+      - net use x: \\vboxsrv\osgeo4w
+      - cmd /s /c "ci\windows\build_protobuf.bat"

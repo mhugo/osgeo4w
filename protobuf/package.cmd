@@ -28,4 +28,6 @@ tar -C %HERE%\\%P% --transform 's,^,osgeo4w/,' -cvjf %P%-%V%-%B%-src.tar.bz2 pac
 rem install archives
 scp %P%-%V%-%B%.tar.bz2 %R%
 scp %P%-%V%-%B%-src.tar.bz2 %R%
+cd %HERE%\\%P%
+scp setup.hint %R%
 

@@ -1,8 +1,9 @@
-protobuf:
+# Trigger variable PACKAGE_NAME
+package:
   stage: build
   script:
       - net use "x:" '\\vboxsrv\osgeo4w'
-      - cmd /s /c "protobuf\build_protobuf.bat"
+      - cmd /s /c "${PACKAGE_NAME}\package.cmd"
   only:
       - triggers
 

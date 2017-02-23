@@ -6,8 +6,8 @@ set V=3.1.0
 set B=1
 set H=ci@hekla.oslandia.net
 set D=/home/storage/osgeo4w/x86_64/release/%P%
-set R=%H%:%D
-ssh %H% "mkdir -p %D"
+set R=%H%:%D%
+ssh %H% "mkdir -p %D%"
 
 wget --progress=bar:force https://github.com/google/protobuf/releases/download/v3.1.0/protobuf-cpp-3.1.0.zip
 unzip -q protobuf-cpp-3.1.0.zip

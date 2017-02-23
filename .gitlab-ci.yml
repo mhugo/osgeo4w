@@ -1,5 +1,8 @@
-protobuf_build:
+protobuf:
   stage: build
   script:
       - net use "x:" '\\vboxsrv\osgeo4w'
       - cmd /s /c "protobuf\build_protobuf.bat"
+  only:
+      - triggers
+

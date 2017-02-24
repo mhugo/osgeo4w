@@ -28,7 +28,7 @@ if %ERRORLEVEL% NEQ 0 (
 tar -C c:\install -cvjf %PKG_BIN% include lib bin
 
 :: source archive
-tar -C %HERE%\\%P% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
+tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
 
 ::--------- Installation
 ..\inc\install_archives.bat

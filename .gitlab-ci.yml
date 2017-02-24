@@ -2,8 +2,7 @@
 package:
   stage: build
   script:
-      - net use "x:" '\\vboxsrv\osgeo4w'
-      - cmd /s /c "${PACKAGE_NAME}\package.cmd"
+      - cmd /s /c "cd ${PACKAGE_NAME} && package.cmd"
   only:
       - triggers
 

@@ -1,7 +1,16 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 o=`pwd`
 cd /home/storage/osgeo4w
-./genini --arch x86_64 --recursive --output=x86_64/setup.ini x86_64
+$DIR/genini --arch x86_64 --recursive --output=setup.ini x86_64
+
+# get original setup.ini from osgeo
+wget http://download.osgeo.org/osgeo4w/x86_64/setup.ini -O setup_orig.ini
+# merge it after our setup.ini
+cat setup.ini <(echo -e "\n##========= End of Oslandia's specific packages ========\n\n") <(tail -n +8 setup_orig.ini) > x86_64/setup.ini
+rm setup.ini
+rm setup_orig.ini
+
 rm -f x86_64/setup.ini.bz2
 bzip2 -k x86_64/setup.ini
 cd $o

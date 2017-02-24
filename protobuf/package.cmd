@@ -7,7 +7,7 @@ set V=3.1.0
 set B=1
 
 ::--------- Prepare the environment
-..\inc\prepare_env.bat
+call ..\inc\prepare_env.bat
 
 ::--------- Build script
 wget --progress=bar:force https://github.com/google/protobuf/releases/download/v3.1.0/protobuf-cpp-3.1.0.zip
@@ -31,5 +31,5 @@ tar -C c:\install -cvjf %PKG_BIN% include lib bin
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
 
 ::--------- Installation
-..\inc\install_archives.bat
+call ..\inc\install_archives.bat
 

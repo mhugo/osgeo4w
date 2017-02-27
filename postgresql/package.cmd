@@ -9,6 +9,9 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat
 
+::-- Cygwin has its own Perl which won't work, put our perl in front
+set PATH=C:\strawberry\perl\bin;%PATH%
+::-- Add python to the path
 set PATH=%PATH%;c:\osgeo4w64\bin
 
 wget --progress=bar:force https://ftp.postgresql.org/pub/source/v9.6.2/postgresql-9.6.2.tar.bz2

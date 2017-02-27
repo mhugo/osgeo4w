@@ -21,14 +21,14 @@ tar xjvf postgresql-9.6.2.tar.bz2
 copy config.pl postgresql-9.6.2\src\tools\msvc
 set HERE=%CD%
 cd postgresql-9.6.2\src\tools\msvc
-build
+call build.bat
 if %ERRORLEVEL% NEQ 0 (
    exit /b 1
 )
 
 :: make sure the install dir is empty before installing
 rd /s /q c:\install
-install c:\install
+call install.bat c:\install
 
 tar -C c:\install -cjvf %PKG_BIN% bin lib share include
 

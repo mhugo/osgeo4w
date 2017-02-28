@@ -6,7 +6,7 @@
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 set PATH=%PATH%;C:\Program Files\CMake\bin;C:\cygwin64\bin;C:\Program Files\PostgreSQL\9.6\bin
 set RELEASE_HOST=ci@hekla.oslandia.net
-set RELEASE_PATH=/home/storage/osgeo4w
+set RELEASE_PATH=/home/storage/osgeo4w/x86_64/release
 
 ::--------- Prepare the environment
 set PKG_BIN=%P%-%V%-%B%.tar.bz2

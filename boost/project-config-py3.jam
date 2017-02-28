@@ -1,0 +1,8 @@
+import option ; 
+ 
+using msvc ; 
+ 
+option.set keep-going : false ; 
+ 
+using python : 3.6 : C:\\OSGEO4W64\\apps\\Python36\\python.exe : C:\\OSGEO4W64\\apps\\Python36\\include : C:\\OSGEO4W64\\apps\\Python36\\libs ;
+

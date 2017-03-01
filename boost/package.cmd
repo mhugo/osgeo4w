@@ -17,7 +17,7 @@ call bootstrap.bat
 copy /Y ..\project-config-py3.jam .\project-config.jam
 :: add python36.dll in the path
 set PATH=%PATH%;c:\osgeo4w64\bin
-.\b2 --prefix=C:\install link=static,shared architecture=x86 address-model=64 variant=release install ^
+.\b2 --prefix=C:\install link=static,shared architecture=x86 address-model=64 variant=release,debug install ^
   --with-python ^
   --with-atomic ^
   --with-chrono ^

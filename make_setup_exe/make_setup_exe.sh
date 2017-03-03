@@ -7,6 +7,7 @@ function usage
     echo -e "-v, --version VERSION\tVersion of the installer"
     echo -e "-e, --extra CMD\t\tExtra commands for the setup"
     echo -e "-p, --package PACKAGE\tOSGEO4W package name to install"
+    echo -e "-r, --repository URL\tOSGEO4W repository URL (default=http://hekla.oslandia.net/osgeo4w)"
     echo
     echo "This will output a Windows installer named setup-NAME-VERSION.exe"
 }
@@ -14,6 +15,7 @@ function usage
 INSTALLER_NAME=
 INSTALLER_VERSION=
 INSTALLER_EXTRA_CMD=
+OSGEO4W_REPO=http://hekla.oslandia.net/osgeo4w
 PACKAGES=
 
 while [[ $# -gt 1 ]]
@@ -35,6 +37,10 @@ case $key in
     ;;
     -p|--package)
     PACKAGES="$PACKAGES $2"
+    shift
+    ;;
+    -r|--repository)
+    OSGEO4W_REPO="$2"
     shift
     ;;
     *)
@@ -66,7 +72,7 @@ cat > /tmp/config.txt <<EOF
 ;!@Install@!UTF-8!
 Title="$INSTALLER_NAME $INSTALLER_VERSION"
 ExecuteFile="osgeo4w-setup-x86_64.exe"
-ExecuteParameters="-O -s http://hekla.oslandia.net/osgeo4w -k -q -P $PACKAGES $INSTALLER_EXTRA_CMD"
+ExecuteParameters="-O -s $OSGEO4W_REPO -k -q -P $PACKAGES $INSTALLER_EXTRA_CMD"
 ;!@InstallEnd@!
 EOF
 cat 7zS.sfx /tmp/config.txt osgeo4w_setup.7z > setup-${INSTALLER_NAME}-${INSTALLER_VERSION}.exe

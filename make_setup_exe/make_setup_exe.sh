@@ -66,7 +66,7 @@ cat > /tmp/config.txt <<EOF
 ;!@Install@!UTF-8!
 Title="$INSTALLER_NAME $INSTALLER_VERSION"
 ExecuteFile="osgeo4w-setup-x86_64.exe"
-ExecuteParameters="-A -O -s http://hekla.oslandia.net/osgeo4w -k -P $PACKAGES $INSTALLER_EXTRA_CMD"
+ExecuteParameters="-O -s http://hekla.oslandia.net/osgeo4w -k -q -P $PACKAGES $INSTALLER_EXTRA_CMD"
 ;!@InstallEnd@!
 EOF
 cat 7zS.sfx /tmp/config.txt osgeo4w_setup.7z > setup-${INSTALLER_NAME}-${INSTALLER_VERSION}.exe

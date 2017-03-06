@@ -25,7 +25,7 @@ cmake -G "NMake Makefiles" ^
   -DLIBXML2_INCLUDE_DIR=C:\osgeo4w64\include ^
   -DLIBXML2_LIBRARIES=C:\osgeo4w64\lib\libxml2.lib ^
   -DFCGI_INCLUDE_DIR=C:\osgeo4w64\include ^
-  -DFCGI_LIBRARIES=C:\osgeo4w64\lib\libfgci.lib ^
+  -DFCGI_LIBRARIES=C:\osgeo4w64\lib\libfcgi.lib ^
   -DBUILD_WPS=ON ^
   -DBUILD_QGIS_PLUGIN=OFF ^
   -DBUILD_OSM2TEMPUS=OFF ^

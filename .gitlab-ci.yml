@@ -5,4 +5,6 @@ package:
       - cmd /s /c "cd ${PACKAGE_NAME} && package.cmd"
   only:
       - triggers
+  tags:
+      - win10
 

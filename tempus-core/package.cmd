@@ -9,7 +9,7 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat
 
-wget --progress=bar:force https://gitlab.com/Oslandia/Tempus/repository/archive.tar.bz2?ref=test-ci -O tempus.tar.bz2
+wget --progress=bar:force https://gitlab.com/Oslandia/Tempus/repository/archive.tar.bz2?ref=testci -O tempus.tar.bz2
 tar xjf tempus.tar.bz2
 cd Tempus-*
 mkdir build

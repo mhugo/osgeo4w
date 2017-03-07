@@ -17,6 +17,8 @@ cd Tempus-*
 if %ERRORLEVEL% NEQ 0 (
    exit /b 1
 )
+mkdir build
+echo toto > build\test.txt
 
 :: binary archive
 echo %CD%

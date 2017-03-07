@@ -19,7 +19,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 :: binary archive
-tar -C .\build --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
+tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint

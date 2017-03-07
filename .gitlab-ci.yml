@@ -6,5 +6,5 @@ package:
   only:
       - triggers
   tags:
-      - win10
+      - win64
 

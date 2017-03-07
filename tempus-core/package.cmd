@@ -9,19 +9,16 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat
 
-::c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P boost-devel
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P boost-devel
 wget --progress=bar:force https://gitlab.com/Oslandia/Tempus/repository/archive.tar.bz2?ref=master -O tempus.tar.bz2
 tar xjf tempus.tar.bz2
 cd Tempus-*
-::call ci\windows\build_gitlab.bat
+call ci\windows\build_gitlab.bat
 if %ERRORLEVEL% NEQ 0 (
    exit /b 1
 )
-mkdir build
-echo toto > build\test.txt
 
 :: binary archive
-echo %CD%
 tar -C .\build --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
 
 :: source archive

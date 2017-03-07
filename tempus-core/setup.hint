@@ -2,4 +2,4 @@ sdesc: "Tempus core"
 ldesc: "Core (with WPS server) of Tempus, the multomodal routing framework"
 maintainer: Hugo Mercier
 category: Libs
-requires: shell msvrct2015 fcgi
+requires: shell msvrct2015 fcgi boost

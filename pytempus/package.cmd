@@ -19,7 +19,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 :: binary archive
-::tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
+tar -C c:\OSGeo4W64 --exclude="__pycache__" -cjvf %PKG_BIN% apps\python36\lib\site-packages\pytempus-%V%-py3.6-win-amd64.egg
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint

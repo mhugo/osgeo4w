@@ -1,0 +1,5 @@
+sdesc: "WPS server for Tempus"
+ldesc: "WPS server for Tempus"
+maintainer: Hugo Mercier
+category: Libs
+requires: tempus-core fcgi boost

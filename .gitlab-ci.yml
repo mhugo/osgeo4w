@@ -11,7 +11,7 @@ package:
 package_tempus:
   stage: build
   script:
-      - build_tempus.sh
+      - ./build_tempus.sh
   tags:
       - win10
       - oslandia

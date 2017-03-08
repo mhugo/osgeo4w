@@ -1,6 +1,6 @@
 #!/bin/sh
 # build all packages by order of dependencies
-for pkg in "protobuf tempus-core tempus_wps_server pytempus osm2tempus tempus_loader"
+for pkg in protobuf tempus-core tempus_wps_server pytempus osm2tempus tempus_loader
 do
     cmd /s /c "cd $pkg && package.cmd"
     # rebuild setup.ini on hekla

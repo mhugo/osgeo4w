@@ -8,3 +8,11 @@ package:
   tags:
       - win10
 
+package_tempus:
+  stage: build
+  script:
+      - build_tempus.sh
+  tags:
+      - win10
+      - oslandia
+  when: manual

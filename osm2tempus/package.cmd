@@ -9,7 +9,7 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P tempus-core
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P tempus-core -P boost-devel
 wget --progress=bar:force https://gitlab.com/Oslandia/osm2tempus/repository/archive.tar.bz2?ref=master -O osm2tempus.tar.bz2
 tar xjf osm2tempus.tar.bz2
 cd osm2tempus-*

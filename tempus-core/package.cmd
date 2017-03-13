@@ -10,9 +10,9 @@ set B=1
 call ..\inc\prepare_env.bat
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P boost-devel
-wget --progress=bar:force https://gitlab.com/Oslandia/Tempus/repository/archive.tar.bz2?ref=master -O tempus.tar.bz2
+wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/archive.tar.bz2?ref=master -O tempus.tar.bz2
 tar xjf tempus.tar.bz2
-cd Tempus-*
+cd tempus_core*
 call ci\windows\build_gitlab.bat
 if %ERRORLEVEL% NEQ 0 (
    exit /b 1

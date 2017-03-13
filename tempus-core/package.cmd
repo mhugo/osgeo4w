@@ -9,21 +9,22 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P boost-devel
-wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/archive.tar.bz2?ref=master -O tempus.tar.bz2
-tar xjf tempus.tar.bz2
+::c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P boost-devel
+::wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/archive.tar.bz2?ref=master -O tempus.tar.bz2
+::tar xjf tempus.tar.bz2
 cd tempus_core*
-call ci\windows\build_gitlab.bat
-if %ERRORLEVEL% NEQ 0 (
-   exit /b 1
-)
+::call ci\windows\build_gitlab.bat
+::if %ERRORLEVEL% NEQ 0 (
+::   exit /b 1
+::)
 
 :: binary archive
-tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
+::tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
 
 :: source archive
-tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
+::tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
 
+echo "call install"
 ::--------- Installation
 call %HERE%\..\inc\install_archives.bat
   

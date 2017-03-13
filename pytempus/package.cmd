@@ -2,7 +2,7 @@
 :: package name
 set P=python3-pytempus
 :: version
-set V=1.0.0
+set V=1.0.1
 :: package version
 set B=1
 

@@ -36,7 +36,7 @@ case $key in
     shift
     ;;
     -p|--package)
-    PACKAGES="$PACKAGES $2"
+    PACKAGES="$PACKAGES -P $2"
     shift
     ;;
     -r|--repository)
@@ -62,7 +62,7 @@ if [ -z $INSTALLER_VERSION ]; then
     usage
     exit 1
 fi
-if [ -z $PACKAGES ]; then
+if [ -z "$PACKAGES" ]; then
     echo "Missing package list"
     usage
     exit 1
@@ -71,8 +71,18 @@ fi
 cat > /tmp/config.txt <<EOF
 ;!@Install@!UTF-8!
 Title="$INSTALLER_NAME $INSTALLER_VERSION"
+BeginPrompt="This will install $INSTALLER_NAME $INSTALLER_VERSION. Proceed ?"
 ExecuteFile="osgeo4w-setup-x86_64.exe"
-ExecuteParameters="-O -s $OSGEO4W_REPO -k -q -P $PACKAGES $INSTALLER_EXTRA_CMD"
+ExecuteParameters="-O -s $OSGEO4W_REPO -k -q $PACKAGES $INSTALLER_EXTRA_CMD"
+;!@InstallEnd@!
+EOF
+cat 7zS.sfx /tmp/config.txt osgeo4w_setup.7z > setup-${INSTALLER_NAME}-${INSTALLER_VERSION}-quiet.exe
+
+cat > /tmp/config.txt <<EOF
+;!@Install@!UTF-8!
+Title="$INSTALLER_NAME $INSTALLER_VERSION"
+ExecuteFile="osgeo4w-setup-x86_64.exe"
+ExecuteParameters="-O -A -s $OSGEO4W_REPO -k $PACKAGES $INSTALLER_EXTRA_CMD"
 ;!@InstallEnd@!
 EOF
 cat 7zS.sfx /tmp/config.txt osgeo4w_setup.7z > setup-${INSTALLER_NAME}-${INSTALLER_VERSION}.exe

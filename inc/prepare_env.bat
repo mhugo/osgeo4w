@@ -1,3 +1,5 @@
+:: Arguments
+:: %1 name of the environment
 :: Used environement variables
 :: %P% package name
 :: %V% version
@@ -5,8 +7,14 @@
 
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 set PATH=%PATH%;C:\Program Files\CMake\bin;C:\cygwin64\bin;C:\Program Files\PostgreSQL\9.6\bin
+if %1=="release" (
 set RELEASE_HOST=ci@hekla.oslandia.net
 set RELEASE_PATH=/home/storage/osgeo4w/x86_64/release
+)
+if %1=="test" (
+set RELEASE_HOST=ci@hekla.oslandia.net
+set RELEASE_PATH=/home/storage/osgeo4w.test/x86_64/release
+)
 
 ::--------- Prepare the environment
 set PKG_BIN=%P%-%V%-%B%.tar.bz2

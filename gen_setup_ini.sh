@@ -1,7 +1,11 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 o=`pwd`
-cd /home/storage/osgeo4w
+if [ "$1"="test" ]; then
+    cd /home/storage/osgeo4w.test
+else
+    cd /home/storage/osgeo4w
+fi
 $DIR/genini --arch x86_64 --recursive --output=setup.ini x86_64
 
 # get original setup.ini from osgeo

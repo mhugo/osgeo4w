@@ -7,7 +7,7 @@ set V=1.63.0
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat
+call ..\inc\prepare_env.bat %1
 
 wget --progress=bar:force https://downloads.sourceforge.net/project/boost/boost/1.63.0/boost_1_63_0.tar.bz2
 tar xjf boost_1_63_0.tar.bz2

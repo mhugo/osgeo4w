@@ -2,7 +2,7 @@
 package:
   stage: build
   script:
-      - cmd /s /c "cd ${PACKAGE_NAME} && package.cmd"
+      - cmd /s /c "cd ${PACKAGE_NAME} && package.cmd ${DELIVERY_ENV}"
   only:
       - triggers
   tags:

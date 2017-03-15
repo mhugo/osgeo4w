@@ -7,7 +7,7 @@ set V=9.6.2
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat
+call ..\inc\prepare_env.bat %1
 
 ::-- Cygwin has its own Perl which won't work, put our perl in front
 set PATH=C:\strawberry\perl\bin;%PATH%

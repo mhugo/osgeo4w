@@ -7,7 +7,7 @@ set V=3.1.0
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat
+call ..\inc\prepare_env.bat %1
 
 ::--------- Build script
 wget --progress=bar:force https://github.com/google/protobuf/releases/download/v3.1.0/protobuf-cpp-3.1.0.zip

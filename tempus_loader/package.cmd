@@ -7,7 +7,7 @@ set V=1.0.0
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat
+call ..\inc\prepare_env.bat %1
 
 set OSGEO4W_ROOT=C:\osgeo4w64
 call c:\osgeo4w64\etc\ini\python-core.bat

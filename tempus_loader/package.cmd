@@ -13,7 +13,7 @@ set OSGEO4W_ROOT=C:\osgeo4w64
 call c:\osgeo4w64\etc\ini\python-core.bat
 set PATH=%PATH%;c:\osgeo4w64\bin;c:\cygwin64\bin
 
-wget --progress=bar:force https://gitlab.com/Oslandia/tempus_loader/repository/archive.tar.bz2?ref=master -O tempus_loader.tar.bz2
+wget --progress=bar:force https://gitlab.com/Oslandia/tempus_loader/repository/archive.tar.bz2?ref=v1.0.0 -O tempus_loader.tar.bz2
 tar xjf tempus_loader.tar.bz2
 cd tempus_loader-*
 python setup.py install

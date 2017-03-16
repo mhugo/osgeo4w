@@ -48,8 +48,13 @@ Hekla's webserver is configured to resolve any non existing file to osgeo.org wi
 ```
 <Directory "/var/www/html/osgeo4w">
 RewriteEngine on
+RewriteCond %{REQUEST_URI} !index.html
 RewriteCond /home/storage/%{REQUEST_URI} !-f
 RewriteCond /home/storage/%{REQUEST_URI} !-d
-RewriteRule "^(.+)" "http://download.osgeo.org/osgeo4w/$1" [R]
+RewriteRule "^(.+)" "http://download.osgeo.org/osgeo4w/$1" [P]
 </Directory>
 ```
+
+Notes:
+* [P] for Proxy, i.e. not an HTTP redirect, hekla acts as a proxy. Seems to resolve problems with osgeo4w installer when using an http proxy
+* RewriteCond %{REQUEST_URI} !index.html needed to keep Apache generate directory indexes of directories

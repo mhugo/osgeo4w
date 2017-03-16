@@ -9,7 +9,7 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P boost-devel
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P boost-devel
 wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/archive.tar.bz2?ref=v2.3.0 -O tempus.tar.bz2
 tar xjf tempus.tar.bz2
 cd tempus_core*

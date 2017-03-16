@@ -9,7 +9,7 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P tempus-core -P boost-devel
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel
 wget --progress=bar:force https://gitlab.com/Oslandia/pytempus/repository/archive.tar.bz2?ref=v1.0.1 -O pytempus.tar.bz2
 tar xjf pytempus.tar.bz2
 cd pytempus-*

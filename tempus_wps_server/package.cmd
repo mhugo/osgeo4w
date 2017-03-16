@@ -9,7 +9,7 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P tempus-core -P boost-devel -P fcgi -P libxml2
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel -P fcgi -P libxml2
 wget --progress=bar:force https://gitlab.com/Oslandia/tempus_wps_server/repository/archive.tar.bz2?ref=V1.0.0 -O tempus_wps_server.tar.bz2
 tar xjf tempus_wps_server.tar.bz2
 cd tempus_wps_server-*

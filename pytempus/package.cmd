@@ -19,7 +19,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 :: binary archive
-tar -C %HERE%/pytempus-master* --transform 's,^,apps/python36/Lib/site-packages/,' -cjvf %PKG_BIN% pytempus.cp36-win_amd64.pyd
+tar -C %HERE%/pytempus-* --transform 's,^,apps/python36/Lib/site-packages/,' -cjvf %PKG_BIN% pytempus.cp36-win_amd64.pyd
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint

@@ -58,3 +58,9 @@ RewriteRule "^(.+)" "http://download.osgeo.org/osgeo4w/$1" [P]
 Notes:
 * [P] for Proxy, i.e. not an HTTP redirect, hekla acts as a proxy. Seems to resolve problems with osgeo4w installer when using an http proxy
 * RewriteCond %{REQUEST_URI} !index.html needed to keep Apache generate directory indexes of directories
+
+Working with remote virtual boxes
+---------------------------------
+
+* Linux client : http://remotebox.knobgoblin.org.uk/downloads.cgi
+* To install on a webserver (not done) https://sourceforge.net/projects/phpvirtualbox/

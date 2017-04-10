@@ -62,5 +62,4 @@ Notes:
 Working with remote virtual boxes
 ---------------------------------
 
-* Linux client : http://remotebox.knobgoblin.org.uk/downloads.cgi
-* To install on a webserver (not done) https://sourceforge.net/projects/phpvirtualbox/
+* see https://git.oslandia.net/Oslandia-infra/infra/wikis/Integration_Continue

@@ -1,0 +1,5 @@
+sdesc: "shapely"
+ldesc: "python bindings to the GEOS geometry library"
+maintainer: Vincent Mora
+category: Libs 
+requires: python3-core

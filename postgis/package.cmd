@@ -12,7 +12,7 @@ set HERE=%CD%
 call ..\inc\prepare_env.bat %1
 
 set OSGEO4W_HOME=c:\osgeo4w64
-%OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P postgres -P proj4 -P geos 
+%OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P postgresql geos 
 
 ::-- Cygwin has its own Perl which won't work, put our perl in front
 set PATH=C:\strawberry\perl\bin;%PATH%

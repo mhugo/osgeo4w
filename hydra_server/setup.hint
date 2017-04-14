@@ -1,0 +1,5 @@
+sdesc: "hydra extension"
+ldesc: "A postgres extension for hydra models"
+maintainer: Vincent Mora
+category: Libs 
+requires:

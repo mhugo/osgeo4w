@@ -37,7 +37,11 @@ cd postgis
 git checkout cmake
 mkdir build
 cd build
-cmake -G "NMake Makefiles" ..
+
+cmake -DPROJ4_LIBRARY=%HERE%\proj-4.9.3\build\lib\proj_4_9_d.lib ^
+      -DPOSTGRESQL_LIBRARIES=c:\osgeo4w64\lib\postgres.lib ^
+      -DLIBXML2_LIBRARY=c:\osgeo4w64\lib\libxml2.lib ^
+      -G "NMake Makefiles" ..
 nmake
 
 cd %HERE%

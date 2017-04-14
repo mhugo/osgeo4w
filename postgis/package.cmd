@@ -53,9 +53,9 @@ mkdir c:\install\lib
 mkdir c:\install\share
 mkdir c:\install\share\extension
 
-copy postgis\build\postgis-2.4.dll c:\install\lib
-copy postgis\build\extension\postgis\postgis.control c:\install\share\extension
-copy postgis\build\extension\postgis\postgis--2.4.0dev.sql c:\install\share\extension
+copy postgis\build\postgis\postgis-2.4.dll c:\install\lib
+copy postgis\build\extensions\postgis\postgis.control c:\install\share\extension
+copy postgis\build\extensions\postgis\postgis--2.4.0dev.sql c:\install\share\extension
 
 tar -C c:\install -cjvf %PKG_BIN% lib share
 

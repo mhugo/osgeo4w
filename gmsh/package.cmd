@@ -16,7 +16,7 @@ unzip gmsh-3.0.0-Windows64.zip
 
 
 :: binary archive
-tar --transform 's,gmsh-3.0.0-Windows,bin,' -cvjf %PKG_BIN% install gmsh-3.0.0-Windows/gmsh.exe
+tar --transform 's,gmsh-3.0.0-Windows,bin,' -cvjf %PKG_BIN% gmsh-3.0.0-Windows/gmsh.exe
 
 ::--------- Installation
 scp %PKG_BIN% %PKG_SRC% %R%

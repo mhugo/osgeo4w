@@ -18,6 +18,6 @@ tar -xvjf hydra_server.tar.bz2
 tar --transform 's,build/lib,apps/Python36/Lib/site-packages,' --transform 's,build/hydra,share/extension/hydra,' -cvjf %PKG_BIN% build
 
 ::--------- Installation
-scp %PKG_BIN% %PKG_SRC% %R%
+scp %PKG_BIN% %R%
 cd %HERE%
 scp setup.hint %R%

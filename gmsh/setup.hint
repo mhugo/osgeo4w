@@ -1,0 +1,5 @@
+sdesc: "gmsh"
+ldesc: "A three-dimensional finite element mesh generator"
+maintainer: Vincent Mora
+category: CommandLine_Utilities 
+requires:

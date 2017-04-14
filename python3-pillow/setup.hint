@@ -1,0 +1,5 @@
+sdesc: "python image library"
+ldesc: "Pillow is a replacement for the PIL (Python Image Library) "
+maintainer: Vincent Mora
+category: Libs 
+requires: python3-core python3-olefile

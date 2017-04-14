@@ -18,6 +18,9 @@ chcp 65001
 set GEOS_LIBRARY_PATH=%OSGEO4W_HOME%
 python3 -m pip install shapely
 
+:: need to replace geo.dll by geos_c.dll in package
+python3 -c 'print open("%PYTHONHOME%/site-packages/shapely/geos.py").read().replace("geos.dll","geos_c.dll")'
+
 :: binary archive
 tar --transform 's,%OSGEO4W_HOME%,,' -cvjf %PKG_BIN% %PYTHONHOME%/site-packages/shapely
 

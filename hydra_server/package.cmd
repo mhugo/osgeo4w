@@ -1,8 +1,8 @@
 ::--------- Package settings --------
 :: package name
-set P=gmsh
+set P=hydra_package
 :: version
-set V=3.0.0
+set V=0.0.23
 :: package version
 set B=1
 

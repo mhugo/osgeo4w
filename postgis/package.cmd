@@ -2,7 +2,7 @@
 :: package name
 set P=postgis
 :: version
-set V=2.3.2
+set V=2.4.0dev
 :: package version
 set B=1
 
@@ -47,16 +47,21 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 :: make sure the install dir is empty before installing
+
 rd /s /q c:\install
-::call install.bat c:\install
+mkdir c:\install\lib
+mkdir c:\install\share
+mkdir c:\install\share\extension
 
-:: tar -C c:\install -cjvf %PKG_BIN% bin lib share include
+copy postgis\build\postgis-2.4.dll c:\install\lib
+copy postgis\build\extension\postgis\postgis.control c:\install\share\extension
+copy postgis\build\extension\postgis\postgis--2.4.0dev.sql c:\install\share\extension
 
-:: TODO split into postgresql-client postgresql-devel postgresql-plpython3u ?
-
-:: source archive
-:: tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint config.pl
+tar -C c:\install -cjvf %PKG_BIN% lib share
 
 ::--------- Installation
+scp %PKG_BIN% %R%
+cd %HERE%
+scp setup.hint %R%
 :: call %HERE%\..\inc\install_archives.bat
 

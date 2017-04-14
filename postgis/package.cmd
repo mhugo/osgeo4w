@@ -12,7 +12,7 @@ set HERE=%CD%
 call ..\inc\prepare_env.bat %1
 
 set OSGEO4W_HOME=c:\osgeo4w64
-%OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P postgres proj4 geos 
+%OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P postgres -P proj4 -P geos 
 
 ::-- Cygwin has its own Perl which won't work, put our perl in front
 set PATH=C:\strawberry\perl\bin;%PATH%
@@ -58,6 +58,10 @@ copy postgis\build\extension\postgis\postgis.control c:\install\share\extension
 copy postgis\build\extension\postgis\postgis--2.4.0dev.sql c:\install\share\extension
 
 tar -C c:\install -cjvf %PKG_BIN% lib share
+
+if %ERRORLEVEL% NEQ 0 (
+   exit /b 1
+)
 
 ::--------- Installation
 scp %PKG_BIN% %R%

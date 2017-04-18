@@ -13,7 +13,7 @@ package:
 package_tempus:
   stage: build
   variables:
-      DELIVERY_END: 'test'
+      DELIVERY_ENV: 'test'
   script:
       - scp genini gen_setup_ini.sh ci@hekla.oslandia.net:~/
       # boost

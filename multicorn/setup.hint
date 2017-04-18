@@ -1,0 +1,5 @@
+sdesc: "multicorn extension"
+ldesc: "A postgres extension to create fwd in python"
+maintainer: Vincent Mora
+category: Libs 
+requires: postgres

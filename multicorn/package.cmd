@@ -1,8 +1,8 @@
 ::--------- Package settings --------
 :: package name
-set P=postgis
+set P=multicorn
 :: version
-set V=2.3.2
+set V=1.3.3
 :: package version
 set B=1
 
@@ -12,12 +12,8 @@ set HERE=%CD%
 call ..\inc\prepare_env.bat %1
 
 set OSGEO4W_HOME=c:\osgeo4w64
-%OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s http://hekla.oslandia.net/osgeo4w -k -q -P postgres proj4 geos 
-
-::-- Cygwin has its own Perl which won't work, put our perl in front
-set PATH=C:\strawberry\perl\bin;%PATH%
-::-- Add osgeo4w to the path, we need it to be before strawberry in order to avoid pg_config.exe there
-set PATH=c:\osgeo4w64\bin;%PATH%
+set PYTHONHOME=%OSGEO4W_HOME%\apps\Python36
+set PATH=%OSGEO4W_HOME%\apps\Python36;%OSGEO4W_HOME%\apps\Python36\Scripts;%OSGEO4W_HOME%\bin;%PATH%
 
 git clone https://github.com/vmora/Multicorn.git
 :: copy the config file
@@ -25,7 +21,7 @@ cd Multicorn
 git checkout cmake
 mkdir build
 cd build
-cmake -G "NMake Makefiles" ..
+cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
 nmake
 
 cd %HERE%
@@ -34,17 +30,22 @@ if %ERRORLEVEL% NEQ 0 (
    exit /b 1
 )
 
-:: make sure the install dir is empty before installing
 rd /s /q c:\install
-::call install.bat c:\install
+mkdir c:\install\lib
+mkdir c:\install\share
+mkdir c:\install\share\extension
 
-:: tar -C c:\install -cjvf %PKG_BIN% bin lib share include
+copy Multicorn\build\multicorn.dll c:\install\lib
+copy Multicorn\build\multicorn.control c:\install\share\extension
+copy Multicorn\build\multicorn--1.3.3.sql c:\install\share\extension
 
-:: TODO split into postgresql-client postgresql-devel postgresql-plpython3u ?
+tar -C c:\install -cjvf %PKG_BIN% lib share
 
-:: source archive
-:: tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint config.pl
+if %ERRORLEVEL% NEQ 0 (
+   exit /b 1
+)
 
 ::--------- Installation
-:: call %HERE%\..\inc\install_archives.bat
-
+scp %PKG_BIN% %R%
+cd %HERE%
+scp setup.hint %R%

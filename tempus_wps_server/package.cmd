@@ -9,20 +9,22 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel -P fcgi -P libxml2
-wget --progress=bar:force https://gitlab.com/Oslandia/tempus_wps_server/repository/archive.tar.bz2?ref=v1.0.0 -O tempus_wps_server.tar.bz2
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel -P fcgi -P libxml2 || goto :error
+wget --progress=bar:force https://gitlab.com/Oslandia/tempus_wps_server/repository/archive.tar.bz2?ref=v1.0.0 -O tempus_wps_server.tar.bz2 || goto :error
 tar xjf tempus_wps_server.tar.bz2
 cd tempus_wps_server-*
-call ci\windows\build_gitlab.bat
-if %ERRORLEVEL% NEQ 0 (
-   exit /b 1
-)
+call ci\windows\build_gitlab.bat || goto :error
 
 :: binary archive
-tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install
+tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install || goto :error
 
 :: source archive
-tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
+tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat
+call %HERE%\..\inc\install_archives.bat || goto :error
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1

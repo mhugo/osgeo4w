@@ -11,7 +11,8 @@ set HERE=%CD%
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 set OSGEO4W_ROOT=c:\osgeo4w64
-call %OSGEO4W_ROOT\bin\py3_env.bat
+call %OSGEO4W_ROOT%\bin\py3_env.bat
+set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 
 python3 -m pip install pillow==4.0.0
 

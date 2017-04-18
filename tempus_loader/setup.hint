@@ -2,4 +2,4 @@ sdesc: "Data importer for Tempus"
 ldesc: "Data importer for Tempus"
 maintainer: Hugo Mercier
 category: Libs
-requires: python python-gtfslib
+requires: python python-gtfslib python-pglite

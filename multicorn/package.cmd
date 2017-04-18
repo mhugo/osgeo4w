@@ -4,7 +4,7 @@ set P=multicorn
 :: version
 set V=1.3.3
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

@@ -12,8 +12,31 @@ package:
 
 package_tempus:
   stage: build
+  variables:
+      DELIVERY_END: 'test'
   script:
-      - ./build_tempus.sh
+      - scp genini gen_setup_ini.sh ci@hekla.oslandia.net:~/
+      # boost
+      - cmd /c "cd boost && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
+      # protobuf
+      - cmd /c "cd protobuf && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
+      # tempus_core
+      - cmd /c "cd tempus-core && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
+      # tempus_wps_server
+      - cmd /c "cd tempus_wps_server && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
+      # pytempus
+      - cmd /c "cd pytempus && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
+      # osm2tempus
+      - cmd /c "cd osm2tempus && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
+      # tempus_loader
+      - cmd /c "cd tempus_loader && package.cmd ${DELIVERY_ENV}"
+      - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
   tags:
       - win10
       - oslandia

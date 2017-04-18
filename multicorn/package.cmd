@@ -11,6 +11,8 @@ set HERE=%CD%
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
+%OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P postgresql
+
 set OSGEO4W_HOME=c:\osgeo4w64
 set PYTHONHOME=%OSGEO4W_HOME%\apps\Python36
 set PATH=%OSGEO4W_HOME%\apps\Python36;%OSGEO4W_HOME%\apps\Python36\Scripts;%OSGEO4W_HOME%\bin;%PATH%

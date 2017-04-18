@@ -2,7 +2,7 @@
 :: package name
 set P=python3-pglite
 :: version
-set V=1.0.0
+set V=1.0.1
 :: package version
 set B=1
 
@@ -16,7 +16,7 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python3 package
 call %OSGEO4W_ROOT%\bin\py3_env.bat
 
-python3 -m pip install pglite
+python3 -m pip install pglite==%V%
 
 tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite
 

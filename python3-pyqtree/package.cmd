@@ -18,7 +18,7 @@ call %OSGEO4W_ROOT%\bin\py3_env.bat
 
 python3 -m pip install Pyqtree==0.24
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pyqtree
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pyqtree.py
 
 ::--------- Installation
 scp %PKG_BIN% %R%

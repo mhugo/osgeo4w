@@ -18,7 +18,7 @@ call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
 pip install Pyqtree==0.24
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/pyqtree
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/pyqtree.py
 
 ::--------- Installation
 scp %PKG_BIN% %R%

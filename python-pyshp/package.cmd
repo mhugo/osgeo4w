@@ -18,7 +18,7 @@ call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
 pip install pyshp==1.2.10
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/pyshp
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/shapefile.py
 
 ::--------- Installation
 scp %PKG_BIN% %R%

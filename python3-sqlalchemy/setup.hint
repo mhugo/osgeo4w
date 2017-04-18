@@ -1,0 +1,5 @@
+sdesc: "SQLAlchemy"
+ldesc: "The Python SQL Toolkit and Object Relational Mapper"
+maintainer: Oslandia
+category: Libs 
+requires: python-core

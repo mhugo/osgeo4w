@@ -1,8 +1,8 @@
 ::--------- Package settings --------
 :: package name
-set P=python3-pglite
+set P=python-sqlalchemy
 :: version
-set V=1.0.1
+set V=1.1.9
 :: package version
 set B=1
 
@@ -13,12 +13,12 @@ call ..\inc\prepare_env.bat %1
 set OSGEO4W_ROOT=c:\osgeo4w64
 set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 
-:: python3 package
-call %OSGEO4W_ROOT%\bin\py3_env.bat
+:: python2 package
+call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
-python3 -m pip install pglite==%V%
+pip install sqlalchemy==1.1.9
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/sqlalchemy
 
 ::--------- Installation
 scp %PKG_BIN% %R%

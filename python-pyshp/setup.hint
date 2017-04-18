@@ -1,0 +1,5 @@
+sdesc: "pyshp"
+ldesc: "Pure Python read/write support for ESRI Shapefile format"
+maintainer: Oslandia
+category: Libs 
+requires: python-core

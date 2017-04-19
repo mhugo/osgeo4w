@@ -9,6 +9,8 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P python-numpy python3-numpy || goto :error
+
 wget --progress=bar:force https://downloads.sourceforge.net/project/boost/boost/1.63.0/boost_1_63_0.tar.bz2 || goto :error
 tar xjf boost_1_63_0.tar.bz2 || goto :error
 

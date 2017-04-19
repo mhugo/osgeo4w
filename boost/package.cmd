@@ -15,6 +15,10 @@ wget --progress=bar:force https://downloads.sourceforge.net/project/boost/boost/
 tar xjf boost_1_63_0.tar.bz2 || goto :error
 
 cd boost_1_63_0
+
+:: apply patch
+patch -p1 < ../msvc2015_numpy_build.patch || goto :error
+
 call bootstrap.bat
 copy /Y ..\project-config-py3.jam .\project-config.jam
 :: add python36.dll in the path

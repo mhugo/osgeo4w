@@ -9,7 +9,8 @@ set B=1
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P python-numpy python3-numpy || goto :error
+:: install patch.exe
+%HOME%\setup-x86_64.exe -s http://cygwin.mirror.constant.com -W -q -P patch
 
 wget --progress=bar:force https://downloads.sourceforge.net/project/boost/boost/1.63.0/boost_1_63_0.tar.bz2 || goto :error
 tar xjf boost_1_63_0.tar.bz2 || goto :error
@@ -17,7 +18,7 @@ tar xjf boost_1_63_0.tar.bz2 || goto :error
 cd boost_1_63_0
 
 :: apply patch
-patch -p1 < ../msvc2015_numpy_build.patch || goto :error
+c:\cygwin64\bin\patch -p1 < ../msvc2015_numpy_build.patch || goto :error
 
 call bootstrap.bat
 copy /Y ..\project-config-py3.jam .\project-config.jam

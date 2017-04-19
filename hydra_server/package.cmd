@@ -1,6 +1,6 @@
 ::--------- Package settings --------
 :: package name
-set P=hydra_package
+set P=hydra_server
 :: version
 set V=0.0.23
 :: package version

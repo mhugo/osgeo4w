@@ -2,4 +2,4 @@ sdesc: "hydra extension"
 ldesc: "A postgres extension for hydra models"
 maintainer: Vincent Mora
 category: Libs 
-requires: postgres posgis multicorn python3-shapely python3-gdal python3-pillow
+requires: postgresql posgis multicorn python3-shapely python3-gdal python3-pillow

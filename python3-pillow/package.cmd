@@ -1,6 +1,6 @@
 ::--------- Package settings --------
 :: package name
-set P=python3-pilow
+set P=python3-pillow
 :: version
 set V=4.0.0
 :: package version

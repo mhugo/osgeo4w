@@ -1,0 +1,5 @@
+sdesc: "hydra client dependencies"
+ldesc: "metapackage to install all hydra client dependencies"
+maintainer: Vincent Mora
+category: Libs 
+requires: qgis python-shapely python-rtree python-pglite python-gdal

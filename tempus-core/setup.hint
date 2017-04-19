@@ -1,5 +1,5 @@
 sdesc: "Tempus core"
-ldesc: "Core (with WPS server) of Tempus, the multomodal routing framework"
+ldesc: "Core of Tempus, the multimodal routing framework"
 maintainer: Hugo Mercier
 category: Libs
 requires: shell msvrct2015 fcgi boost

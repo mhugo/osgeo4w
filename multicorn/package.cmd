@@ -4,7 +4,7 @@ set P=multicorn
 :: version
 set V=1.3.3
 :: package version
-set B=3
+set B=2
 
 set HERE=%CD%
 
@@ -24,7 +24,7 @@ cd Multicorn
 git checkout cmake
 mkdir build
 cd build
-cmake -G "NMake Makefiles" ..
+cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
 nmake
 
 cd %HERE%

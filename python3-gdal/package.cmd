@@ -14,6 +14,8 @@ set OSGEO4W_ROOT=c:\osgeo4w64
 call %OSGEO4W_ROOT%\bin\py3_env.bat
 set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 
+python3 -m pip uninstall gdal
+python3 -m pip install numpy
 python3 -m pip install  --global-option=build_ext --global-option="-Ic:\OSGeo4W64\include" --global-option="-Lc:\OSGeo4W64\lib" gdal==2.1.3
 
 :: binary archive

@@ -31,7 +31,6 @@ tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite-%V%
 scp %PKG_BIN% %R% || goto :error
 cd %HERE%
 scp setup.hint %R% || goto :error
-call ..\inc\update_setup_ini.bat %1
 
 goto :EOF
 

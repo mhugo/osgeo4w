@@ -46,7 +46,6 @@ tar -C c:\install -cjvf %PKG_BIN% lib share || goto :error
 scp %PKG_BIN% %R% || goto :error
 cd %HERE%
 scp setup.hint %R% || goto :error
-call ..\inc\update_setup_ini.bat || goto :error
 
 goto :EOF
 

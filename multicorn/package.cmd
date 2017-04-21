@@ -33,13 +33,15 @@ rd /s /q c:\install
 mkdir c:\install\lib
 mkdir c:\install\share
 mkdir c:\install\share\extension
+mkdir c:\install\apps\Python36\Lib\site-packages\multicorn
 
 copy Multicorn\build\multicorn.dll c:\install\lib || goto :error
 copy Multicorn\build\multicorn.pdb c:\install\lib || goto :error
 copy Multicorn\build\multicorn.control c:\install\share\extension || goto :error
 copy Multicorn\build\multicorn--1.3.3.sql c:\install\share\extension || goto :error
+xcopy Multicorn\python\multicorn c:\install\apps\Python36\Lib\site-packages\multicorn || goto :erro
 
-tar -C c:\install -cjvf %PKG_BIN% lib share || goto :error
+tar -C c:\install -cjvf %PKG_BIN% lib share apps || goto :error
 
 
 ::--------- Installation

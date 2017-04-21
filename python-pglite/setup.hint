@@ -1,5 +1,0 @@
-sdesc: "PGLite"
-ldesc: "PostgreSQLite, a minimalist PostgreSQL cluster"
-maintainer: Oslandia
-category: Libs 
-requires: python-core

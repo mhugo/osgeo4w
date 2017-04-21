@@ -18,37 +18,38 @@ set OSGEO4W_HOME=c:\osgeo4w64
 set PYTHONHOME=%OSGEO4W_HOME%\apps\Python36
 set PATH=%OSGEO4W_HOME%\apps\Python36;%OSGEO4W_HOME%\apps\Python36\Scripts;%OSGEO4W_HOME%\bin;%PATH%
 
-git clone https://github.com/vmora/Multicorn.git
+rd /s /q Multicorn
+git clone --depth 1 --branch cmake https://github.com/oslandia/Multicorn.git || goto :error
 :: copy the config file
 cd Multicorn
-git checkout cmake
 mkdir build
 cd build
-cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-nmake
+cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo .. || goto :error
+nmake || goto :error
 
 cd %HERE%
-
-if %ERRORLEVEL% NEQ 0 (
-   exit /b 1
-)
 
 rd /s /q c:\install
 mkdir c:\install\lib
 mkdir c:\install\share
 mkdir c:\install\share\extension
 
-copy Multicorn\build\multicorn.dll c:\install\lib
-copy Multicorn\build\multicorn.control c:\install\share\extension
-copy Multicorn\build\multicorn--1.3.3.sql c:\install\share\extension
+copy Multicorn\build\multicorn.dll c:\install\lib || goto :error
+copy Multicorn\build\multicorn.pdb c:\install\lib || goto :error
+copy Multicorn\build\multicorn.control c:\install\share\extension || goto :error
+copy Multicorn\build\multicorn--1.3.3.sql c:\install\share\extension || goto :error
 
-tar -C c:\install -cjvf %PKG_BIN% lib share
+tar -C c:\install -cjvf %PKG_BIN% lib share || goto :error
 
-if %ERRORLEVEL% NEQ 0 (
-   exit /b 1
-)
 
 ::--------- Installation
-scp %PKG_BIN% %R%
+scp %PKG_BIN% %R% || goto :error
 cd %HERE%
-scp setup.hint %R%
+scp setup.hint %R% || goto :error
+call ..\inc\update_setup_ini.bat || goto :error
+
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1

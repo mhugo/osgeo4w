@@ -16,7 +16,12 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python3 package
 call %OSGEO4W_ROOT%\bin\py3_env.bat
 
-python3 -m pip install pglite==%V%
+wget https://github.com/Oslandia/pglite/archive/master.zip || goto :error
+unzip master.zip || goto :error
+cd pglite-master || goto :error
+python3 setup.py install || goto :error
+
+cd %HERE%
 
 tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite
 

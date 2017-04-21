@@ -23,9 +23,17 @@ python3 setup.py install || goto :error
 
 cd %HERE%
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite
+copy pglite.conf %OSGEO4W_ROOT%/etc || goto :error
+
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite etc/pglite.conf || goto :error
 
 ::--------- Installation
-scp %PKG_BIN% %R%
+scp %PKG_BIN% %R% || goto :error
 cd %HERE%
-scp setup.hint %R%
+scp setup.hint %R% || goto :error
+
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1

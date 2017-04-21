@@ -19,7 +19,7 @@ set PYTHONHOME=%OSGEO4W_HOME%\apps\Python36
 set PATH=%OSGEO4W_HOME%\apps\Python36;%OSGEO4W_HOME%\apps\Python36\Scripts;%OSGEO4W_HOME%\bin;%PATH%
 
 rd /s /q Multicorn
-git clone --depth 1 --branch cmake https://github.com/oslandia/Multicorn.git || goto :error
+git clone --depth 1 --branch cmake https://github.com/vmora/Multicorn.git || goto :error
 :: copy the config file
 cd Multicorn
 mkdir build

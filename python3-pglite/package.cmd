@@ -23,7 +23,7 @@ python3 setup.py install || goto :error
 
 cd %HERE%
 
-copy pglite.conf %OSGEO4W_ROOT%/etc || goto :error
+copy pglite.conf %OSGEO4W_ROOT%\etc || goto :error
 
 tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/pglite etc/pglite.conf || goto :error
 

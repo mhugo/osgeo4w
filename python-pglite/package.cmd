@@ -23,12 +23,13 @@ python setup.py install || goto :error
 
 cd %HERE%
 
-tar -C %OSGEO4W_ROOT% --transform 's,pglite-1.0.2-py2.7.egg/,,' -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/pglite-1.0.2-py2.7.egg/pglite || goto :error
+copy pglite.conf %OSGEO4W_ROOT%\etc || goto :error
+
+tar -C %OSGEO4W_ROOT% --transform 's,pglite-1.0.2-py2.7.egg/,,' -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/pglite-1.0.2-py2.7.egg/pglite etc/pglite.conf || goto :error
 
 ::--------- Installation
 scp %PKG_BIN% %R% || goto :error
 scp setup.hint %R% || goto :error
-call ..\inc\install_archives.bat || goto :error
 goto :EOF
 
 

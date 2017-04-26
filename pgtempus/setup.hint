@@ -1,0 +1,5 @@
+sdesc: "pgTempus, an SQL API for Tempus"
+ldesc: "pgTempus, an SQL API for Tempus"
+maintainer: Oslandia
+category: Libs 
+requires: python3-pytempus postgresql

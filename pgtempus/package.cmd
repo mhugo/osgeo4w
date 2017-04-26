@@ -14,7 +14,7 @@ call ..\inc\prepare_env.bat %1
 :: python3 env
 call C:\osgeo4W64\bin\py3_env.bat || goto :error
 
-wget https://gitlab.com/Oslandia/pgtempus/repository/archive.tar.bz2?ref=master || goto :error
+wget -O pgtempus.tar.bz2 https://gitlab.com/Oslandia/pgtempus/repository/archive.tar.bz2?ref=master || goto :error
 tar xjvf pgtempus.tar.bz2 || goto :error
 cd pgtempus-* || goto :error
 

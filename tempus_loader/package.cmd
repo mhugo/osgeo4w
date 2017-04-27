@@ -19,7 +19,9 @@ cd tempus_loader-*
 python setup.py install || goto :error
 
 :: binary archive
-tar -C c:\OSGeo4W64 -cjvf %PKG_BIN% apps/python27/lib/site-packages/tempusloader-%V%-py2.7.egg || goto :error
+tar -C c:\OSGeo4W64 -cjvf %PKG_BIN% apps/python27/lib/site-packages/tempusloader-%V%-py2.7.egg ^
+  apps/Python27/Scripts/loadtempus.exe ^
+  apps/Python27/Scripts/loadtempus-script.py || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

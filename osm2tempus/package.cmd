@@ -2,7 +2,7 @@
 :: package name
 set P=osm2tempus
 :: version
-set V=1.0.0
+set V=1.1.0
 :: package version
 set B=1
 
@@ -10,7 +10,7 @@ set B=1
 call ..\inc\prepare_env.bat %1
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel -P protobuf || goto :error
-wget --progress=bar:force https://gitlab.com/Oslandia/osm2tempus/repository/archive.tar.bz2?ref=v1.0.0 -O osm2tempus.tar.bz2 || goto :error
+wget --progress=bar:force https://gitlab.com/Oslandia/osm2tempus/repository/archive.tar.bz2?ref=v%V% -O osm2tempus.tar.bz2 || goto :error
 tar xjf osm2tempus.tar.bz2
 cd osm2tempus-*
 call ci\windows\build_gitlab.bat || goto :error

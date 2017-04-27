@@ -2,4 +2,4 @@ sdesc: "PostGIS"
 ldesc: "PostGIS -- spatial extension for PostgreSQL"
 maintainer: Oslandia
 category: Libs
-requires: postgresql
+requires: postgresql geos

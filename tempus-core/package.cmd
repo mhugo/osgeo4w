@@ -15,7 +15,7 @@ tar xjf tempus.tar.bz2
 cd tempus_core*
 call ci\windows\build_gitlab.bat || goto :error
 
-copy %HERE%\tempus_ini.bat install\etc\ini\
+copy install\lib\tempus.dll install\bin || goto :error
 
 :: binary archive
 tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install || goto :error

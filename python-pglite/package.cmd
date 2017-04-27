@@ -2,7 +2,7 @@
 :: package name
 set P=python-pglite
 :: version
-set V=1.0.2
+set V=1.0.3
 :: package version
 set B=1
 
@@ -16,9 +16,9 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python2 package
 call %OSGEO4W_ROOT%\etc\ini\python-core.bat || goto :error
 
-wget https://github.com/Oslandia/pglite/archive/master.zip || goto :error
-unzip master.zip || goto :error
-cd pglite-master || goto :error
+wget https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
+unzip pglite-%V%.zip || goto :error
+cd pglite-%V% || goto :error
 python setup.py install || goto :error
 
 cd %HERE%

@@ -15,7 +15,6 @@ tar xjf tempus.tar.bz2
 cd tempus_core*
 call ci\windows\build_gitlab.bat || goto :error
 
-mkdir bin || goto :error
 copy install\lib\tempus.dll bin || goto :error
 
 :: binary archive

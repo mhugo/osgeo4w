@@ -4,13 +4,13 @@ set P=tempus-core
 :: version
 set V=2.4.0
 :: package version
-set B=1
+set B=2
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P boost-devel || goto :error
-wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/archive.tar.bz2?ref=master -O tempus.tar.bz2 || goto :error
+wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/archive.tar.bz2?ref=v2.4.0 -O tempus.tar.bz2 || goto :error
 tar xjf tempus.tar.bz2
 cd tempus_core*
 call ci\windows\build_gitlab.bat || goto :error

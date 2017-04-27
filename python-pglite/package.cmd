@@ -16,8 +16,8 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python2 package
 call %OSGEO4W_ROOT%\etc\ini\python-core.bat || goto :error
 
-wget https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
-unzip pglite-%V%.zip || goto :error
+wget -O pglite.zip https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
+unzip pglite.zip || goto :error
 cd pglite-%V% || goto :error
 python setup.py install || goto :error
 

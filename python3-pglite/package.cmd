@@ -16,8 +16,8 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python3 package
 call %OSGEO4W_ROOT%\bin\py3_env.bat
 
-wget https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
-unzip pglite-%V%.zip || goto :error
+wget -O pglite.zip https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
+unzip pglite.zip || goto :error
 cd pglite-%V% || goto :error
 python3 setup.py install || goto :error
 

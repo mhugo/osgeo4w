@@ -15,10 +15,11 @@ tar xjf tempus.tar.bz2
 cd tempus_core*
 call ci\windows\build_gitlab.bat || goto :error
 
-copy install\lib\tempus.dll install\bin || goto :error
+mkdir bin || goto :error
+copy install\lib\tempus.dll bin || goto :error
 
 :: binary archive
-tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install || goto :error
+tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install bin || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

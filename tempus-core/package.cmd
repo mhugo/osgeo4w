@@ -4,7 +4,7 @@ set P=tempus-core
 :: version
 set V=2.4.0
 :: package version
-set B=2
+set B=3
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
@@ -18,7 +18,7 @@ call ci\windows\build_gitlab.bat || goto :error
 copy lib\tempus.dll bin || goto :error
 
 :: binary archive
-tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install bin/tempus.dll || goto :error
+tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install bin/tempus.dll lib/tempus.pdb lib/tempus.lib || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

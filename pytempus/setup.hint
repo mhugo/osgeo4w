@@ -2,4 +2,4 @@ sdesc: "Python bindings for Tempus"
 ldesc: "Python bindings for Tempus"
 maintainer: Hugo Mercier
 category: Libs
-requires: tempus-core boost
+requires: tempus-core python3-core boost

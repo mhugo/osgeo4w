@@ -2,7 +2,7 @@
 :: package name
 set P=tempus-wps-server
 :: version
-set V=1.0.0
+set V=1.1.0
 :: package version
 set B=1
 
@@ -10,7 +10,7 @@ set B=1
 call ..\inc\prepare_env.bat %1
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel -P fcgi -P libxml2 || goto :error
-wget --progress=bar:force https://gitlab.com/Oslandia/tempus_wps_server/repository/archive.tar.bz2?ref=v1.0.0 -O tempus_wps_server.tar.bz2 || goto :error
+wget --progress=bar:force https://gitlab.com/Oslandia/tempus_wps_server/repository/archive.tar.bz2?ref=v1.1.0 -O tempus_wps_server.tar.bz2 || goto :error
 tar xjf tempus_wps_server.tar.bz2
 cd tempus_wps_server-*
 call ci\windows\build_gitlab.bat || goto :error

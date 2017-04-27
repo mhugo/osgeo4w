@@ -2,9 +2,9 @@
 :: package name
 set P=tempus-core
 :: version
-set V=2.4.0
+set V=2.4.1
 :: package version
-set B=3
+set B=1
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1

@@ -4,7 +4,7 @@ set P=pgtempus
 :: version
 set V=1.0.1
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 
@@ -24,7 +24,7 @@ mkdir c:\install\apps\Python36\Lib\site-packages\pgtempus
 mkdir c:\install\etc\postinstall
 
 copy pgtempus\*.* c:\install\apps\Python36\Lib\site-packages\pgtempus || goto :error
-copy pgext\pgtempus-*.* c:\install\share\extension || goto :error
+copy pgext\pgtempus*.* c:\install\share\extension || goto :error
 
 cd ..
 

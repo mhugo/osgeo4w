@@ -1,0 +1,5 @@
+sdesc: "nginx Web server"
+ldesc: "nginx Web server"
+maintainer: Hugo Mercier
+category: Web
+requires: shell

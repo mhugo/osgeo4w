@@ -15,11 +15,19 @@ tar xjf tempus_wps_server.tar.bz2
 cd tempus_wps_server-*
 call ci\windows\build_gitlab.bat || goto :error
 
+mkdir install\bin\nginx
+mkdir install\bin\nginx\conf
+mkdir install\bin\nginx\logs
+mkdir install\bin\nginx\temp
+copy %HERE%\local_tempus_wps.bat install\bin || goto :error
+copy %HERE%\nginx\tempus.conf install\bin\nginx\conf || goto :error
+copy %HERE%\nginx\mime.types install\bin\nginx\conf || goto :error
+
 :: binary archive
 tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install || goto :error
 
 :: source archive
-tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
+tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint local_tempus_wps.bat nginx || goto :error
 
 ::--------- Installation
 call %HERE%\..\inc\install_archives.bat || goto :error

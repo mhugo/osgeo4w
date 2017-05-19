@@ -24,9 +24,7 @@ tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% ^
  apps/Python27/Lib/site-packages/gtfslib ^
  apps/Python27/Lib/site-packages/gtfslib-1.0.0.dist-info ^
  apps/Python27/Scripts/gtfsdbloader.exe ^
- apps/Python27/Scripts/gtfsdbloader-script.py ^
  apps/Python27/Scripts/gtfsrun.exe ^
- apps/Python27/Scripts/gtfsrun-script.py ^
  || goto :error
 
 ::--------- Installation

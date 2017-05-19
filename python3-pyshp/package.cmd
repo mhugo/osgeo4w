@@ -4,7 +4,7 @@ set P=python3-pyshp
 :: version
 set V=1.2.10
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

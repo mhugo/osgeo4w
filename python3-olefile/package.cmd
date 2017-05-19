@@ -4,7 +4,7 @@ set P=python3-olefile
 :: version
 set V=0.44
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

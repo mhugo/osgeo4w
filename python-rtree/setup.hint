@@ -2,4 +2,4 @@ sdesc: "rtree"
 ldesc: "python bindings for spatial indexing library"
 maintainer: Oslandia
 category: Libs 
-requires: python-core
+requires: python-core setuptools

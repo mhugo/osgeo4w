@@ -2,4 +2,4 @@ sdesc: "PostgreSQLite, a minimalist PostgreSQL cluster"
 ldesc: "PostgreSQLite, a minimalist PostgreSQL cluster"
 maintainer: Oslandia
 category: Libs 
-requires: python-core
+requires: python-core setuptools

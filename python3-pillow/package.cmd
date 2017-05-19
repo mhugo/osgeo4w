@@ -4,7 +4,7 @@ set P=python3-pillow
 :: version
 set V=4.0.0
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

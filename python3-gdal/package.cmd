@@ -4,7 +4,7 @@ set P=python3-gdal
 :: version
 set V=2.1.3
 :: package version
-set B=3
+set B=4
 
 set HERE=%CD%
 

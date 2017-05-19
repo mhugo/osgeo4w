@@ -4,7 +4,7 @@ set P=python3-shapely
 :: version
 set V=1.5.17
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

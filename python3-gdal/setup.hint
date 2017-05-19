@@ -2,4 +2,4 @@ sdesc: "gdal python bindings"
 ldesc: "gdal python bindings""
 maintainer: Vincent Mora
 category: Libs 
-requires: python3-core gdal
+requires: python3-core gdal setuptools

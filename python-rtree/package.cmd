@@ -4,7 +4,7 @@ set P=python-rtree
 :: version
 set V=0.8.3
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

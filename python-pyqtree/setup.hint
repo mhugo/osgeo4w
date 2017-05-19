@@ -2,4 +2,4 @@ sdesc: "Pyqtree"
 ldesc: "A pure Python quad tree spatial index for GIS or rendering usage"
 maintainer: Oslandia
 category: Libs 
-requires: python-core
+requires: python-core setuptools

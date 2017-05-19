@@ -4,7 +4,7 @@ set P=python-sqlalchemy
 :: version
 set V=1.1.9
 :: package version
-set B=2
+set B=3
 
 set HERE=%CD%
 

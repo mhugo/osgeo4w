@@ -16,13 +16,20 @@ set PATH=c:\cygwin64\bin;%OSGEO4W_ROOT%\bin;%PATH%
 :: python2 package
 call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
-pip install gtfslib
+pip install gtfslib || goto :error
 
-copy /Y converter.py %OSGEO4W_ROOT%\apps\python27\lib\site-packages\gtfslib\converter.py
+copy /Y converter.py %OSGEO4W_ROOT%\apps\python27\lib\site-packages\gtfslib\converter.py || goto :error
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/gtfslib apps/Python27/Lib/site-packages/gtfslib-1.0.0-py2.7.egg-info
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/gtfslib apps/Python27/Lib/site-packages/gtfslib-1.0.0-py2.7.egg-info || goto :error
 
 ::--------- Installation
-scp %PKG_BIN% %R%
+scp %PKG_BIN% %R% || goto :error
 cd %HERE%
-scp setup.hint %R%
+scp setup.hint %R% || goto :error
+
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1
+

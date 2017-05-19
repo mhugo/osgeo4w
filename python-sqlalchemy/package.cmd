@@ -16,11 +16,17 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python2 package
 call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
-pip install sqlalchemy==1.1.9
+pip install sqlalchemy==1.1.9 || goto :error
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/sqlalchemy apps/Python27/Lib/site-packages/SQLAlchemy-%V%-py2.7.egg-info
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/sqlalchemy apps/Python27/Lib/site-packages/SQLAlchemy-%V%.dist-info || goto :error
 
 ::--------- Installation
-scp %PKG_BIN% %R%
+scp %PKG_BIN% %R% || goto :error
 cd %HERE%
-scp setup.hint %R%
+scp setup.hint %R% || goto :error
+
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1

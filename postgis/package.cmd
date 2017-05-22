@@ -4,7 +4,7 @@ set P=postgis
 :: version
 set V=2.4.0dev
 :: package version
-set B=2
+set B=3
 
 set HERE=%CD%
 
@@ -19,7 +19,7 @@ set PATH=C:\strawberry\perl\bin;%PATH%
 ::-- Add osgeo4w to the path, we need it to be before strawberry in order to avoid pg_config.exe there
 set PATH=c:\osgeo4w64\bin;%PATH%
 
-git clone https://gitlab.com/Oslandia/postgis.git || goto :error
+git clone https://gitlab.com/Oslandia/postgis.git --depth 1 --branch cmake || goto :error
 ::wget --progress=bar:force http://download.osgeo.org/postgis/source/postgis-2.3.2.tar.gz
 ::tar xzvf postgis-2.3.2.tar.gz
 wget http://download.osgeo.org/proj/proj-4.9.3.tar.gz || goto :error
@@ -27,19 +27,18 @@ tar -xvzf proj-4.9.3.tar.gz
 cd proj-4.9.3
 mkdir build
 cd build
-cmake -G "NMake Makefiles" ..
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "NMake Makefiles" ..
 nmake || goto :error
 
 cd %HERE%
 
 :: copy the config file
 cd postgis
-git checkout cmake
 mkdir build
 cd build
 
 cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ^
-      -DPROJ4_LIBRARY=%HERE%\proj-4.9.3\build\lib\proj_4_9_d.lib ^
+      -DPROJ4_LIBRARY=%HERE%\proj-4.9.3\build\lib\proj_4_9.lib ^
       -DPOSTGRESQL_LIBRARIES=c:\osgeo4w64\lib\postgres.lib ^
       -DLIBXML2_LIBRARY=c:\osgeo4w64\lib\libxml2.lib ^
       -G "NMake Makefiles" .. || goto :error

@@ -68,6 +68,7 @@ rd /s /q c:\install
 mkdir c:\install\lib
 mkdir c:\install\share
 mkdir c:\install\share\extension
+mkdir c:\install\bin
 
 copy postgis\build\postgis\postgis-2.4.dll c:\install\lib || goto :error
 copy postgis\build\extensions\postgis\postgis.control c:\install\share\extension || goto :error

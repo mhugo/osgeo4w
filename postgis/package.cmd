@@ -22,13 +22,26 @@ set PATH=c:\osgeo4w64\bin;%PATH%
 git clone https://gitlab.com/Oslandia/postgis.git --depth 1 --branch cmake || goto :error
 ::wget --progress=bar:force http://download.osgeo.org/postgis/source/postgis-2.3.2.tar.gz
 ::tar xzvf postgis-2.3.2.tar.gz
+
+::
+:: local build of proj4 in static
+::
 wget http://download.osgeo.org/proj/proj-4.9.3.tar.gz || goto :error
 tar -xvzf proj-4.9.3.tar.gz
 cd proj-4.9.3
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "NMake Makefiles" ..
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "NMake Makefiles" .. || goto :error
 nmake || goto :error
+
+cd %HERE%
+
+::
+:: local build of iconv in static
+::
+git clone https://github.com/winlibs/libiconv.git --depth 1 --branch master || goto :error
+cd libiconv\MSVC14\libiconv_static
+msbuild libiconv_static.vcxproj /p:Configuration=Release || goto :error
 
 cd %HERE%
 
@@ -40,7 +53,10 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ^
       -DPROJ4_LIBRARY=%HERE%\proj-4.9.3\build\lib\proj_4_9.lib ^
       -DPOSTGRESQL_LIBRARIES=c:\osgeo4w64\lib\postgres.lib ^
+	  -DLIBPQ_LIBRARY=c:\osgeo4w64\lib\libpq.lib ^
       -DLIBXML2_LIBRARY=c:\osgeo4w64\lib\libxml2.lib ^
+	  -DICONV_INCLUDE_DIR=%HERE%\libiconv\source\include ^
+	  -DICONV_LIBRARY=%HERE%\libiconv\MSVC14\libiconv_static\X64\Release\libiconv_a.lib ^
       -G "NMake Makefiles" .. || goto :error
 nmake || goto :error
 
@@ -56,8 +72,10 @@ mkdir c:\install\share\extension
 copy postgis\build\postgis\postgis-2.4.dll c:\install\lib || goto :error
 copy postgis\build\extensions\postgis\postgis.control c:\install\share\extension || goto :error
 copy postgis\build\extensions\postgis\postgis--2.4.0dev.sql c:\install\share\extension || goto :error
+copy postgis\build\loader\shp2pgsql.exe c:\install\bin || goto :error
+copy postgis\build\loader\pgsql2shp.exe c:\install\bin || goto :error
 
-tar -C c:\install -cjvf %PKG_BIN% lib share || goto :error
+tar -C c:\install -cjvf %PKG_BIN% lib share bin || goto :error
 
 ::--------- Installation
 scp %PKG_BIN% %R% || goto :error

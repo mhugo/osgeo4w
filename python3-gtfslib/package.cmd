@@ -28,6 +28,12 @@ tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% ^
  || goto :error
 
 ::--------- Installation
-scp %PKG_BIN% %R%
+scp %PKG_BIN% %R% || goto :error
 cd %HERE%
-scp setup.hint %R%
+scp setup.hint %R% || goto :error
+
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1

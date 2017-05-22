@@ -4,7 +4,7 @@ set P=python3-pyshp
 :: version
 set V=1.2.10
 :: package version
-set B=2
+set B=3
 
 set HERE=%CD%
 
@@ -16,11 +16,17 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python2 package
 call %OSGEO4W_ROOT%\bin\py3_env.bat
 
-python3 -m pip install pyshp==1.2.10
+python3 -m pip install pyshp==1.2.10 || goto :error
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/shapefile.py
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/shapefile.py apps/Python36/Lib/site-packages/pyshp-1.2.10.dist-info || goto :error
 
 ::--------- Installation
-scp %PKG_BIN% %R%
+scp %PKG_BIN% %R% || goto :error
 cd %HERE%
-scp setup.hint %R%
+scp setup.hint %R% || goto :error
+
+goto :EOF
+
+:error
+echo Build failed
+exit /b 1

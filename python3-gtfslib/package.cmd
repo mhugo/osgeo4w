@@ -2,9 +2,9 @@
 :: package name
 set P=python3-gtfslib
 :: version
-set V=1.0.0
+set V=1.0.1
 :: package version
-set B=2
+set B=1
 
 set HERE=%CD%
 
@@ -18,7 +18,14 @@ call %OSGEO4W_ROOT%\bin\py3_env.bat
 
 python3 -m pip install gtfslib
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python36/Lib/site-packages/gtfslib
+copy /Y converter.py %OSGEO4W_ROOT%\apps\python36\lib\site-packages\gtfslib\converter.py || goto :error
+
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% ^
+ apps/Python36/Lib/site-packages/gtfslib ^
+ apps/Python36/Lib/site-packages/gtfslib-1.0.0.dist-info ^
+ apps/Python36/Scripts/gtfsdbloader.exe ^
+ apps/Python36/Scripts/gtfsrun.exe ^
+ || goto :error
 
 ::--------- Installation
 scp %PKG_BIN% %R%

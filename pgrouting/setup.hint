@@ -1,0 +1,5 @@
+sdesc: "pgRouting"
+ldesc: "pgRouting -- routing functionality for PostgreSQL"
+maintainer: Oslandia
+category: Libs
+requires: postgresql

@@ -15,10 +15,12 @@ def read_requires(fn):
                 if _pkg_name not in requires.keys():
                     pkg_name = _pkg_name
                 requirements = []
+                pkg_path = None
             elif line.startswith('requires:'):
                 requirements = line[10:-1].split()
             elif line.startswith('install:'):
-                pkg_path = line[9:].split()[0]
+                if pkg_path is None: # only retain the first path (not the one in [prev])
+                    pkg_path = line[9:].split()[0]
         requires[pkg_name] = (pkg_path, requirements)
 
     return requires

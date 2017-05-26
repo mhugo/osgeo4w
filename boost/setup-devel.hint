@@ -2,4 +2,4 @@ sdesc: "boost-devel"
 ldesc: "Boost C++ libraries. With boost-python3 included. Development package"
 maintainer: HugoMercier
 category: Libs
-requires: boost
+requires: boost-vc14

@@ -1,10 +1,10 @@
 ::--------- Package settings --------
 :: package name
-set P=boost
+set P=boost-vc14
 :: version
 set V=1.63.0
 :: package version
-set B=2
+set B=3
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1

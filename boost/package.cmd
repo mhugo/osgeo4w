@@ -47,10 +47,10 @@ set PATH=%PATH%;c:\osgeo4w64\bin
 md c:\install\pkg || goto :error
 md c:\install\pkg\bin || goto :error
 copy c:\install\lib\*.dll c:\install\pkg\bin || goto :error
-tar -C c:\install\pkg -cjvf boost-%V%-%B%.tar.bz2 bin || goto :error
+tar -C c:\install\pkg -cjvf boost-vc14-%V%-%B%.tar.bz2 bin || goto :error
 del c:\install\lib\*.dll || goto :error
 
-tar -C c:\install -cjvf boost-devel-%V%-%B%.tar.bz2 include lib || goto :error
+tar -C c:\install -cjvf boost-devel-vc14-%V%-%B%.tar.bz2 include lib || goto :error
 
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint setup-devel.hint project-config-py3.jam || goto :error
 
@@ -58,12 +58,12 @@ tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint
 scp %PKG_BIN% %PKG_SRC% %R% || goto :error
 
 ::-- -devel package
-ssh %RELEASE_HOST% "mkdir -p %RELEASE_PATH%/boost-devel" || goto :error
-scp boost-devel-%V%-%B%.tar.bz2 %RELEASE_HOST%:%RELEASE_PATH%/boost-devel || goto :error
+ssh %RELEASE_HOST% "mkdir -p %RELEASE_PATH%/boost-devel-vc14" || goto :error
+scp boost-devel-vc14-%V%-%B%.tar.bz2 %RELEASE_HOST%:%RELEASE_PATH%/boost-devel-vc14 || goto :error
 
 cd %HERE%
 scp setup.hint %R% || goto :error
-scp setup-devel.hint %RELEASE_HOST%:%RELEASE_PATH%/boost-devel/setup.hint || goto :error
+scp setup-devel.hint %RELEASE_HOST%:%RELEASE_PATH%/boost-devel-vc14/setup.hint || goto :error
 
 goto :EOF
 

@@ -2,4 +2,4 @@ sdesc: "gtfslib"
 ldesc: "Python library for reading GTFS feeds"
 maintainer: Oslandia
 category: Libs 
-requires: python-core setuptools python-sqlalchemy python-pyqtree python-pyshp python-docopt python-requests
+requires: python-core setuptools python-sqlalchemy python-pyqtree python-pyshp python-docopt python-requests python-six

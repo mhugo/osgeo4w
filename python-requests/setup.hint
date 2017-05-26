@@ -1,0 +1,5 @@
+sdesc: "requests"
+ldesc: "requests"
+maintainer: Oslandia
+category: Libs 
+requires: python-core setuptools

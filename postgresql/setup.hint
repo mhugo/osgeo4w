@@ -2,4 +2,4 @@ sdesc: "PostgreSQL"
 ldesc: "PostgreSQL RDBMS with support for plpython3 - experimental"
 maintainer: HugoMercier
 category: Libs
-requires: shell msvrct2015 python3
+requires: shell msvcrt2015 python3-core

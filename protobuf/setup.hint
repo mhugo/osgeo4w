@@ -2,4 +2,4 @@ sdesc: "Protobuf"
 ldesc: "Google Protobuf library and compiler"
 maintainer: HugoMercier
 category: Libs
-requires: shell msvrct2015
+requires: shell msvcrt2015

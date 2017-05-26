@@ -2,4 +2,4 @@ sdesc: "boost"
 ldesc: "Boost C++ libraries. With boost-python3 included"
 maintainer: HugoMercier
 category: Libs
-requires: msvrct2015 python3
+requires: msvcrt2015 python3-core

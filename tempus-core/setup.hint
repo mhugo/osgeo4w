@@ -2,4 +2,4 @@ sdesc: "Tempus core"
 ldesc: "Core of Tempus, the multimodal routing framework"
 maintainer: Hugo Mercier
 category: Libs
-requires: shell msvrct2015 fcgi boost
+requires: shell msvcrt2015 fcgi boost-vc14

@@ -4,7 +4,7 @@ set P=python-docopt
 :: version
 set V=0.6.2
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 
@@ -18,7 +18,7 @@ call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
 pip install docopt==%V% || goto :error
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/docopt-%V%.dist-info || goto :error
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/docopt.py apps/Python27/Lib/site-packages/docopt-%V%.dist-info || goto :error
 
 ::--------- Installation
 scp %PKG_BIN% %R% || goto :error

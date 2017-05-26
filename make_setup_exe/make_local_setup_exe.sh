@@ -57,11 +57,6 @@ if [ -z $INSTALLER_VERSION ]; then
     usage
     exit 1
 fi
-if [ -z "$PACKAGES" ]; then
-    echo "Missing package list"
-    usage
-    exit 1
-fi
 
 HERE=`pwd`
 
@@ -70,9 +65,9 @@ mkdir /tmp/osgeo4w
 cd /tmp/osgeo4w
 
 wget -nc $OSGEO4W_REPO/x86_64/setup.ini
-for f in $(python $HERE/pkg_deps.py setup.ini)
+for f in $(python $HERE/pkg_deps.py setup.ini $PACKAGES)
 do
-    wget -nH -r --cut-dirs=1 $SERVER/$f
+    wget -nH -r --cut-dirs=1 $OSGEO4W_REPO/$f
 done
 7z a arc.7z x86_64
 cd $HERE

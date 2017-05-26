@@ -15,3 +15,9 @@ Example of invocation:
 
 This will create a `setup-postgresql-9.6.0-1.exe` file ready to be installed on Windows.
 
+No-network alternative
+======================
+
+If you want to generate a setup that contains all osgeo4w dependencies needed for a bunch of packages, use the script `make_local_setup_exe.sh`
+
+All packages and dependencies will be downloaded from the repository given and the resulting installer will install from the local directory extracted from the archive.

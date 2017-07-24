@@ -13,6 +13,8 @@ call ..\inc\prepare_env.bat %1
 wget --progress=bar:force https://nih.at/libzip/libzip-1.2.0.tar.gz || goto :error
 tar xzvf libzip-1.2.0.tar.gz
 cd libzip-1.2.0
+mkdir build
+cd build
 cmake -G "NMake Makefiles" -D "CMAKE_INSTALL_PREFIX=C:\install" .. || goto :error
 
 nmake || goto :error

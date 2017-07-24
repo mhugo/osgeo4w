@@ -11,7 +11,7 @@ call ..\inc\prepare_env.bat %1
 
 ::c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P boost-devel-vc14 || goto :error
 wget --progress=bar:force https://nih.at/libzip/libzip-1.2.0.tar.gz || goto :error
-tar xjf libzip-1.2.0.tar.gz
+tar xzvf libzip-1.2.0.tar.gz
 cd libzip-1.2.0
 cmake -G "NMake Makefiles" -D "CMAKE_INSTALL_PREFIX=C:\install" .. || goto :error
 

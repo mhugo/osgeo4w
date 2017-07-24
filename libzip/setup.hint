@@ -1,0 +1,5 @@
+sdesc: "libzip"
+ldesc: "C library for reading, creating, and modifying zip archives"
+maintainer: Hugo Mercier
+category: Libs
+requires: shell msvcrt2015 zlib

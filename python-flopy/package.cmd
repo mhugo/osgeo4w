@@ -2,7 +2,7 @@
 :: package name
 set P=python-flopy
 :: version
-set V=3.6.1
+set V=3.2.6
 :: package version
 set B=1
 

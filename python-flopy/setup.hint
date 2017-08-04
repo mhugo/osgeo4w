@@ -1,0 +1,5 @@
+sdesc: "flopy"
+ldesc: "Python scripts to run MODFLOW, MT3D, SEAWAT and other MODFLOW-related groundwater programs"
+maintainer: Oslandia
+category: Libs 
+requires: python-core

@@ -25,8 +25,8 @@ progressfilt ()
                 ct="$ct$c"
             else
                 ct=$(echo $ct|sed 's/\[.*\]//')
-                printf "%s" $ct
-                ct=$(printf '\rtransfering %s ' $1)
+                printf "%s" "$ct"
+                ct=$(printf '\r%s ' $1)
             fi
         else
             if [[ $c != $cr && $c != $nl ]]
@@ -74,8 +74,8 @@ for source in $official; do
         if [ "$md5" != "$res" ]; then
             LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%" "$fil" $progress
             { wget --progress=bar:force -O- $source/$fil 2>&3 | ssh $public "cat > www/osgeo4w/$fil" ; } 3>&1 1>&2 | progressfilt $fil > /dev/stdout
-        else
-            LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%" "skipping $fil" $progress
+        #else
+        #    LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%" "skipping $fil" $progress
         fi
     done
     printf "\r%-$(tput cols)s\n" "done"

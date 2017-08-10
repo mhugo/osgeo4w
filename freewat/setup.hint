@@ -2,5 +2,5 @@ sdesc: "freewat dependencies"
 ldesc: "tools for WATer resource management"
 maintainer: Vincent Mora
 category: Libs 
-requires: python-numpy python-pandas python-requests python-isodate python-xlrd python-xlwt python-seaborn python-flopy matplotlib python-scipy
+requires: python-numpy python-pandas python-requests python-isodate python-xlrd python-xlwt python-seaborn python-flopy matplotlib python-scipy modflow
 

@@ -13,6 +13,8 @@
 #     else:
 #         dowload
 #    
+# Note: the custom redirects to official and does the overloading, so we actually
+#       don't look into official directory (only one element in the outer loop)
 progressfilt ()
 {
     local flag=false c count ct="" cr=$'\r' nl=$'\n'
@@ -47,7 +49,7 @@ official="download.osgeo.org/osgeo4w"
 custom="osgeo4w.oslandia.net/osgeo4w"
 public="ftp.cluster023.hosting.ovh.net"
 
-for source in $official; do
+for source in $custom; do
     echo fetching setup.ini from $source
     setup=$(wget -q -O- $source/x86_64/setup.ini| grep x86_64/release )
     packages=$(printf "$setup" | cut -f2 -d' ')

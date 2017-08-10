@@ -1,0 +1,6 @@
+sdesc: "freewat dependencies"
+ldesc: "tools for WATer resource management"
+maintainer: Vincent Mora
+category: Libs 
+requires: python-numpy>=1.11.0 python-pandas>=0.18.1 python-requests python-isodate python-xlrd python-xlwt python-seaborn python-flopy>=3.2.6 matplotlib python-scipy==0.11
+

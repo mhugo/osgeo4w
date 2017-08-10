@@ -1,0 +1,5 @@
+sdesc: "modflow"
+ldesc: "USGS's three-dimensional (3D) finite-difference groundwater model"
+maintainer: Vincent Mora
+category: CommandLine_Utilities 
+requires:

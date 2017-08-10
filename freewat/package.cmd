@@ -12,8 +12,7 @@ set HERE=%CD%
 call ..\inc\prepare_env.bat %1
 
 :: create an empty archive since this is a meta package (dependencies only)
-tar cfvjf %PKG_BIN% package.cmd
-tar --delete -f %PKG_BIN% package.cmd
+copy empty.tar.bz2 %PKG_BIN%
 
 ::--------- Installation
 scp %PKG_BIN% %R%

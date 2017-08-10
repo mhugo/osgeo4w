@@ -55,7 +55,7 @@ public="osgeo4w-oslandia.com/osgeo4w"
 for source in $custom; do
     echo transfering setup.ini.bz2 from $source
     { wget --progress=bar:force -O- $source/x86_64/setup.ini.bz2 2>&3 | ssh $server "cat > www/osgeo4w/x86_64/setup.ini.bz2" ; } 3>&1 1>&2 | progressfilt x86_64/setup.ini.bz2 > /dev/stdout
-    printf "\runzip $server/osgeo4w/x86_64/setup.ini.bz2 and get it's contend\n"
+    printf "\runzip $server/wwww/osgeo4w/x86_64/setup.ini.bz2 and get it's contend\n"
     ssh $server "bzip2 -dfk www/osgeo4w/x86_64/setup.ini.bz2"
 
     setup=$(wget -q -O- $public/x86_64/setup.ini| grep x86_64/release )
@@ -83,7 +83,7 @@ for source in $custom; do
         progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
         if [ "$md5" != "$res" ]; then
             j=$(($j + 1))
-            LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
+            LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%" "$fil" $progress
             { wget --progress=bar:force -O- $source/$fil 2>&3 | ssh $server "cat > www/osgeo4w/$fil" ; } 3>&1 1>&2 | progressfilt $fil > /dev/stdout
             new_md5=$(ssh $server "md5sum www/osgeo4w/$fil" | cut -f1 -d' ')
             if [ "$md5" != "$new_md5" ]; then

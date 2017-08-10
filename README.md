@@ -17,8 +17,9 @@ The [inc](inc directory) contains common batch files that should ease the writin
 Package building:
 -----------------
 
-To launch the building of a package, run `trigger_build.sh` following by the name (directory name) of the package to build. This will trigger gitlab-ci and
-build this package on our Windows box. If you correctly called [inc/install_archives.bat], packages should have been uploaded to hekla (in /home/storage/osgeo4w)
+To launch the building of a package, run `trigger_build.sh` following by the name (directory name) of the package to build and the build type (release or debug), e.g. `trigger_build.sh pytempus release`
+
+This will trigger gitlab-ci and build this package on our Windows box. If you correctly called [inc/install_archives.bat], packages should have been uploaded to hekla (in /home/storage/osgeo4w)
 
 A cron job will call the [gen_setup_ini.sh](gen_setup_ini.sh) scrippt to periodically update the main setup.ini file (TODO)
 
@@ -32,6 +33,7 @@ You can also call from the command line
 ```
 osgeo4w-setup.exe -O -s http://hekla.oslandia.net/osgeo4w
 ```
+
 
 Custom Setup
 ------------

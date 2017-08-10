@@ -25,8 +25,10 @@ unzip mt3d-usgs_1.0.zip
 
 :: binary archive
 tar --transform 's,MF2005.1_12/,,' -cvjf %PKG_BIN% MF2005.1_12/bin
-tar --transform 's,mt3dms/,,' -cvjf %PKG_BIN% mt3dms/bin/mt3dms5b.exe %PKG_BIN% mt3dms/bin/mt3dms5s.exe
-tar --transform 's,mt3d-usgs_Distribution/,,' -cvjf %PKG_BIN% mt3d-usgs_Distribution/bin/MT3D-USGS_64.exe
+tar --transform 's,mt3dms/,,' -Avjf %PKG_BIN% mt3dms/bin/mt3dms5b.exe %PKG_BIN% mt3dms/bin/mt3dms5s.exe
+tar --transform 's,mt3d-usgs_Distribution/,,' -Avjf %PKG_BIN% mt3d-usgs_Distribution/bin/MT3D-USGS_64.exe
+
+tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint 
 
 ::--------- Installation
 scp %PKG_BIN% %PKG_SRC% %R%

@@ -1,0 +1,5 @@
+sdesc: "ucode calibration"
+ldesc: "Universal sensitivity analysis, calibration, and uncertainty evaluation"
+maintainer: Vincent Mora
+category: CommandLine_Utilities 
+requires:

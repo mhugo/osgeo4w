@@ -24,9 +24,10 @@ wget https://water.usgs.gov/ogw/mt3d-usgs/mt3d-usgs_1.0.zip
 unzip mt3d-usgs_1.0.zip
 
 :: binary archive
-tar --transform 's,MF2005.1_12/,,' -cvjf %PKG_BIN% MF2005.1_12/bin
-tar --transform 's,mt3dms/,,' -Avjf %PKG_BIN% mt3dms/bin/mt3dms5b.exe %PKG_BIN% mt3dms/bin/mt3dms5s.exe
-tar --transform 's,mt3d-usgs_Distribution/,,' -Avjf %PKG_BIN% mt3d-usgs_Distribution/bin/MT3D-USGS_64.exe
+tar --transform 's,MF2005.1_12/,,' -cvf tmp.tar MF2005.1_12/bin
+tar --transform 's,mt3dms/,,' -Avf tmp.tar mt3dms/bin/mt3dms5b.exe mt3dms/bin/mt3dms5s.exe
+tar --transform 's,mt3d-usgs_Distribution/,,' -Avf tmp.tar mt3d-usgs_Distribution/bin/MT3D-USGS_64.exe
+bzip2 -c tmp.tar > %PKG_BIN%
 
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint 
 

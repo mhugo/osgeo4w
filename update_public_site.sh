@@ -72,27 +72,20 @@ for source in $custom; do
     #echo $dest_dir
     echo getting md5 sums from $server
     dest_md5=$(ssh $server "md5sum $dest_files" 2> /dev/null | sort | uniq)
-    nb_updated=0
     i=0
     printf "$setup" | sort | uniq | while read package; do
         arr=($package)
         md5=${arr[3]}
         fil=${arr[1]}
         res=$(printf "$dest_md5" | grep $fil | cut -f1 -d' ')
-        i=$(($i + 1))
+        ((i++))
         progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
         if [ "$md5" != "$res" ]; then
-            echo "$fil|$md5|$res|"
             LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
-            { wget --progress=bar:force -O- $source/$fil 2>&3 | ssh $server "cat > www/osgeo4w/$fil" ; } 3>&1 1>&2 | progressfilt $fil > /dev/stdout
-            new_md5=$(ssh $server "md5sum www/osgeo4w/$fil" | cut -f1 -d' ')
-            if [ "$md5" != "$new_md5" ]; then
-                echo "$fil md5 doesn't match value in setup.ini" 1>&2
-            fi
-            nb_updated=$(($nb_updated + 1))
+            { wget --progress=bar:force -O- $source/$fil 2>&3 | ssh $server "cat > www/osgeo4w/$fil" ; } 3>&1 1>&2 | progressfilt $fil
 
         fi
     done
-    printf "%d packages updated\n" $nb_updated 
-
+    echo
 done
+

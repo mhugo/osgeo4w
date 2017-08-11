@@ -82,16 +82,17 @@ for source in $custom; do
         i=$(($i + 1))
         progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
         if [ "$md5" != "$res" ]; then
-            nb_updated=$(($nb_updated + 1))
-            LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%" "$fil" $progress
+            echo "$fil|$md5|$res|"
+            LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
             { wget --progress=bar:force -O- $source/$fil 2>&3 | ssh $server "cat > www/osgeo4w/$fil" ; } 3>&1 1>&2 | progressfilt $fil > /dev/stdout
             new_md5=$(ssh $server "md5sum www/osgeo4w/$fil" | cut -f1 -d' ')
             if [ "$md5" != "$new_md5" ]; then
                 echo "$fil md5 doesn't match value in setup.ini" 1>&2
             fi
+            nb_updated=$(($nb_updated + 1))
 
         fi
     done
-    printf "\r%-$(tput cols)s\n" "all done ($nb_updated packages updated)"
+    printf "%d packages updated\n" $nb_updated 
 
 done

@@ -20,6 +20,8 @@ tar --transform 's,ucode_2014_1.004_and_more/opr-ppr_1.01/BIN/,bin/,' -rvf tmp.t
 tar --transform 's,ucode_2014_1.004_and_more/sim_adjust_1.000/,,' -rvf tmp.tar ucode_2014_1.004_and_more/sim_adjust_1.000/bin/sim_adjust.exe
 bzip2 tmp.tar > %PKG_BIN%
 
+tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint 
+
 ::--------- Installation
 scp %PKG_BIN% %PKG_SRC% %R%
 cd %HERE%

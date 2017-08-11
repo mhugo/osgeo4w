@@ -72,7 +72,8 @@ for source in $custom; do
     #echo $dest_dir
     echo getting md5 sums from $server
     dest_md5=$(ssh $server "md5sum $dest_files" 2> /dev/null | sort | uniq)
-    local j=0 i=0
+    nb_updated=0
+    i=0
     printf "$setup" | sort | uniq | while read package; do
         arr=($package)
         md5=${arr[3]}
@@ -81,7 +82,7 @@ for source in $custom; do
         i=$(($i + 1))
         progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
         if [ "$md5" != "$res" ]; then
-            j=$(($j + 1))
+            nb_updated=$(($nb_updated + 1))
             LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%" "$fil" $progress
             { wget --progress=bar:force -O- $source/$fil 2>&3 | ssh $server "cat > www/osgeo4w/$fil" ; } 3>&1 1>&2 | progressfilt $fil > /dev/stdout
             new_md5=$(ssh $server "md5sum www/osgeo4w/$fil" | cut -f1 -d' ')
@@ -91,6 +92,6 @@ for source in $custom; do
 
         fi
     done
-    printf "\r%-$(tput cols)s\n" "all done ($j packages updated)"
+    printf "\r%-$(tput cols)s\n" "all done ($nb_updated packages updated)"
 
 done

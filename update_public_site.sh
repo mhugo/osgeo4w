@@ -72,8 +72,7 @@ for source in $custom; do
     #echo $dest_dir
     echo getting md5 sums from $server
     dest_md5=$(ssh $server "md5sum $dest_files" 2> /dev/null | sort | uniq)
-    i=0
-    j=0
+    local j=0 i=0
     printf "$setup" | sort | uniq | while read package; do
         arr=($package)
         md5=${arr[3]}

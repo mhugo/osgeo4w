@@ -2,7 +2,7 @@
 :: package name
 set P=python3-pglite
 :: version
-set V=1.0.3
+set V=1.0.4
 :: package version
 set B=2
 

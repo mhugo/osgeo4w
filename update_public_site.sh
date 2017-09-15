@@ -88,7 +88,7 @@ echo ----------- EXTRA -----------
 rep=$extra
 src=$custom
 
-echo create links from extra
+echo copy mirror to extra
 ssh $server "mkdir -p www/$extra/x86_64/release"
 #ssh $server "find www/$extra/x86_64/release -type l | xargs rm"
 #ssh $server "ln -s $PWD/www/$mirror/x86_64/release/*  www/$extra/x86_64/release"

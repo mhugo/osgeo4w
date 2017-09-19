@@ -51,7 +51,8 @@ echo ----------- MIRROR -----------
 echo transfering setup.ini.bz2 from $src
 ssh $server "rm -f www/$rep/x86_64/setup.ini.bz2"
 ssh $server "mkdir -p www/$rep/x86_64"
-{ wget --progress=bar:force -O- $src/x86_64/setup.ini.bz2 2>&3 | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2" ; } 3>&1 1>&2 | progressfilt x86_64/setup.ini.bz2 > /dev/stdout
+wget -q -O- $src/x86_64/setup.ini.bz2 | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2"
+#{ wget --progress=bar:force -O- $src/x86_64/setup.ini.bz2 2>&3 | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2" ; } 3>&1 1>&2 | progressfilt x86_64/setup.ini.bz2 > /dev/stdout
 printf "\runzip $server/wwww/$rep/x86_64/setup.ini.bz2 and get it's contend\n"
 ssh $server "bzip2 -dfk www/$rep/x86_64/setup.ini.bz2"
 
@@ -79,7 +80,8 @@ printf "$setup" | sort | uniq | while read package; do
     progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
     if [ "$md5" != "$res" ]; then
         LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
-        { wget --progress=bar:force -O- $src/$fil 2>&3 | ssh $server "cat > www/$rep/$fil" ; } 3>&1 1>&2 | progressfilt $fil
+        wget -q -O- $src/$fil | ssh $server "cat > www/$rep/$fil"
+        #{ wget --progress=bar:force -O- $src/$fil 2>&3 | ssh $server "cat > www/$rep/$fil" ; } 3>&1 1>&2 | progressfilt $fil
     fi
 done
 echo
@@ -97,7 +99,8 @@ ssh $server "cp -rf www/$mirror/x86_64/release/*  www/$extra/x86_64/release/"
 echo transfering setup.ini.bz2 from $src
 ssh $server "rm -f www/$rep/x86_64/setup.ini.bz2"
 ssh $server "mkdir -p www/$rep/x86_64"
-{ wget --progress=bar:force -O- $src/x86_64/setup.ini.bz2 2>&3 | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2" ; } 3>&1 1>&2 | progressfilt x86_64/setup.ini.bz2 > /dev/stdout
+wget -q -O- $src/x86_64/setup.ini.bz2  | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2" 
+#{ wget --progress=bar:force -O- $src/x86_64/setup.ini.bz2 2>&3 | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2" ; } 3>&1 1>&2 | progressfilt x86_64/setup.ini.bz2 > /dev/stdout
 printf "\runzip $server/wwww/$rep/x86_64/setup.ini.bz2 and get it's contend\n"
 ssh $server "bzip2 -dfk www/$rep/x86_64/setup.ini.bz2"
 
@@ -125,7 +128,8 @@ printf "$setup" | sort | uniq | while read package; do
     progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
     if [ "$md5" != "$res" ]; then
         LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
-        { wget --progress=bar:force -O- $src/$fil 2>&3 | ssh $server "cat > www/$rep/$fil" ; } 3>&1 1>&2 | progressfilt $fil
+        wget -q -O- $src/$fil | ssh $server "cat > www/$rep/$fil"
+        #{ wget --progress=bar:force -O- $src/$fil 2>&3 | ssh $server "cat > www/$rep/$fil" ; } 3>&1 1>&2 | progressfilt $fil
     fi
 done
 echo

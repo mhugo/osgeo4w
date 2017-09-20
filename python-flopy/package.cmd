@@ -18,7 +18,7 @@ call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
 pip install flopy==%V%
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/flopy
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/flopy*
 
 ::--------- Installation
 scp %PKG_BIN% %R%

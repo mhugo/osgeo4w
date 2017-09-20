@@ -1,0 +1,5 @@
+sdesc: "isodate"
+ldesc: "ISO 8601 date, time and duration parsing"
+maintainer: Oslandia
+category: Libs 
+requires: python-core

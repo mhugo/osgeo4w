@@ -1,0 +1,5 @@
+sdesc: "seaborn"
+ldesc: "visualization library based on matplotlib"
+maintainer: Oslandia
+category: Libs 
+requires: python-core python-numpy matplotlib python-scipy python-pandas

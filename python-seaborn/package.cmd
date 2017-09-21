@@ -16,6 +16,8 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 :: python2 package
 call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
+%OSGEO4W_ROOT%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P python-core -P python-numpy -P matplotlib -P python-scipy -P python-pandas
+
 pip install seaborn==%V%
 
 tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/seaborn apps/Python27/Lib/site-packages/seaborn-%V%.dist-info 

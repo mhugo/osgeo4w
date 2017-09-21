@@ -18,7 +18,7 @@ call %OSGEO4W_ROOT%\etc\ini\python-core.bat
 
 pip install seaborn==%V%
 
-tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/seaborn*
+tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% apps/Python27/Lib/site-packages/seaborn apps/Python27/Lib/site-packages/seaborn-%V%.dist-info 
 
 ::--------- Installation
 scp %PKG_BIN% %R%

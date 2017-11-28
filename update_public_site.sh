@@ -36,14 +36,25 @@ progressfilt ()
     done
 }
 
+download_to_ssh()
+{
+    local src=$1 tgt=$2
+    if [ "$verbose" = "y" ]; then
+        { wget --progress=bar:force -O- $src 2>&3 | ssh $server "cat > $tgt" ; } 3>&1 1>&2 | progressfilt $tgt
+    else
+        wget -q -O- $src | ssh $server "cat > $tgt"
+    fi
+}
+
 download_missing_packages()
 {
-    local rep=$1 src=$2
+    local src=$1 rep=$2
     echo transfering setup.ini.bz2 from $src
     ssh $server "mkdir -p www/$rep/x86_64"
-    wget -q -O- $src/x86_64/setup.ini.bz2 | ssh $server "cat > www/$rep/x86_64/new_setup.ini.bz2"
-    #{ wget --progress=bar:force -O- $src/x86_64/setup.ini.bz2 2>&3 | ssh $server "cat > www/$rep/x86_64/setup.ini.bz2" ; } 3>&1 1>&2 | progressfilt x86_64/setup.ini.bz2 > /dev/stdout
-    printf "\runzip $server/wwww/$rep/x86_64/new_setup.ini.bz2 and get its content\n"
+    
+    download_to_ssh $src/x86_64/setup.ini.bz2 www/$rep/x86_64/new_setup.ini.bz2
+
+    printf "\runzip $server/www/$rep/x86_64/new_setup.ini.bz2 and get its content\n"
     ssh $server "bzip2 -dfk www/$rep/x86_64/new_setup.ini.bz2"
 
     setup=$(wget -q -O- $public/$rep/x86_64/new_setup.ini| grep x86_64/release )
@@ -70,8 +81,7 @@ download_missing_packages()
 	progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
 	if [ "$md5" != "$res" ]; then
             LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
-            wget -q -O- $src/$fil | ssh $server "cat > www/$rep/$fil"
-            #{ wget --progress=bar:force -O- $src/$fil 2>&3 | ssh $server "cat > www/$rep/$fil" ; } 3>&1 1>&2 | progressfilt $fil
+            download_to_ssh $src/$fil www/$rep/$fil
 	fi
     done
 
@@ -85,9 +95,14 @@ server="ftp.cluster023.hosting.ovh.net"
 public="osgeo4w-oslandia.com"
 mirror="mirror"
 extra="extra"
+verbose="n"
+
+if [ -n "$1" -a "$1" = "-v" ]; then
+    verbose="y"
+fi
 
 echo ----------- MIRROR -----------
-download_missing_packages $mirror $official
+download_missing_packages $official $mirror
 
 echo
 
@@ -98,7 +113,7 @@ ssh $server "mkdir -p www/$extra/x86_64/release"
 #ssh $server "ln -s $PWD/www/$mirror/x86_64/release/*  www/$extra/x86_64/release"
 ssh $server "rsync -r www/$mirror/x86_64/release/*  www/$extra/x86_64/release/"
 
-download_missing_packages $extra $custom
+download_missing_packages $custom $extra
 
 
 

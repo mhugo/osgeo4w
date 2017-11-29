@@ -87,6 +87,7 @@ download_missing_packages()
 
     # install the new setup.ini
     ssh $server "mv www/$rep/x86_64/new_setup.ini www/$rep/x86_64/setup.ini"
+    ssh $server "mv www/$rep/x86_64/new_setup.ini.bz2 www/$rep/x86_64/setup.ini.bz2"
 }
 
 official="download.osgeo.org/osgeo4w" 
@@ -96,22 +97,45 @@ public="osgeo4w-oslandia.com"
 mirror="mirror"
 extra="extra"
 verbose="n"
+only_extra="n"
 
-if [ -n "$1" -a "$1" = "-v" ]; then
-    verbose="y"
+usage() {
+    echo "Sync osgeo4w and custom repo to oslandia repo"
+    echo "Usage: $0 [--only-extra] [--verbose]" 1>&2; exit 1;
+}
+
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+
+    case $key in
+        -v|--verbose)
+            verbose="y"
+            shift
+            ;;
+        -h|--help)
+            usage
+            shift # past value
+            ;;
+        --only-extra)
+            only_extra="y"
+            shift # past value
+            ;;
+    esac
+done
+
+if [ "$only_extra" = "n" ]; then
+    echo ----------- MIRROR -----------
+    download_missing_packages $official $mirror
+
+    echo
+    echo ----------- EXTRA -----------
+    echo copy mirror to extra
+    ssh $server "mkdir -p www/$extra/x86_64/release"
+    #ssh $server "find www/$extra/x86_64/release -type l | xargs rm"
+    #ssh $server "ln -s $PWD/www/$mirror/x86_64/release/*  www/$extra/x86_64/release"
+    ssh $server "rsync -r www/$mirror/x86_64/release/*  www/$extra/x86_64/release/"
 fi
-
-echo ----------- MIRROR -----------
-download_missing_packages $official $mirror
-
-echo
-
-echo ----------- EXTRA -----------
-echo copy mirror to extra
-ssh $server "mkdir -p www/$extra/x86_64/release"
-#ssh $server "find www/$extra/x86_64/release -type l | xargs rm"
-#ssh $server "ln -s $PWD/www/$mirror/x86_64/release/*  www/$extra/x86_64/release"
-ssh $server "rsync -r www/$mirror/x86_64/release/*  www/$extra/x86_64/release/"
 
 download_missing_packages $custom $extra
 

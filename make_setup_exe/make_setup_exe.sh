@@ -15,7 +15,7 @@ function usage
 INSTALLER_NAME=
 INSTALLER_VERSION=
 INSTALLER_EXTRA_CMD=
-OSGEO4W_REPO=http://hekla.oslandia.net/osgeo4w
+OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
 PACKAGES=
 
 while [[ $# -gt 1 ]]

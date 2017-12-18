@@ -13,7 +13,7 @@ c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boo
 if "%1"=="test" (
 wget --progress=bar:force https://gitlab.com/Oslandia/pytempus/repository/master/archive.tar.bz2 -O pytempus.tar.bz2 || goto :error
 ) else (
-wget --progress=bar:force https://gitlab.com/Oslandia/pytempus/repository/archive.tar.bz2?ref=v1.1.0 -O pytempus.tar.bz2 || goto :error
+wget --progress=bar:force https://gitlab.com/Oslandia/pytempus/repository/archive.tar.bz2?ref=v%V% -O pytempus.tar.bz2 || goto :error
 )
 tar xjf pytempus.tar.bz2
 cd pytempus-*

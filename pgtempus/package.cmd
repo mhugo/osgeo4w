@@ -23,17 +23,15 @@ cd pgtempus-* || goto :error
 
 rd /s /q c:\install
 mkdir c:\install\share\extension
-mkdir c:\install\apps\Python36\Lib\site-packages\pgtempus
 mkdir c:\install\etc\postinstall
 
-copy pgtempus\*.* c:\install\apps\Python36\Lib\site-packages\pgtempus || goto :error
 copy pgext\pgtempus*.* c:\install\share\extension || goto :error
 
 cd ..
 
 copy set_tempus_plugins_dir.bat c:\install\etc\postinstall
 
-tar -C c:\install -cvjf %PKG_BIN% apps share etc || goto :error
+tar -C c:\install -cvjf %PKG_BIN% share etc || goto :error
 
 ::--------- Installation
 scp %PKG_BIN% %R% || goto :error

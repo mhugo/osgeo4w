@@ -2,7 +2,7 @@
 :: package name
 set P=python-tempus-loader
 :: version
-set V=1.1.1
+set V=1.2.0
 :: package version
 set B=1
 
@@ -13,7 +13,11 @@ set OSGEO4W_ROOT=C:\osgeo4w64
 call c:\osgeo4w64\etc\ini\python-core.bat
 set PATH=%PATH%;c:\osgeo4w64\bin;c:\cygwin64\bin
 
+if "%1"=="test" (
+wget --progress=bar:force https://gitlab.com/Oslandia/tempus_loader/repository/master/archive.tar.bz2 -O tempus_loader.tar.bz2 || goto :error
+) else (
 wget --progress=bar:force https://gitlab.com/Oslandia/tempus_loader/repository/archive.tar.bz2?ref=v%V% -O tempus_loader.tar.bz2 || goto :error
+)
 tar xjf tempus_loader.tar.bz2
 cd tempus_loader-*
 python setup.py install || goto :error

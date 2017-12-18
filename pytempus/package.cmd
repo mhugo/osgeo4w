@@ -2,7 +2,7 @@
 :: package name
 set P=python3-pytempus
 :: version
-set V=1.1.0
+set V=1.2.0
 :: package version
 set B=1
 
@@ -10,7 +10,11 @@ set B=1
 call ..\inc\prepare_env.bat %1
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel-vc14 || goto :error
+if "%1"=="test" (
+wget --progress=bar:force https://gitlab.com/Oslandia/pytempus/repository/master/archive.tar.bz2 -O pytempus.tar.bz2 || goto :error
+) else (
 wget --progress=bar:force https://gitlab.com/Oslandia/pytempus/repository/archive.tar.bz2?ref=v1.1.0 -O pytempus.tar.bz2 || goto :error
+)
 tar xjf pytempus.tar.bz2
 cd pytempus-*
 call ci\windows\build_gitlab.bat || goto :error

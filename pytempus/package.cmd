@@ -20,7 +20,7 @@ cd pytempus-*
 call ci\windows\build_gitlab.bat || goto :error
 
 :: binary archive
-tar -C %HERE%/pytempus-* --transform 's,^,apps/python36/Lib/site-packages/,' -cjvf %PKG_BIN% pytempus.cp36-win_amd64.pyd || goto :error
+tar -C %HERE%/pytempus-* --transform 's,^,apps/python36/Lib/site-packages/,' -cjvf %PKG_BIN% pytempus.cp36-win_amd64.pyd tempus || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

@@ -13,7 +13,7 @@ wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/raw/v%V%/test_
 
 unzip tempus_test_db.sql.zip
 
-tar --transform 's,^,apps/tempus/data' -cvjf %PKG_BIN% tempus_test_db.sql
+tar --transform 's,^,apps/tempus/data,' -cvjf %PKG_BIN% tempus_test_db.sql
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

@@ -1,0 +1,5 @@
+sdesc: "Tempus test data"
+ldesc: "Test data for Tempus"
+maintainer: Hugo Mercier
+category: Data
+requires: postgresql

@@ -4,7 +4,7 @@ set P=python-tempus-loader
 :: version
 set V=1.2.0
 :: package version
-set B=1
+set B=2
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1

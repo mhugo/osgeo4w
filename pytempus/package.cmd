@@ -4,7 +4,7 @@ set P=python3-pytempus
 :: version
 set V=1.2.1
 :: package version
-set B=1
+set B=2
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1
@@ -19,8 +19,15 @@ tar xjf pytempus.tar.bz2
 cd pytempus-*
 call ci\windows\build_gitlab.bat || goto :error
 
+mkdir out
+mkdir out\apps\python36\Lib\site-packages\tempus
+mkdir out\apps\tempus\samples
+copy tempus\__init__.py out\apps\python36\Lib\site-packages\tempus
+copy pytempus.cp36-win_amd64.pyd out\apps\python36\Lib\site-packages
+copy samples\* out\apps\tempus\samples
+
 :: binary archive
-tar -C %HERE%/pytempus-* --transform 's,^,apps/python36/Lib/site-packages/,' -cjvf %PKG_BIN% pytempus.cp36-win_amd64.pyd tempus || goto :error
+tar -C %HERE%/pytempus-* --transform 's,^out/,,' -cjvf %PKG_BIN% out || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

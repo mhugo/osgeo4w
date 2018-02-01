@@ -1,0 +1,5 @@
+sdesc: "proj"
+ldesc: "The PROJ.4 library and command for coordinate system transformations"
+maintainer: PaulBlottiere
+category: Libs
+requires: shell msvcrt2015

@@ -1,4 +1,4 @@
-sdesc: "proj"
+sdesc: "The PROJ.4 library and command for coordinate system transformations"
 ldesc: "The PROJ.4 library and command for coordinate system transformations"
 maintainer: PaulBlottiere
 category: Libs

@@ -1,0 +1,5 @@
+sdesc: "Qt4 headers and libraries (Development)"
+ldesc: "Qt4 headers and libraries (Development)"
+maintainer: PaulBlottiere
+category: Libs
+requires: shell msvcrt2015

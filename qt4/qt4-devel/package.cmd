@@ -27,17 +27,15 @@ xcopy c:\install\include c:\subinstall\include\Qt4 /S
 for /R c:\install\lib %%f in (*.lib) do copy %%f c:\subinstall\lib\
 for /R c:\install\lib %%f in (*.prl) do copy %%f c:\subinstall\lib\
 
-exit /b 1
-
 :: binary archive
 tar -C c:\subinstall -cvjf %PKG_BIN% lib bin apps include || goto :error
 
 rd /s /q c:\subinstall
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+xcopy %2 %PKG_SRC%*
+call ..\inc\install_archives.bat || goto :error
 goto :EOF
 
 :error
 echo Build failed
-exit /b 1

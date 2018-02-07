@@ -29,9 +29,9 @@ tar -C c:\subinstall -cvjf %PKG_BIN% apps bin || goto :error
 rd /s /q c:\subinstall
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+xcopy %2 %PKG_SRC%*
+call ..\inc\install_archives.bat || goto :error
 goto :EOF
 
 :error
 echo Build failed
-exit /b 1

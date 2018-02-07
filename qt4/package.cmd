@@ -26,13 +26,14 @@ configure -opensource -confirm-license -nomake examples -platform win32-msvc2015
 nmake
 nmake install
 
+cd ..
+
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
-cd ..
-
-call qt4-libs\package.cmd %1
-call qt4-devel\package.cmd %1
+call qt4-libs\package.cmd %1 %PKG_SRC%
+call qt4-devel\package.cmd %1 %PKG_SRC%
+goto :EOF
 
 :error
 echo Build failed

@@ -2,9 +2,9 @@
 :: package name
 set P=python3-pytempus
 :: version
-set V=1.2.1
+set V=1.2.2
 :: package version
-set B=2
+set B=1
 
 ::--------- Prepare the environment
 call ..\inc\prepare_env.bat %1

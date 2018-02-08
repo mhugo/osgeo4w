@@ -11,12 +11,12 @@ echo "Deploy = %1"
 if "%1"=="release" (
 set RELEASE_HOST=ci@hekla.oslandia.net
 set RELEASE_PATH=/home/storage/osgeo4w/x86_64/release
-set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
+set OSGEO4W_REPO=http://hekla.oslandia.net/osgeo4w
 )
 if "%1"=="test" (
 set RELEASE_HOST=ci@hekla.oslandia.net
 set RELEASE_PATH=/home/storage/osgeo4w.test/x86_64/release
-set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
+set OSGEO4W_REPO=http://hekla.oslandia.net/osgeo4w.test
 )
 
 ::--------- Prepare the environment

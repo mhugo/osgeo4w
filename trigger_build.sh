@@ -21,7 +21,6 @@ if [ -n "$is_404" ]; then
     exit 1
 fi
 
-exit 1
 out=$(curl --request POST \
      --form token=983ea4f789964e464c97dd1f7028b9 \
      --form ref=master \

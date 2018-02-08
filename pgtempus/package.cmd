@@ -2,7 +2,7 @@
 :: package name
 set P=pgtempus
 :: version
-set V=1.1.1
+set V=1.2.0
 :: package version
 set B=1
 

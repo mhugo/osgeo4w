@@ -1,11 +1,12 @@
 #!/bin/bash
 if [ -z "$1" ]; then
-    echo "Argument: package_name release|test"
+    echo "Argument: package_name release|test [--overwrite]"
     exit 1
 fi
-P=$(grep ^"set P" $1/package.cmd | cut -d'=' -f2)
-V=$(grep ^"set V" $1/package.cmd | cut -d'=' -f2)
-B=$(grep ^"set B" $1/package.cmd | cut -d'=' -f2)
+P=$(grep ^"set P=" $1/package.cmd | cut -d'=' -f2)
+V=$(grep ^"set V=" $1/package.cmd | cut -d'=' -f2)
+B=$(grep ^"set B=" $1/package.cmd | cut -d'=' -f2)
+
 PKG_BIN=$P-$V-$B.tar.bz2
 if [ "$2" = "test" ]; then
     repo=http://hekla.oslandia.net/osgeo4w.test
@@ -15,10 +16,13 @@ fi
 url=$repo/x86_64/release/$P/$PKG_BIN
 
 # curl -I only tests HEAD
-is_404=$(curl -I $url 2>/dev/null | grep ^"HTTP" | grep "200")
-if [ -n "$is_404" ]; then
+is_200=$(curl -I $url 2>/dev/null | grep ^"HTTP" | grep "200")
+if [ -n "$is_200" ]; then
     echo "The package already exists at $url"
-    exit 1
+    if [ "$3" != "--overwrite" ]; then
+        exit 1
+    fi
+    echo "Overwriting ..."
 fi
 
 out=$(curl --request POST \

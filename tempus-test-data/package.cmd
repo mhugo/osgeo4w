@@ -2,7 +2,7 @@
 :: package name
 set P=tempus-test-data
 :: version
-set V=2.5.0
+set V=2.6.1
 :: package version
 set B=1
 

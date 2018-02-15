@@ -19,12 +19,19 @@ else
 fi
 url=$repo/x86_64/release/$P/$PKG_BIN
 
-if [ ! -f "$DIR/TOKEN" ]; then
-    echo "No TOKEN file found !"
-    echo "You need a trigger token to be able to trigger build."
-    echo "This token must be stored in a file named TOKEN"
+if [ -z "$CONFIG" ]; then
+    CONFIG=config.oslandia
+else
+    CONFIG=config.$CONFIG
+fi
+
+if [ ! -f "$DIR/$CONFIG" ]; then
+    echo "No $DIR/$CONFIG file found !"
     exit 1
 fi
+
+token=$(grep ^TOKEN "$DIR/$CONFIG" | cut -d'=' -f2)
+trigger_url=$(grep ^URL "$DIR/$CONFIG" | cut -d'=' -f2)
 
 # curl -I only tests HEAD
 is_200=$(curl -I $url 2>/dev/null | grep ^"HTTP" | grep "200")
@@ -36,13 +43,12 @@ if [ -n "$is_200" ]; then
     echo "Overwriting ..."
 fi
 
-token=$(cat "$DIR/TOKEN")
 out=$(curl --request POST \
      --form token=$token \
      --form ref=master \
      --form "variables[PACKAGE_NAME]=$1" \
      --form "variables[DELIVERY_ENV]=$2" \
-     https://git.oslandia.net/api/v4/projects/140/trigger/pipeline)
+     ${trigger_url}/trigger/pipeline)
 url=$(echo $out| python3 -c "import sys; import json; print('https://git.oslandia.net/Oslandia-infra/osgeo4w/pipelines/{}'.format(json.load(sys.stdin)['id']))")
 echo $out
 echo "Pipeline:" $url

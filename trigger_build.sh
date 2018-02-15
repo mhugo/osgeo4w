@@ -1,4 +1,5 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [ -z "$1" ]; then
     echo "Argument: package_name release|test [--overwrite]"
     exit 1
@@ -15,6 +16,13 @@ else
 fi
 url=$repo/x86_64/release/$P/$PKG_BIN
 
+if [ ! -f "$DIR/TOKEN" ]; then
+    echo "No TOKEN file found !"
+    echo "You need a trigger token to be able to trigger build."
+    echo "This token must be stored in a file named TOKEN"
+    exit 1
+fi
+
 # curl -I only tests HEAD
 is_200=$(curl -I $url 2>/dev/null | grep ^"HTTP" | grep "200")
 if [ -n "$is_200" ]; then
@@ -25,8 +33,9 @@ if [ -n "$is_200" ]; then
     echo "Overwriting ..."
 fi
 
+token=$(cat "$DIR/TOKEN")
 out=$(curl --request POST \
-     --form token=983ea4f789964e464c97dd1f7028b9 \
+     --form token=$token \
      --form ref=master \
      --form "variables[PACKAGE_NAME]=$1" \
      --form "variables[DELIVERY_ENV]=$2" \

@@ -7,7 +7,7 @@ set V=1.13.0
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 wget http://nginx.org/download/nginx-1.13.0.zip || goto :error
 unzip nginx-1.13.0.zip || goto :error
@@ -20,7 +20,7 @@ tar --transform 's,^,apps/,' -cvjf %PKG_BIN% nginx || goto :error
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+call %HERE%\..\__inc__\install_archives.bat || goto :error
 goto :EOF
 
 :error

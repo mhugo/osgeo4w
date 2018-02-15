@@ -7,7 +7,7 @@ set V=4.8.7
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 rd /s /q c:\subinstall
 mkdir c:\subinstall
@@ -30,7 +30,7 @@ rd /s /q c:\subinstall
 
 ::--------- Installation
 xcopy %2 %PKG_SRC%*
-call ..\inc\install_archives.bat || goto :error
+call ..\__inc__\install_archives.bat || goto :error
 goto :EOF
 
 :error

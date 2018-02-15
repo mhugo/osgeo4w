@@ -7,7 +7,7 @@ set V=4.9.3
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 ::--------- Build script
 wget --progress=bar:force https://github.com/OSGeo/proj.4/archive/4.9.3.zip || goto :error
@@ -27,7 +27,7 @@ tar -C c:\install -cvjf %PKG_BIN% include lib bin share || goto :error
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+call %HERE%\..\__inc__\install_archives.bat || goto :error
 goto :EOF
 
 :error

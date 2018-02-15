@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 :: python3 env
 call C:\osgeo4W64\bin\py3_env.bat || goto :error

@@ -9,7 +9,7 @@ set B=2
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 :: create an empty archive since this is a meta package (dependencies only)
 copy empty.tar.bz2 %PKG_BIN%

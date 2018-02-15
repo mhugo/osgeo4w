@@ -7,7 +7,7 @@ set V=1.2.1
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 set OSGEO4W_ROOT=C:\osgeo4w64
 call c:\osgeo4w64\etc\ini\python-core.bat
@@ -31,7 +31,7 @@ tar -C c:\OSGeo4W64 -cjvf %PKG_BIN% apps/python27/lib/site-packages/tempusloader
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+call %HERE%\..\__inc__\install_archives.bat || goto :error
 
 goto :EOF
 

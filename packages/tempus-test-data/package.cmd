@@ -7,7 +7,7 @@ set V=2.6.1
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/raw/v%V%/test_data/tempus_test_db.sql.zip || goto :error
 

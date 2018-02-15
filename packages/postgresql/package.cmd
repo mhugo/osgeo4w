@@ -7,7 +7,7 @@ set V=9.6.2
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 ::-- Cygwin has its own Perl which won't work, put our perl in front
 set PATH=C:\strawberry\perl\bin;%PATH%
@@ -35,7 +35,7 @@ tar -C c:\install -cjvf %PKG_BIN% bin lib share include || goto :error
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint config.pl || goto :error
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+call %HERE%\..\__inc__\install_archives.bat || goto :error
 goto :EOF
 
 :error

@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 wget https://water.usgs.gov/ogw/modflow/MODFLOW-2005_v1.12.00/MF2005.1_12.zip
 unzip MF2005.1_12.zip

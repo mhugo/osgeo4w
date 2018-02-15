@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 
 :: binary archive

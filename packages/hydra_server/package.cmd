@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 scp ci@hekla.oslandia.net:/home/storage/ci/hydra_server.tar.bz2 .
 tar -xvjf hydra_server.tar.bz2

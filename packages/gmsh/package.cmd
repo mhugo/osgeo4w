@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 wget http://gmsh.info/bin/Windows/gmsh-3.0.0-Windows64.zip
 unzip gmsh-3.0.0-Windows64.zip

@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 set A=postgis-bundle-pg96-2.3.2x64
 wget http://download.osgeo.org/postgis/windows/pg96/%A%.zip || goto :error

@@ -7,7 +7,7 @@ set V=4.8.7
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 ::--------- Build script
 git clone git://code.qt.io/qt/qt.git || goto :error

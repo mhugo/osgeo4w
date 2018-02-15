@@ -7,7 +7,7 @@ set V=1.2.3
 set B=1
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P tempus-core -P boost-devel-vc14 || goto :error
 if "%1"=="test" (
@@ -33,7 +33,7 @@ tar -C %HERE%/pytempus-* --transform 's,^out/,,' -cjvf %PKG_BIN% out || goto :er
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
 ::--------- Installation
-call %HERE%\..\inc\install_archives.bat || goto :error
+call %HERE%\..\__inc__\install_archives.bat || goto :error
 
 goto :EOF
 

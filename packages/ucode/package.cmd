@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 wget http://igwmc.mines.edu/freeware/ucode/ucode_2014_1.004.exe
 unzip ucode_2014_1.004.exe

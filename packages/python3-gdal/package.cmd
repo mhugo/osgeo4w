@@ -9,7 +9,7 @@ set B=4
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 set OSGEO4W_ROOT=c:\osgeo4w64
 
 %OSGEO4W_ROOT%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P gdal

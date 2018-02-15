@@ -7,7 +7,7 @@ set V=1.63.0
 set B=3
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 :: install patch.exe
 %HOME%\setup-x86_64.exe -s http://cygwin.mirror.constant.com -W -q -P patch

@@ -9,7 +9,7 @@ set B=3
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 set OSGEO4W_HOME=c:\osgeo4w64
 %OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P postgresql geos 
@@ -82,7 +82,7 @@ tar -C c:\install -cjvf %PKG_BIN% lib share bin || goto :error
 scp %PKG_BIN% %R% || goto :error
 cd %HERE%
 scp setup.hint %R% || goto :error
-:: call %HERE%\..\inc\install_archives.bat
+:: call %HERE%\..\__inc__\install_archives.bat
 
 goto :EOF
 

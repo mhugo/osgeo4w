@@ -9,7 +9,7 @@ set B=2
 set HERE=%CD%
 
 ::--------- Prepare the environment
-call ..\inc\prepare_env.bat %1
+call ..\__inc__\prepare_env.bat %1
 
 set OSGEO4W_HOME=c:\osgeo4w64
 

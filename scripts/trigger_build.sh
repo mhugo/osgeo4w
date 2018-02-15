@@ -4,9 +4,9 @@ if [ -z "$1" ]; then
     echo "Argument: package_name release|test [--overwrite]"
     exit 1
 fi
-P=$(grep ^"set P=" $1/package.cmd | cut -d'=' -f2)
-V=$(grep ^"set V=" $1/package.cmd | cut -d'=' -f2)
-B=$(grep ^"set B=" $1/package.cmd | cut -d'=' -f2)
+P=$(grep ^"set P=" ../packages/$1/package.cmd | cut -d'=' -f2)
+V=$(grep ^"set V=" ../packages/$1/package.cmd | cut -d'=' -f2)
+B=$(grep ^"set B=" ../packages/$1/package.cmd | cut -d'=' -f2)
 
 PKG_BIN=$P-$V-$B.tar.bz2
 if [ "$2" = "test" ]; then

@@ -11,8 +11,11 @@ B=$(grep ^"set B=" ../packages/$1/package.cmd | cut -d'=' -f2)
 PKG_BIN=$P-$V-$B.tar.bz2
 if [ "$2" = "test" ]; then
     repo=http://hekla.oslandia.net/osgeo4w.test
-else
+elif [ "$2" = "release" ]; then
     repo=http://hekla.oslandia.net/osgeo4w
+else
+    echo "Unknown target '$2'. Targets available: release, test"
+    exit 1
 fi
 url=$repo/x86_64/release/$P/$PKG_BIN
 

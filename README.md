@@ -9,31 +9,32 @@ Directory structure:
 --------------------
 
 To add a package script, add a new subdirectory and put at least the following files in it:
-- package.cmd: the Windows "shell" script that will be triggered to compile the package. Have a look at [protobuf/package.cmd](some existing package script).
+- package.cmd: the Windows "shell" script that will be triggered to compile the package. Have a look at [packages/protobuf/package.cmd](some existing package script).
 - setup.hint: this is the Cygwin/OSGEO4W definition of the package that will be read by some script to generate a setup.ini file used by osgeo4w installers
 
-The [inc](inc directory) contains common batch files that should ease the writing of package.cmd scripts
+The [packages/__inc__](inc directory) contains common batch files that should ease the writing of package.cmd scripts
 
 Package building:
 -----------------
 
-To launch the building of a package, run `trigger_build.sh` following by the name (directory name) of the package to build and the build type (release or debug), e.g. `trigger_build.sh pytempus release`
+To launch the building of a package, in `scripts` run `trigger_build.sh` following by the name (directory name) of the package to build and the build type (release or test), e.g. `trigger_build.sh pytempus test`
 
-This will trigger gitlab-ci and build this package on our Windows box. If you correctly called [inc/install_archives.bat], packages should have been uploaded to hekla (in /home/storage/osgeo4w)
+This will trigger gitlab-ci and build this package on our Windows box. If you correctly called [packages/__inc__/install_archives.bat](install_archives.bat), packages should have been uploaded to our "hekla" internal server (in /home/storage/osgeo4w).
 
-A cron job will call the [gen_setup_ini.sh](gen_setup_ini.sh) scrippt to periodically update the main setup.ini file (TODO)
+They will be available upon completion on http://hekla.oslandia.net/osgeo4w.test (for the test target) or http://hekla.oslandia.net/osgeo4w (for the release target)
 
-FIXME: consider using artifacts and a webhook that copy artifacts on hekla when a pipeline succeed ?
+A cron job will make them available on http://osgeo4w-oslandia.com/extra periodically (every 6 hours).
 
 OSGEO4W Setup
 -------------
 
-When using an OSGEO4W setup, point it to `http://hekla.oslandia.net/osgeo4w`.
+When using an OSGEO4W setup, point it to http://osgeo4w-oslandia.com/mirror if you want to only use a mirror of the official distribution. Point it to
+http://osgeo4w-oslandia.com/extra if you want to benefit from the extra packages found here.
+
 You can also call from the command line
 ```
-osgeo4w-setup.exe -O -s http://hekla.oslandia.net/osgeo4w
+osgeo4w-setup.exe -O -s http://osgeo4w-oslandia.com/extra
 ```
-
 
 Custom Setup
 ------------
@@ -61,7 +62,3 @@ Notes:
 * [P] for Proxy, i.e. not an HTTP redirect, hekla acts as a proxy. Seems to resolve problems with osgeo4w installer when using an http proxy
 * RewriteCond %{REQUEST_URI} !index.html needed to keep Apache generate directory indexes of directories
 
-Working with remote virtual boxes
----------------------------------
-
-* see https://git.oslandia.net/Oslandia-infra/infra/wikis/Integration_Continue

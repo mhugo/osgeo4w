@@ -1,0 +1,5 @@
+sdesc: "The QScintilla library"
+ldesc: "The QScintilla library"
+maintainer: PaulBlottiere
+category: Libs
+requires: shell msvcrt2015

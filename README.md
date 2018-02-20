@@ -1,4 +1,4 @@
-Oslandia's OSGEO4W distribution
+Oslandia's OSGeo4W distribution
 ===============================
 
 This repository hosts sources for the generation of OSGEO4W packages.

@@ -4,9 +4,9 @@ if [ -z "$1" ]; then
     echo "Argument: package_name release|test [--overwrite]"
     exit 1
 fi
-P=$(grep ^"set P=" ../packages/$1/package.cmd | cut -d'=' -f2)
-V=$(grep ^"set V=" ../packages/$1/package.cmd | cut -d'=' -f2)
-B=$(grep ^"set B=" ../packages/$1/package.cmd | cut -d'=' -f2)
+P=$(grep ^"set P=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
+V=$(grep ^"set V=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
+B=$(grep ^"set B=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
 
 PKG_BIN=$P-$V-$B.tar.bz2
 if [ "$2" = "test" ]; then
@@ -20,7 +20,7 @@ fi
 url=$repo/x86_64/release/$P/$PKG_BIN
 
 if [ -z "$CONFIG" ]; then
-    CONFIG=config.oslandia
+    CONFIG=config.gitlab
 else
     CONFIG=config.$CONFIG
 fi
@@ -43,13 +43,14 @@ if [ -n "$is_200" ]; then
     echo "Overwriting ..."
 fi
 
+base_url=$(curl $trigger_url 2>/dev/null | python3 -c "import sys; import json; print(json.load(sys.stdin)['web_url'])")
 out=$(curl --request POST \
      --form token=$token \
      --form ref=master \
      --form "variables[PACKAGE_NAME]=$1" \
      --form "variables[DELIVERY_ENV]=$2" \
      ${trigger_url}/trigger/pipeline)
-url=$(echo $out| python3 -c "import sys; import json; print('https://git.oslandia.net/Oslandia-infra/osgeo4w/pipelines/{}'.format(json.load(sys.stdin)['id']))")
+url=$(echo $out| python3 -c "import sys; import json; print('${base_url}/pipelines/{}'.format(json.load(sys.stdin)['id']))")
 echo $out
 echo "Pipeline:" $url
 xdg-open $url

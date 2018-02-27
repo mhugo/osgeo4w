@@ -15,7 +15,7 @@ wget --progress=bar:force https://cgal.geometryfactory.com/CGAL/precompiled_libs
 unzip gmp-all-CGAL-3.9.zip || goto :error
 
 :: binary archive
-tar  -cvjf %PKG_BIN% lib include gmp.* || goto :error
+tar -cvjf %PKG_BIN% lib include gmp.* || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

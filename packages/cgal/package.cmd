@@ -16,8 +16,8 @@ mkdir c:\install
 
 c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P boost-devel-vc14 || goto :error
 wget --progress=bar:force https://github.com/CGAL/cgal/archive/releases/CGAL-4.11.1.tar.gz  || goto :err
-tar xjf CGAL-4.11.1.tar.gz
-cd cgal-releases-CGAL-4.11.1
+tar xzf CGAL-4.11.1.tar.gz  || goto :error
+cd cgal-releases-CGAL-4.11.1  || goto :error
 mkdir build
 cd build
 cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=C:\install .. || goto :error

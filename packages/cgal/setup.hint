@@ -2,4 +2,4 @@ sdesc: "CGAL"
 ldesc: "The Computational Geometry Algorithms Library"
 maintainer: Vincent Mora
 category: Libs
-requires: shell msvcrt2015 boost-vc14
+requires: shell msvcrt2015 boost-vc14 mpfr gmp

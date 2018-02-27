@@ -2,7 +2,7 @@
 :: package name
 set P=gmp
 :: version
-set V=6.1.2
+set V=5.0.1
 :: package version
 set B=1
 
@@ -14,10 +14,8 @@ set HERE=%CD%
 wget --progress=bar:force https://cgal.geometryfactory.com/CGAL/precompiled_libs/auxiliary/x64/GMP/5.0.1/gmp-all-CGAL-3.9.zip || goto :err
 unzip gmp-all-CGAL-3.9.zip || goto :error
 
-
 :: binary archive
-tar -C c:\install -cjvf %PKG_BIN% lib share include || goto :error
-tar --transform 's,gmp-all-CGAL-3.9,,' -cvjf %PKG_BIN% gmp-all-CGAL-3.9
+tar  -cvjf %PKG_BIN% lib include gmp.* || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

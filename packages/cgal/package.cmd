@@ -21,7 +21,14 @@ tar xzf CGAL-4.11.1.tar.gz  || goto :error
 cd cgal-releases-CGAL-4.11.1  || goto :error
 mkdir build
 cd build
-cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=C:\install .. || goto :error
+cmake -G "NMake Makefiles" ^
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo ^
+    -DCMAKE_INSTALL_PREFIX=C:\install ^
+    -DGMP_INCLUDE_DIR=c:\osgeo4w64\include ^
+    -DGMP_LIBRARIES=c:\osgeo4w64\lib\gmp.lib ^
+    -DMPFR_INCLUDE_DIR=c:\osgeo4w64\include ^
+    -DMPFR_LIBRARIES=c:\osgeo4w64\lib\mpfr.lib ^
+    .. || goto :error
 nmake || goto :error
 nmake install || goto :error
 

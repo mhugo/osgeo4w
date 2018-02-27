@@ -16,8 +16,7 @@ unzip mpfr-all-CGAL-3.9.zip || goto :error
 
 
 :: binary archive
-tar -C c:\install -cjvf %PKG_BIN% lib share include || goto :error
-tar -cvjf %PKG_BIN% include lib mpfr.*
+tar -cvjf %PKG_BIN% include lib mpfr.* || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

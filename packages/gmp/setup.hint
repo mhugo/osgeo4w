@@ -1,0 +1,5 @@
+sdesc: "gmp"
+ldesc: "The GNU Multiple Precision Arithmetic Library"
+maintainer: Vincent Mora
+category: Libs
+requires: shell 

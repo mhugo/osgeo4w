@@ -48,49 +48,52 @@ download_to_ssh()
 
 download_missing_packages()
 {
-    local src=$1 rep=$2
-    echo transfering setup.ini.bz2 from $src
-    ssh $server "mkdir -p www/$rep/x86_64"
+    for arch in x86 x86_64; do
+	local src=$1 rep=$2
+	echo transfering setup.ini.bz2 from $src
+	ssh $server "mkdir -p www/$rep/$arch"
     
-    download_to_ssh $src/x86_64/setup.ini.bz2 www/$rep/x86_64/new_setup.ini.bz2
+	download_to_ssh $src/$arch/setup.ini.bz2 www/$rep/$arch/new_setup.ini.bz2
 
-    printf "\runzip $server/www/$rep/x86_64/new_setup.ini.bz2 and get its content\n"
-    ssh $server "bzip2 -dfk www/$rep/x86_64/new_setup.ini.bz2"
+	printf "\runzip $server/www/$rep/$arch/new_setup.ini.bz2 and get its content\n"
+	ssh $server "bzip2 -dfk www/$rep/$arch/new_setup.ini.bz2"
 
-    setup=$(wget -q -O- $public/$rep/x86_64/new_setup.ini| grep x86_64/release )
-    packages=$(printf "$setup" | cut -f2 -d' ')
-    dest_files=$(printf "$packages" | sed "s|\(.*\)|www/$rep/\1|" | xargs echo)
+	setup=$(wget -q -O- $public/$rep/$arch/new_setup.ini| grep $arch/release )
+	packages=$(printf "$setup" | cut -f2 -d' ')
+	dest_files=$(printf "$packages" | sed "s|\(.*\)|www/$rep/\1|" | xargs echo)
 
-    nb_pack=$(printf "$setup" | wc -l)
+	nb_pack=$(printf "$setup" | wc -l)
 
-    dest_dir=$(dirname $dest_files| xargs echo)
+	dest_dir=$(dirname $dest_files| xargs echo)
 
-    echo creating directory structure in $server
-    ssh $server "mkdir -p $dest_dir"
+	echo creating directory structure in $server
+	ssh $server "mkdir -p $dest_dir"
 
-    #echo $dest_dir
-    echo getting md5 sums from $server
-    dest_md5=$(ssh $server "md5sum $dest_files" 2> /dev/null | sort | uniq)
-    i=0
-    printf "$setup" | sort | uniq | while read package; do
-        arr=($package)
-	md5=${arr[3]}
-	fil=${arr[1]}
-	res=$(printf "$dest_md5" | grep $fil | cut -f1 -d' ')
-	((i++))
-	progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
-	if [ "$md5" != "$res" ]; then
-            LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
-            download_to_ssh $src/$fil www/$rep/$fil
-	fi
+	#echo $dest_dir
+	echo getting md5 sums from $server
+	dest_md5=$(ssh $server "md5sum $dest_files" 2> /dev/null | sort | uniq)
+	i=0
+	printf "$setup" | sort | uniq | while read package; do
+	    arr=($package)
+	    md5=${arr[3]}
+	    fil=${arr[1]}
+	    res=$(printf "$dest_md5" | grep $fil | cut -f1 -d' ')
+	    ((i++))
+	    progress=$(echo "scale=2; (100.0*$i)/$nb_pack" | bc)
+	    if [ "$md5" != "$res" ]; then
+		LC_NUMERIC="C" printf "\r%-$(($(tput cols) - 8))s %5.1f%%\n" "$fil" $progress
+		download_to_ssh $src/$fil www/$rep/$fil
+	    fi
+        done
+
+	# install the new setup.ini
+	ssh $server "mv www/$rep/$arch/new_setup.ini www/$rep/$arch/setup.ini"
+	ssh $server "mv www/$rep/$arch/new_setup.ini.bz2 www/$rep/$arch/setup.ini.bz2"
     done
-
-    # install the new setup.ini
-    ssh $server "mv www/$rep/x86_64/new_setup.ini www/$rep/x86_64/setup.ini"
-    ssh $server "mv www/$rep/x86_64/new_setup.ini.bz2 www/$rep/x86_64/setup.ini.bz2"
 }
 
-official="download.osgeo.org/osgeo4w" 
+official="download.osgeo.org/osgeo4w"
+#official="www.norbit.de/osgeo4w"
 custom="osgeo4w.oslandia.net/osgeo4w"
 server="ftp.cluster023.hosting.ovh.net"
 public="osgeo4w-oslandia.com"

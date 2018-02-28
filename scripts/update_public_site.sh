@@ -17,10 +17,12 @@ $DIR/mirror-osgeo4w.sh
 echo
 echo ----------- EXTRA -----------
 ssh $ftp 'rsync -av --delete --exclude="x86_64/release/extra/*" www/mirror/ www/extra/'
+echo gen_setup_ini ...
 $DIR/gen_setup_ini.sh release
 echo
 echo ----------- EXTRA test -----------
 ssh $ftp 'rsync -av --delete --exclude="x86_64/release/extra/*" www/mirror/ www/extra.test/'
+echo gen_setup_ini ...
 $DIR/gen_setup_ini.sh test    
 
 

@@ -2,12 +2,13 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 o=`pwd`
 if [ "$1" = "test" ]; then
-    cd /mnt/osgeo4w_ftp/www/extra.test
+    target="extra.test"
 else
-    cd /mnt/osgeo4w_ftp/www/extra
+    target="extra"
 fi
-$DIR/genini --arch x86_64 --recursive --output=x86_64/setup.ini x86_64
+ftp="osgeowosid@ftp.cluster023.hosting.ovh.net"
 
-rm -f x86_64/setup.ini.bz2
-bzip2 -k x86_64/setup.ini
+scp $DIR/genini $ftp:
+ssh $ftp "./genini --arch x86_64 --recursive --output=www/$target/x86_64/setup.ini www/$target/x86_64"
+ssh $ftp "rm -f www/$target/x86_64/setup.ini.bz2; bzip2 -k www/$target/x86_64/setup.ini"
 cd $o

@@ -7,17 +7,10 @@ echo -e "Content-Type: text/plain\r\n\r"
 
 cd $to
 
-if ! lockfile -r0 mirroring; then
-    echo Mirror in progress since $(date -r mirroring)
-    exit 0
-fi
-
 echo "Starting sync..."
 
 (
-    trap "rm -f $PWD/mirroring" EXIT
-
-    exec >>/tmp/osgeo4w-mirror.log 2>&1
+    #exec >>/tmp/osgeo4w-mirror.log 2>&1
 
     rm -f /tmp/osgeo4w-files
 
@@ -32,4 +25,4 @@ echo "Starting sync..."
 
     rsync --max-delete=-1 --delete --inplace -a --stats --files-from=/tmp/osgeo4w-files $from/ ./
     echo "$(date): Syncing done [$?]"
-) &
+)

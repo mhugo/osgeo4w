@@ -10,13 +10,13 @@ set PATH=%PATH%;C:\Program Files\CMake\bin;C:\cygwin64\bin;C:\Program Files\Post
 echo "Deploy = %1"
 if "%1"=="release" (
 set RELEASE_HOST=ci@hekla.oslandia.net
-set RELEASE_PATH=/home/storage/osgeo4w/x86_64/release
-set OSGEO4W_REPO=http://hekla.oslandia.net/osgeo4w
+set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra/x86_64/release/extra
+set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
 )
 if "%1"=="test" (
 set RELEASE_HOST=ci@hekla.oslandia.net
-set RELEASE_PATH=/home/storage/osgeo4w.test/x86_64/release
-set OSGEO4W_REPO=http://hekla.oslandia.net/osgeo4w.test
+set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra/x86_64/release/extra
+set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra.test
 )
 
 ::--------- Prepare the environment

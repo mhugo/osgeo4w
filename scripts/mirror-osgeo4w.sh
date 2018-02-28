@@ -21,8 +21,11 @@ echo "Starting sync..."
 	bzcat $a/setup.ini.bz2 >$a/setup.ini
 
 	perl -ne 'print "/$1\n" if /^(?:install|source|license): (\S+) .*$/;' $a/setup.ini >>/tmp/osgeo4w-files
+	# add setup.hint
+	while IFS='' read -r line; do echo $(dirname $line)/setup.hint; done < /tmp/osgeo4w-files | sort | uniq >/tmp/osgeo4w-files2
+	cat /tmp/osgeo4w-files >> /tmp/osgeo4w-files2
     done
 
-    rsync --max-delete=-1 --delete --inplace -a --stats --files-from=/tmp/osgeo4w-files $from/ ./
+    rsync --delete --inplace -av --stats --files-from=/tmp/osgeo4w-files2 $from/ ./
     echo "$(date): Syncing done [$?]"
 )

@@ -1,6 +1,6 @@
 ::--------- Package settings --------
 :: package name
-set P=qt4
+set P=qt4-msvc14
 :: version
 set V=4.8.7
 :: package version

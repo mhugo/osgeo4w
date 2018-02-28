@@ -91,7 +91,7 @@ download_missing_packages()
 	ssh $server "mv www/$rep/$arch/new_setup.ini.bz2 www/$rep/$arch/setup.ini.bz2"
     done
 }
-
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 official="download.osgeo.org/osgeo4w"
 #official="www.norbit.de/osgeo4w"
 custom="osgeo4w.oslandia.net/osgeo4w"
@@ -129,7 +129,8 @@ done
 
 if [ "$only_extra" = "n" ]; then
     echo ----------- MIRROR -----------
-    download_missing_packages $official $mirror
+    #download_missing_packages $official $mirror
+    $DIR/mirror-osgeo4w.sh
 
     echo
     echo ----------- EXTRA -----------

@@ -6,12 +6,19 @@ mirror_ftp="/mnt/osgeo4w_ftp/www/mirror/"
 
 exec &> >(tee -a /tmp/osgeo4w-update.log)
 
+pid_file=/tmp/osgeo4w-update.pid
 # make sure we are the only one running
-for p in $(ps -Ao pgid,args | grep "/bin/bash ./update_public_site.sh" | awk '{print $1}'); do
-    if [ "$p" != "$$" ] && [ -d /proc/$p ]; then
-	kill -TERM -$p
-    fi
-done
+if [ -f $pid_file ]; then
+    p=$(cat $pid_file)
+    echo Update in progress in PID $p ... killing
+    # retrive the progress group
+    kill -TERM -$(ps -ho pgid $p)
+    # wait for the file to be deleted
+    sleep 1
+fi
+echo $$ > $pid_file
+
+trap "rm -f $pidfile" EXIT
 
 echo ----------- MIRROR -----------
 $DIR/mirror-osgeo4w.sh

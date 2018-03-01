@@ -1,6 +1,6 @@
 ::--------- Package settings --------
 :: package name
-set P=qt4-msvc14
+set P=qt4-vc14
 :: version
 set V=4.8.7
 :: package version
@@ -31,8 +31,8 @@ cd ..
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error
 
-call qt4-libs\package.cmd %1 %PKG_SRC%
-call qt4-devel\package.cmd %1 %PKG_SRC%
+call qt4-vc14-libs\package.cmd %1 %PKG_SRC%
+call qt4-vc14-devel\package.cmd %1 %PKG_SRC%
 goto :EOF
 
 :error

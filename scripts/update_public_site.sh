@@ -4,12 +4,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ftp="osgeowosid@ftp.cluster023.hosting.ovh.net"
 mirror_ftp="/mnt/osgeo4w_ftp/www/mirror/"
 
-if ! lockfile -r0 $mirror_ftp/mirroring; then
-    echo Mirror in progress since $(date -r $mirror_ftp/mirroring)
-    exit 0
-fi
-
-trap "rm -f $mirror_ftp/mirroring" EXIT
+# make sure we are the only one running
+for p in $(ps -Ao pgid,args | grep "/bin/bash ./update_public_site.sh" | awk '{print $1}'); do
+    if [ "$p" != "$$" ] && [ -d /proc/$p ]; then
+	kill -TERM -$p
+    fi
+done
 
 echo ----------- MIRROR -----------
 $DIR/mirror-osgeo4w.sh

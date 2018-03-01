@@ -43,7 +43,7 @@ nmake || goto :error
 nmake install || goto :error
 
 :: binary archive
-tar -C c:\install -cjvf %PKG_BIN% lib share include || goto :error
+tar -C c:\install -cjvf %PKG_BIN% lib share include bin || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

@@ -4,6 +4,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ftp="osgeowosid@ftp.cluster023.hosting.ovh.net"
 mirror_ftp="/mnt/osgeo4w_ftp/www/mirror/"
 
+exec &> >(tee -a /tmp/osgeo4w-update.log)
+
 # make sure we are the only one running
 for p in $(ps -Ao pgid,args | grep "/bin/bash ./update_public_site.sh" | awk '{print $1}'); do
     if [ "$p" != "$$" ] && [ -d /proc/$p ]; then

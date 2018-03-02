@@ -44,16 +44,6 @@ V=$(grep ^"set V=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
 B=$(grep ^"set B=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
 
 PKG_BIN=$P-$V-$B.tar.bz2
-if [ "$2" = "test" ]; then
-    repo=http://osgeo4w-oslandia.com/extra.test
-elif [ "$2" = "release" ]; then
-    repo=http://osgeo4w-oslandia.com/extra
-else
-    echo "Unknown target '$2'. Targets available: release, test"
-    exit 1
-fi
-url=$repo/x86_64/release/extra/$P/$PKG_BIN
-
 
 if [ -z "$CONFIG" ]; then
     CONFIG=config.gitlab
@@ -67,7 +57,22 @@ if [ ! -f "$DIR/$CONFIG" ]; then
 fi
 
 token=$(grep ^TOKEN "$DIR/$CONFIG" | cut -d'=' -f2)
-trigger_url=$(grep ^URL "$DIR/$CONFIG" | cut -d'=' -f2)
+project_url=$(grep ^URL "$DIR/$CONFIG" | cut -d'=' -f2)
+api_token=$(grep ^API_TOKEN "$DIR/$CONFIG" | cut -d'=' -f2)
+
+if [ "$2" = "test" ]; then
+    repo=$(curl -s --header "Private-Token: $api_token" $project_url/variables/DEPLOY_TEST_SERVER | jq -r ".value")
+elif [ "$2" = "release" ]; then
+    repo=$(curl -s --header "Private-Token: $api_token" $project_url/variables/DEPLOY_RELEASE_SERVER | jq -r ".value")
+else
+    echo "Unknown target '$2'. Targets available: release, test"
+    exit 1
+fi
+if [ "null" = "$repo" ]; then
+    echo "Undefined deploy server"
+fi
+
+url=$repo/x86_64/release/extra/$P/$PKG_BIN
 
 # curl -I only tests HEAD
 is_200=$(curl -I $url 2>/dev/null | grep ^"HTTP" | grep "200")
@@ -79,15 +84,14 @@ if [ -n "$is_200" ]; then
     echo "Overwriting ..."
 fi
 
-base_url=$(curl $trigger_url 2>/dev/null | python3 -c "import sys; import json; print(json.load(sys.stdin)['web_url'])")
-out=$(curl --request POST \
+base_url=$(curl -s --header "Private-Token: $api_token" $project_url | jq -r ".web_url")
+out=$(curl -s --request POST \
      --form token=$token \
      --form ref=$branch \
      --form "variables[PACKAGE_NAME]=$1" \
      --form "variables[DELIVERY_ENV]=$2" \
-     ${trigger_url}/trigger/pipeline)
-url=$(echo $out| python3 -c "import sys; import json; print('${base_url}/pipelines/{}'.format(json.load(sys.stdin)['id']))")
-echo $out
+     ${project_url}/trigger/pipeline)
+url=$base_url/pipelines/$(echo $out| jq -r ".id" )
 echo "Pipeline:" $url
 xdg-open $url
 

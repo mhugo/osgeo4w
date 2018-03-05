@@ -1,2 +1,3 @@
-TOKEN=528746abb654a654b654a6b4879abc
-URL=https://mygitlab.com/api/v4/projects/42
+TOKEN=_TRIGGER_TOKEN_
+URL=https://gitlab.com/api/v4/projects/5475719
+API_TOKEN=_MY_API_TOKEN_

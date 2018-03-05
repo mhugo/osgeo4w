@@ -4,7 +4,7 @@ set P=python3-pglite
 :: version
 set V=1.0.6
 :: package version
-set B=2
+set B=3
 
 set HERE=%CD%
 
@@ -19,7 +19,7 @@ call %OSGEO4W_ROOT%\bin\py3_env.bat
 wget -O pglite.zip https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
 unzip pglite.zip || goto :error
 cd pglite-%V% || goto :error
-python3 setup.py install || goto :error
+pip install . || goto :error
 
 cd %HERE%
 
@@ -27,9 +27,9 @@ copy pglite.conf %OSGEO4W_ROOT%\etc || goto :error
 copy set_pglite_python_path.bat %OSGEO4W_ROOT%\etc\postinstall || goto :error
 
 tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% ^
-  apps/Python36/Lib/site-packages/pglite-%V%-py3.6.egg ^
+  apps/Python36/Lib/site-packages/pglite ^
+  apps/Python36/Lib/site-packages/pglite-%V%.dist-info ^
   apps/Python36/Scripts/pglite.exe ^
-  apps/Python36/Scripts/pglite-script.py ^
   etc/pglite.conf ^
   etc/postinstall/set_pglite_python_path.bat || goto :error
 

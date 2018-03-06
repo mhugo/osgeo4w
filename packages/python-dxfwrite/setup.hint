@@ -1,0 +1,5 @@
+sdesc: "dxfwrite, a Python library to create DXF R12 drawings"
+ldesc: "dxfwrite, a Python library to create DXF R12 drawings"
+maintainer: Manfred Moitzi
+category: Libs
+requires: python-core setuptools

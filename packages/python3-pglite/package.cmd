@@ -19,6 +19,9 @@ call %OSGEO4W_ROOT%\bin\py3_env.bat
 wget -O pglite.zip https://github.com/Oslandia/pglite/archive/v%V%.zip || goto :error
 unzip pglite.zip || goto :error
 cd pglite-%V% || goto :error
+:: WARNING: pglite.exe contains a reference to %OSGEO4W_ROOT%\bin\python.exe
+:: so it will only works if the install dir of OSGEO4W matches the one
+:: used during the construction of the pkg
 pip install . || goto :error
 
 cd %HERE%

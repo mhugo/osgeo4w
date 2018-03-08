@@ -10,9 +10,10 @@ set B=1
 call ..\__inc__\prepare_env.bat %1
 
 ::--------- Build script
-git clone git://code.qt.io/qt/qt.git || goto :error
+::git clone git://code.qt.io/qt/qt.git || goto :error
+git clone -b 4.8 --single-branch git://code.qt.io/qt/qt.git --depth 1 || goto :error
 cd qt
-git checkout 4.8
+::git checkout 4.8
 
 :: patchs
 %HOME%\setup-x86_64.exe -s http://cygwin.mirror.constant.com -W -q -P patch
@@ -22,9 +23,19 @@ c:\cygwin64\bin\patch -p1 < patch.diff || goto :error
 :: make sure the install dir is empty before installing
 rd /s /q c:\install
 
-configure -opensource -confirm-license -nomake examples -platform win32-msvc2015 -no-accessibility -webkit -no-qt3support -nomake demos -nomake tests -prefix "C:/install"
-nmake
-nmake install
+configure -opensource ^
+          -confirm-license ^
+          -debug-and-release ^
+          -nomake examples ^
+          -platform win32-msvc2015 ^
+          -no-accessibility ^
+          -webkit ^
+          -no-qt3support ^
+          -nomake demos ^
+          -nomake tests ^
+          -prefix "C:/install" || goto :error
+nmake || goto :error
+nmake install || goto :error
 
 cd ..
 

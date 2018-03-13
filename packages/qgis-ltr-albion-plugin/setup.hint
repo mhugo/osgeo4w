@@ -2,4 +2,4 @@ sdesc: "Geological editor for QGIS"
 ldesc: "Geological editor for QGIS"
 maintainer: Oslandia
 category: Desktop
-requires: qgis-ltr pyqt4 pyopengl python-pglite python-shapely python-dxfwrite
+requires: qgis-ltr pyqt4 pyopengl python-pglite python-shapely python-dxfwrite postgis

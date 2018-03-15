@@ -1,0 +1,5 @@
+sdesc: "QGIS 2 common files (MSVC14 build)"
+ldesc: "QGIS 2 common files (MSVC14 build)"
+maintainer: Oslandia
+category: Desktop
+requires: msvcrt libpq proj geos gdal spatialite zlib iconv-vc14 libspatialindex qt4-vc14-libs qt4-vc14-devel qwt-vc14-libs-qt4

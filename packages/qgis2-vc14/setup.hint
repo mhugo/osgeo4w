@@ -1,0 +1,5 @@
+sdesc: "QGIS 2 (MSVC14 build)"
+ldesc: "QGIS 2 (MSVC14 build)"
+maintainer: Oslandia
+category: Desktop
+requires: qgis-vc14-common

@@ -1,0 +1,23 @@
+diff --git CMakeLists.txt CMakeLists.txt
+index 1e609c3753..0bfe83e899 100644
+--- CMakeLists.txt
++++ CMakeLists.txt
+@@ -22,7 +22,8 @@ MESSAGE(STATUS "QGIS version: ${COMPLETE_VERSION} ${RELEASE_NAME} (${QGIS_VERSIO
+ # CMake settings
+ 
+ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
+-
++cmake_policy(SET CMP0054 OLD) 
++cmake_policy(SET CMP0026 OLD) 
+ SET(CMAKE_COLOR_MAKEFILE ON)
+ 
+ # set path to additional CMake modules
+@@ -348,7 +349,7 @@ ENDIF()
+ 
+ #allow override keyword if available
+ IF (NOT USE_CXX_11)
+-  ADD_DEFINITIONS("-Doverride=")
++#  ADD_DEFINITIONS("-Doverride=")
+ ENDIF()
+ 
+ #############################################################

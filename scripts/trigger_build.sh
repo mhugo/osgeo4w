@@ -91,7 +91,13 @@ out=$(curl -s --request POST \
      --form "variables[PACKAGE_NAME]=$1" \
      --form "variables[DELIVERY_ENV]=$2" \
      ${project_url}/trigger/pipeline)
-url=$base_url/pipelines/$(echo $out| jq -r ".id" )
+pipeline_id=$(echo $out| jq -r ".id" )
+if [ "$pipeline_id" = "null" ]; then
+    echo "Problem launching pipeline"
+    echo $out
+    exit 1
+fi
+url=$base_url/pipelines/$pipeline_id
 echo "Pipeline:" $url
 xdg-open $url
 

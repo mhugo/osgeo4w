@@ -20,6 +20,22 @@ set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra/x86_64/release/extra
 set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra.test
 )
 
+::--- install needed dependencies
+if "%BUILD_DEPS%" == "" goto nodeps
+:: add -P in front of each dependency
+setlocal enabledelayedexpansion
+set BUILD_DEPS_P=
+for %%d in (%BUILD_DEPS%) do (
+  set BUILD_DEPS_P=!BUILD_DEPS_P! -P %%d
+)
+c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q %BUILD_DEPS_P% || goto deperror
+
+goto nodeps
+:deperror
+echo Problem installing dependencies %BUILD_DEPS_P%
+exit /b 1
+:nodeps
+
 ::--------- Prepare the environment
 set PKG_BIN=%P%-%V%-%B%.tar.bz2
 set PKG_SRC=%P%-%V%-%B%-src.tar.bz2

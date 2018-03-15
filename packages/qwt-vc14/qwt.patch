@@ -1,0 +1,25 @@
+diff -ru qwt-5.2.3/qwtconfig.pri qwt-5.2.3-new/qwtconfig.pri
+--- qwt-5.2.3/qwtconfig.pri	2012-11-20 18:49:35.000000000 +0100
++++ qwt-5.2.3-new/qwtconfig.pri	2018-03-12 14:31:48.906036300 +0100
+@@ -115,7 +115,7 @@
+ # Otherwise you have to build it from the designer directory.
+ ######################################################################
+ 
+-CONFIG     += QwtDesigner
++#CONFIG     += QwtDesigner
+ 
+ ######################################################################
+ # If you want to auto build the examples, enable the line below
+diff -ru qwt-5.2.3/src/src.pro qwt-5.2.3-new/src/src.pro
+--- qwt-5.2.3/src/src.pro	2012-11-20 18:49:35.000000000 +0100
++++ qwt-5.2.3-new/src/src.pro	2018-03-12 14:31:58.703179100 +0100
+@@ -34,7 +34,7 @@
+     }
+ }
+ 
+-TARGET            = qwt$${SUFFIX_STR}
++TARGET            = qwt$${SUFFIX_STR}-vc14-
+ TEMPLATE          = lib
+ 
+ MOC_DIR           = moc
+

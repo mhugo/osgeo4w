@@ -1,0 +1,5 @@
+sdesc: "Qt4 widgets library for technical applications (runtime) - MSVC14 build"
+ldesc: "Qt4 widgets library for technical applications (runtime) - MSVC14 build"
+maintainer: HugoMercier
+category: Libs
+requires: shell qt4-vc14-libs

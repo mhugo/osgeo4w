@@ -16,7 +16,7 @@ set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
 )
 if "%1"=="test" (
 set RELEASE_HOST=ci@hekla.oslandia.net
-set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra/x86_64/release/extra
+set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra.test/x86_64/release/extra
 set OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra.test
 )
 

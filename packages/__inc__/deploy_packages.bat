@@ -11,7 +11,7 @@ set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra/%ARCH%/release/extra
 )
 if "%1"=="test" (
 set RELEASE_HOST=ci@hekla.oslandia.net
-set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra/%ARCH%/release/extra
+set RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra.test/%ARCH%/release/extra
 )
 
 :: call cygpath on the given path

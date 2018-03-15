@@ -5,6 +5,7 @@
 :: %V% version
 :: %B% package version
 
+call c:\osgeo4w64\bin\o4w_env.bat
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 set PATH=%PATH%;C:\Program Files\CMake\bin;C:\cygwin64\bin;C:\Program Files\PostgreSQL\9.6\bin
 echo "Deploy = %1"

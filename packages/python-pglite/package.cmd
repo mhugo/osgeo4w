@@ -4,7 +4,7 @@ set P=python-pglite
 :: version
 set V=1.0.6
 :: package version
-set B=3
+set B=4
 
 set HERE=%CD%
 

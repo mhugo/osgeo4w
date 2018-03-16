@@ -2,9 +2,9 @@
 :: package name
 set P=qgis-ltr-albion-plugin
 :: version
-set V=1.04.13
+set V=1.04.16
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

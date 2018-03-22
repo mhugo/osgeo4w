@@ -2,9 +2,9 @@
 :: package name
 set P=python3-pglite
 :: version
-set V=1.0.6
+set V=1.0.7
 :: package version
-set B=3
+set B=1
 
 set HERE=%CD%
 

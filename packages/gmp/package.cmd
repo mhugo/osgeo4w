@@ -18,7 +18,7 @@ mkdir bin
 move lib\*.dll bin\
 
 :: binary archive
-tar -cvjf %PKG_BIN% lib include gmp.* || goto :error
+tar -cvjf %PKG_BIN% lib bin include gmp.* || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

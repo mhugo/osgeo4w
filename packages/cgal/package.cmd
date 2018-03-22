@@ -4,7 +4,7 @@ set P=cgal
 :: version
 set V=4.11.1
 :: package version
-set B=1
+set B=2
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1
@@ -41,6 +41,8 @@ cmake -G "NMake Makefiles" ^
 ::    -DZLIB_ROOT=c:\osgeo4w64 ^
 nmake || goto :error
 nmake install || goto :error
+
+move c:\inslall\lib\*.dll c:\inslall\bin
 
 :: binary archive
 tar -C c:\install -cjvf %PKG_BIN% lib share include bin || goto :error

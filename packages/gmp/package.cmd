@@ -14,6 +14,9 @@ set HERE=%CD%
 wget --progress=bar:force https://cgal.geometryfactory.com/CGAL/precompiled_libs/auxiliary/x64/GMP/5.0.1/gmp-all-CGAL-3.9.zip || goto :err
 unzip gmp-all-CGAL-3.9.zip || goto :error
 
+mkdir bin
+move lib\*.dll bin\
+
 :: binary archive
 tar -cvjf %PKG_BIN% lib include gmp.* || goto :error
 

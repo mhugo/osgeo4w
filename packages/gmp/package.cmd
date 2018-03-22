@@ -4,7 +4,7 @@ set P=gmp
 :: version
 set V=5.0.1
 :: package version
-set B=1
+set B=2
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1

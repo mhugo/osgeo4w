@@ -32,7 +32,7 @@ copy set_pglite_python_path.bat %OSGEO4W_ROOT%\etc\postinstall || goto :error
 tar -C %OSGEO4W_ROOT% -cvjf %PKG_BIN% ^
   apps/Python36/Lib/site-packages/pglite ^
   apps/Python36/Lib/site-packages/pglite-%V%.dist-info ^
-  apps/Python36/Scripts/pglite.exe ^
+  apps/Python36/Scripts/pglite.bat ^
   etc/pglite.conf ^
   etc/postinstall/set_pglite_python_path.bat || goto :error
 

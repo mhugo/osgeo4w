@@ -1,0 +1,5 @@
+sdesc: "txt2tags"
+ldesc: "txt2tags"
+maintainer: Oslandia
+category: Libs
+requires: python-core

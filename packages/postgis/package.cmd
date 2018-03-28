@@ -73,7 +73,7 @@ mkdir c:\install\share
 mkdir c:\install\share\extension
 mkdir c:\install\bin
 
-copy postgis\build\postgis\postgis-2.5.dll c:\install\lib || goto :error
+copy postgis\build\postgis\postgis-2.5.0dev.dll c:\install\lib || goto :error
 copy postgis\build\extensions\postgis\postgis.control c:\install\share\extension || goto :error
 copy postgis\build\extensions\postgis\postgis--2.5.0dev.sql c:\install\share\extension || goto :error
 copy postgis\build\loader\shp2pgsql.exe c:\install\bin || goto :error

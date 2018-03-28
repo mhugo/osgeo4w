@@ -15,6 +15,7 @@ set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 set PYTHONPATH=%PYTHONPATH%;%HERE%
 
 
+echo "installing python-core"
 %OSGEO4W_HOME%\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P python-core
 
 :: python2 package

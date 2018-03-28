@@ -4,7 +4,7 @@ set P=postgis
 :: version
 set V=2.5.0dev
 :: package version
-set B=1
+set B=2
 
 set HERE=%CD%
 

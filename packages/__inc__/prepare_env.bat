@@ -37,12 +37,15 @@ set BUILD_DEPS_P=
 for %%d in (%BUILD_DEPS%) do (
   set BUILD_DEPS_P=!BUILD_DEPS_P! -P %%d
 )
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q %BUILD_DEPS_P% || goto deperror
+:: launch the setup and wait for the exit code
+echo Installing OSGeo4W dependencies ...
+start /wait c:\osgeo4w64\bin\osgeo4w-setup.exe --upgrade-also -O -s %OSGEO4W_REPO% -k -q %BUILD_DEPS_P%
+:: other error codes (including 117 - reboot needed) are ignored
+if %errorlevel% == 1 (
+  echo Problem installing dependencies %BUILD_DEPS_P%
+  exit /b 1
+)
+endlocal
 
-goto nodeps
-:deperror
-echo Problem installing dependencies %BUILD_DEPS_P%
-exit /b 1
-:nodeps
 
 

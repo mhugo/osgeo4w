@@ -427,7 +427,7 @@ EOF
 
 BEGIN {
     my @cats = qw'
-     Commandline_Utilities Desktop Libs Web Web_Applications
+     Commandline_Utilities Desktop Libs Web Web_Applications Data
      _obsolete _PostInstallLast
      ';
     @main::categories{map {lc $_} @cats} = @cats;

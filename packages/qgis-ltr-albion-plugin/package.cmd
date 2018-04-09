@@ -9,7 +9,7 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-set BUILD_DEPS=python-core
+set BUILD_DEPS=python-core python-pip
 
 call ..\__inc__\prepare_env.bat %1
 set OSGEO4W_ROOT=c:\osgeo4w64

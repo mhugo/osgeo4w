@@ -20,6 +20,8 @@ set PYTHONPATH=%PYTHONPATH%;%HERE%
 call %OSGEO4W_ROOT%\etc\ini\python-core.bat || goto :error
 
 git clone --depth 1 https://github.com/Oslandia/albion.git || goto :error
+::wget https://github.com/Oslandia/albion/archive/v%V%.zip -O albion.zip || goto :error
+::unzip albion.zip
 mkdir install
 python -m albion.package -i install
 dir install

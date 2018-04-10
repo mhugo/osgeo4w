@@ -1,13 +1,16 @@
 #!/bin/bash
 
+OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
+DEFAULT_INSTALL_PATH=C:\osgeo4w64
+
 function usage
 {
     echo "Options:"
     echo -e "-n, --name NAME\t\tName of the installer"
     echo -e "-v, --version VERSION\tVersion of the installer"
     echo -e "-p, --package PACKAGE\tOSGEO4W package name to install"
-    echo -e "-r, --repository URL\tOSGEO4W repository URL (default=http://osgeo4w.oslandia.net/osgeo4w)"
-    echo -e "-R, --root PATH\tDefault installation path (default=C:\osgeo4w64)"
+    echo -e "-r, --repository URL\tOSGEO4W repository URL (default: $OSGEO4W_REPO)"
+    echo -e "-R, --root PATH\tDefault installation path (default=i$DEFAULT_INSTALL_PATH)"
     echo -e "-l, --local\tGenerate a local installer (default: network installer)"
     echo -e "-q, --quiet\tGenerate a quiet installer (default: display OSGeo4W setup)"
     echo -e "-N, --no-update\tDo not update packages when installing (default: do update)"
@@ -18,9 +21,7 @@ function usage
 INSTALLER_NAME=
 INSTALLER_VERSION=
 INSTALLER_EXTRA_CMD=
-OSGEO4W_REPO=http://osgeo4w-oslandia.com/extra
 PACKAGES=
-DEFAULT_INSTALL_PATH=C:\osgeo4w64
 IS_LOCAL=false
 IS_QUIET=false
 DO_UPDATE=true

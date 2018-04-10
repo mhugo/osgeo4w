@@ -9,17 +9,20 @@ set B=1
 set HERE=%CD%
 
 ::--------- Prepare the environment
-set BUILD_DEPS=python-core python-pip
+set BUILD_DEPS=python3-core python3-pip
 
 call ..\__inc__\prepare_env.bat %1
 set OSGEO4W_ROOT=c:\osgeo4w64
 set PATH=%OSGEO4W_ROOT%\bin;%PATH%
 set PYTHONPATH=%PYTHONPATH%;%HERE%
 
-:: python2 package
-call %OSGEO4W_ROOT%\etc\ini\python-core.bat || goto :error
+:: python3 package
+call %OSGEO4W_ROOT%\bin\py3_env.bat || goto :error
 
-python -m pip install sphinx
+echo ################################
+python --version
+echo ################################
+python -m pip install sphinx || goto :error
 
 git clone --depth 1 https://github.com/Oslandia/albion.git || goto :error
 ::wget https://github.com/Oslandia/albion/archive/v%V%.zip -O albion.zip || goto :error

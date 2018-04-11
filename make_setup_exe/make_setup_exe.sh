@@ -85,7 +85,7 @@ if [ -z $INSTALLER_VERSION ]; then
 fi
 
 if [ "$DO_UPDATE" = "true" ]; then
-    EXTRA_CMD="EXTRA_CMD --upgrade-also"
+    EXTRA_CMD="$EXTRA_CMD --upgrade-also"
 fi
 
 if [ "$IS_LOCAL" = "true" ]; then

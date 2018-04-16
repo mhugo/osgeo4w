@@ -21,7 +21,7 @@ Now you can install dependencies with:
 
 Oslandia specific readme : [readme-osl.md](readme-osl.md)
 
-### ESG setup
+### Setup
 
 This setup is done with ansible, in 2 phases:
 - phase 1 provisions the linux machine, configures the vm and its auto-installation and starts it.

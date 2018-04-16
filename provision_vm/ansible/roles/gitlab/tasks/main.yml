@@ -1,0 +1,136 @@
+- name: add gitlab role to postgresql
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: "{{ gitlab_user }}"
+    password: "{{ gitlab_pass }}"
+    role_attr_flags: CREATEDB,SUPERUSER
+
+- name: create the {{ gitlab_database }} database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "{{ gitlab_database }}"
+    owner: "{{ gitlab_user }}"
+
+- name: add pg_trgm extension required for gitlab
+  postgresql_ext:
+    name: pg_trgm
+    db: "{{ gitlab_database }}"
+  become: yes
+  become_user: postgres
+
+- name: Create user git
+  user:
+    name: git
+    shell: /bin/bash
+    uid: 1004
+
+- name: Make sure docker can generate persistent MAC address for its veth 1/2
+  ini_file:
+    path: /etc/systemd/network/99-default.link
+    section: Link
+    option: NamePolicy
+    value: kernel database onboard slot path
+
+- name: Make sure docker can generate persistent MAC address for its veth 2/2
+  ini_file:
+    path: /etc/systemd/network/99-default.link
+    section: Link
+    option: MACAddressPolicy
+    value: none
+  register: mac_policy
+
+- name: Restart the networking service
+  systemd:
+    name: networking.service
+    state: restarted
+  when: mac_policy.changed
+
+- name: Launch Redis container
+  docker_container:
+    name: redis
+    image: sameersbn/redis:latest
+    state: started
+    restart_policy: always
+    env:
+      HTTP_PROXY: "{{http_proxy | default('')}}"
+    
+
+- name: Launch Gitlab container
+  docker_container:
+    name: gitlab
+    image: sameersbn/gitlab:10.4.2-1
+    state: started
+    restart_policy: always
+    ports:
+      - "10022:22"
+      - "127.0.0.1:8000:80"
+    volumes:
+      - /var/run/docker.sock:/run/docker.sock
+      - /usr/bin/docker:/bin/docker
+      - /home/git:/home/git/data
+    links:
+      - "redis:redisio"
+    env:
+      GITLAB_SSH_PORT: 10022
+      GITLAB_HOST: "{{hostname}}"
+      GITLAB_PORT: "{{ '443' if setup_ssl=='yes' else '80'}}"
+      GITLAB_HTTPS: "{{ 'true' if setup_ssl=='yes' else 'false'}}"
+      DB_ADAPTER: postgresql
+      DB_HOST: "{{ ansible_docker0.ipv4.address }}"
+      DB_NAME: "{{ gitlab_database }}"
+      DB_USER: "{{ gitlab_user }}"
+      DB_PASS: "{{ gitlab_pass }}"
+      USERMAP_UID: 1004
+      USERMAP_GID: 1004
+      GITLAB_BACKUP_SCHEDULE: "{{gitlab_backup_schedule}}"
+      GITLAB_BACKUP_EXPIRY: "{{gitlab_backup_expiry}}"
+      GITLAB_SECRETS_DB_KEY_BASE: "{{gitlab_secrets_db_key_base}}"
+      GITLAB_SECRETS_OTP_KEY_BASE: "{{gitlab_secrets_otp_key_base}}"
+      GITLAB_SECRETS_SECRET_KEY_BASE: "{{gitlab_secrets_secret_key_base}}"
+      GITLAB_ROOT_PASSWORD: "{{gitlab_root_password}}"
+      GITLAB_SIGNUP_ENABLED: false
+      SMTP_USER: "{{ smtp_user }}"
+      SMTP_HOST: "{{ smtp_host }}"
+      GITLAB_EMAIL: "{{ gitlab_email }}"
+      GITLAB_INCOMING_EMAIL_ADDRESS: '{{gitlab_email_address}}'
+      GITLAB_EMAIL_DISPLAY_NAME: "{{gitlab_email_display_name}}"
+      HTTP_PROXY: "{{http_proxy | default('')}}"
+
+- name: check if nginx has already been configured
+  stat:
+    path: /etc/nginx/sites-enabled/{{hostname}}
+  register: nginxconfig
+
+- name: Push Nginx config for {{hostname}}
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/sites-enabled/{{hostname}}"
+  notify: reload nginx
+  when: not (setup_ssl | bool) or not nginxconfig.stat.exists
+
+- meta: flush_handlers
+
+- name: ensure ssl certificate exists for {{hostname}}
+  shell: "/home/certbot/certbot-auto --nginx --noninteractive -d {{hostname}} --email {{email4certbot}} --agree-tos"
+  args:
+    creates: "/etc/letsencrypt/live/{{hostname}}"
+  register: cert_created
+  notify: reload nginx
+  when: setup_ssl | bool
+
+- name: copy back new nginx config with ssl activated
+  fetch:
+    src: /etc/nginx/sites-enabled/{{hostname}}
+    dest: roles/gitlab/files/nginx.conf
+    flat: yes
+    fail_on_missing: yes
+  when: (setup_ssl | bool) and cert_created.changed
+
+- name: push final nginx config for {{hostname}}
+  copy:
+    src: nginx.conf
+    dest: "/etc/nginx/sites-enabled/{{hostname}}"
+  notify: reload nginx
+  when: (setup_ssl | bool) and not cert_created.changed

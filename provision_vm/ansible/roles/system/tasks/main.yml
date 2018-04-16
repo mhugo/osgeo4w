@@ -1,0 +1,26 @@
+- name: sysadmin packages
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - vim
+    - htop
+    - apt-transport-https
+    - ca-certificates
+    - dfc
+    - nginx
+    - git
+    - python-pip
+
+- name: ensure Lets Encrypt certbot client is here
+  git:
+    dest: /home/certbot
+    repo: https://github.com/certbot/certbot
+    version: v0.21.0
+    update: no
+  when: setup_ssl | bool
+
+- name: ensure nginx default config is asbent
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent

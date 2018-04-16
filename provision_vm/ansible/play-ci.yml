@@ -1,0 +1,20 @@
+- hosts: gitlab
+  vars:
+    - ansible_become: yes
+  roles:
+    - role: system
+      tags: system
+    - role: postgresql
+      tags: postgresql
+    - role: docker
+      tags: docker
+    - role: gitlab
+      tags: gitlab
+    - role: gitlab-runner
+      tags: gitlab-runner
+    - role: virtualbox
+      tags: virtualbox
+    - role: win_vm_from_iso
+      tags: win_vm_from_iso
+    - role: win_vm_installation
+      tags: win_vm_installation

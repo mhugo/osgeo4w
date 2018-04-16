@@ -1,0 +1,35 @@
+- name: ensure postgresql repo key is present
+  apt_key:
+    url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+    state: present
+
+- name: add postgresql repository
+  apt_repository:
+    repo: 'deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main'
+    state: present
+
+- name: installing postgresql {{pg_version}}
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - postgresql-contrib-{{pg_version}}
+    - postgresql-{{pg_version}}
+    - python-psycopg2
+
+- name: ensure docker containers can connect to postgresql step 1
+  lineinfile:
+    dest: "/etc/postgresql/{{pg_version}}/main/pg_hba.conf"
+    regexp: 'host\s+all\s+all\s+172.17.0.0/16\s+md5'
+    line: 'host all all 172.17.0.0/16 md5'
+    state: present
+  notify: reload postgresql
+
+- name: ensure docker containers can connect to postgresql step 2
+  lineinfile:
+    dest: "/etc/postgresql/{{pg_version}}/main/postgresql.conf"
+    regexp: '^#?\s*listen_addresses\s*='
+    line: "listen_addresses='*'"
+    backrefs: yes
+    state: present
+  notify: restart postgresql

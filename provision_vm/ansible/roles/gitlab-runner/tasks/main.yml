@@ -1,0 +1,22 @@
+- name: ensure gitlab-runner repo key is present
+  apt_key:
+    url: "https://packages.gitlab.com/runner/gitlab-runner/gpgkey"
+    state: present
+
+- name: add gitlab-runner repository
+  apt_repository:
+    repo: 'deb https://packages.gitlab.com/runner/gitlab-runner/ubuntu/ {{ ansible_lsb.codename }} main'
+    state: present
+
+- name: installing gitlab-runner
+  apt:
+    name: gitlab-runner
+    state: present
+
+- name: ensure gitlab-runner has a ssh key
+  user:
+    name: gitlab-runner
+    generate_ssh_key: yes
+
+
+

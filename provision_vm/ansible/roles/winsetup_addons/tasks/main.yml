@@ -1,0 +1,40 @@
+#- name: install gnat-gpl
+#  win_chocolatey:
+#    name: gnat-gpl
+#    state: latest
+
+# Visual Studio Tools for Office Runtime
+#- name: install vstor
+#  win_chocolatey:
+#    name: vstor2010
+#    state: latest
+
+- name: install NSIS
+  win_chocolatey:
+    name: nsis
+    state: latest
+
+- name: install txt2tags
+  win_command: C:/osgeo4w64/bin/osgeo4w-setup.exe -q -k -O -s http://osgeo4w-oslandia.com/extra -P txt2tags -p "{{ http_proxy | urlsplit('netloc') | default("")  }}"
+
+- name: install llvm
+  win_chocolatey:
+    name: llvm
+    state: latest
+
+- name: install qtcreator
+  win_chocolatey:
+    name: qtcreator
+    state: latest
+  
+- name: install jom
+  win_chocolatey:
+    name: jom
+    state: latest
+
+- name: install doxygen
+  win_chocolatey:
+    name: doxygen.install
+    state: latest
+
+

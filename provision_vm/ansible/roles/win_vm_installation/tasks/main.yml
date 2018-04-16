@@ -1,0 +1,42 @@
+# common setup tasks for the windows VM (either installed from an ISO or from an OVA)
+
+- name: Get info about win10 vm
+  command: VBoxManage showvminfo --machinereadable win10
+  register: vm_infos
+  failed_when: no
+  changed_when: no
+
+- name: Configure win10 vm netword card
+  command: VBoxManage modifyvm win10 --nic1 nat
+  when: (vm_infos.stdout | regex_search('nic1="nat"')) == None
+
+- name: Configure win10 vm network card mac address
+  command: VBoxManage modifyvm win10 --macaddress1="{{ win_macaddress }}"
+  when: win_macaddress is defined and (vm_infos.stdout | regex_search('macaddress1="' + win_macaddress | string + '"')) == None
+
+- name: Configure win10 vm port redirection
+  command: VBoxManage modifyvm win10 --natpf1 "{{ item }}"
+  when: (vm_infos.stdout | regex_search('Forwarding\(\d\)="' + item + '"')) == None
+  with_items:
+    - "winrm,tcp,,5985,,5985"
+    - "guestssh,tcp,,2222,,22"
+
+- name: Turn VRDE on
+  command: VBoxManage modifyvm win10 --vrde on
+  when: (vm_infos.stdout | regex_search('vrde="on"')) == None
+
+- name: Authorize multiple connection to VRDE
+  command: VBoxManage modifyvm win10 --vrdemulticon on
+  when: (vm_infos.stdout | regex_search('vrdemulticon="on"')) == None
+
+- name: Setup VRDE port
+  command: VBoxManage modifyvm win10 --vrdeport 3389
+  when: (vm_infos.stdout | regex_search('vrdeports="3389"')) == None
+
+- name: Setup VRDE address
+  command: VBoxManage modifyvm win10 --vrdeaddress 127.0.0.1
+  when: (vm_infos.stdout | regex_search('vrdeaddress="127.0.0.1"')) == None
+
+- name: Setup shared clipboard
+  command: VBoxManage modifyvm win10 --clipboard bidirectional
+  when: (vm_infos.stdout | regex_search('clipboard="bidirectional"')) == None

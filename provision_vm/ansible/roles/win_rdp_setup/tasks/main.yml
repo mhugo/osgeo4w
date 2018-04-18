@@ -1,0 +1,34 @@
+- name: Check RDP setup on windows
+  command: vboxmanage guestproperty get win10 rdp_setup
+  register: rdp_setup
+  changed_when: no
+  become: yes
+
+- name: Copy RDP setup script to virtualbox host
+  template: src=rdp_setup.ps1 dest={{ virtualbox_base_folder }}/rdp_setup.ps1
+  when: "(rdp_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Copy RDP setup script from virtualbox host to windows guest
+  command: vboxmanage guestcontrol win10 copyto --username {{ win_username }} --password {{ win_password }} --target-directory 'c:/Users/{{ win_username }}/Documents' {{ virtualbox_base_folder }}/rdp_setup.ps1
+  when: "(rdp_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Authorize script execution
+  command: >
+    vboxmanage guestcontrol win10 run --username {{ win_username }} --password {{ win_password }} --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --
+    -Command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass -Force"
+  when: "(rdp_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Execute RDP setup script
+  command: >
+    VBoxManage --nologo guestcontrol win10 run --username {{ win_username }} --password {{ win_password }}  --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --
+    -Command "Start-Process powershell -ArgumentList '-file c:/Users/{{ win_username }}/Documents/rdp_setup.ps1' -Verb runas"
+  when: "(rdp_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Mark RDP setup as done on vm
+  command: vboxmanage guestproperty set win10 rdp_setup done
+  when: "(rdp_setup.stdout | regex_search('Value: done')) == None"
+  become: yes

@@ -20,22 +20,11 @@
   with_items:
     - "winrm,tcp,,5985,,5985"
     - "guestssh,tcp,,2222,,22"
+    - "rdp,tcp,,3389,,3389"
 
-- name: Turn VRDE on
-  command: VBoxManage modifyvm win10 --vrde on
-  when: (vm_infos.stdout | regex_search('vrde="on"')) == None
-
-- name: Authorize multiple connection to VRDE
-  command: VBoxManage modifyvm win10 --vrdemulticon on
-  when: (vm_infos.stdout | regex_search('vrdemulticon="on"')) == None
-
-- name: Setup VRDE port
-  command: VBoxManage modifyvm win10 --vrdeport 3389
-  when: (vm_infos.stdout | regex_search('vrdeports="3389"')) == None
-
-- name: Setup VRDE address
-  command: VBoxManage modifyvm win10 --vrdeaddress 127.0.0.1
-  when: (vm_infos.stdout | regex_search('vrdeaddress="127.0.0.1"')) == None
+- name: Turn VBox VRDE off
+  command: VBoxManage modifyvm win10 --vrde off
+  when: (vm_infos.stdout | regex_search('vrde="off"')) == None
 
 - name: Setup shared clipboard
   command: VBoxManage modifyvm win10 --clipboard bidirectional

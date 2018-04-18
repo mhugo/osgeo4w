@@ -1,6 +1,7 @@
 ### This playbook supposes the windows vm has finished its installation
 - hosts: gitlab
   roles:
+    - role: win_vm_check
     - role: win_ansible_setup
       tags: win_ansible_setup
 
@@ -18,3 +19,8 @@
   roles:
     - role: winsetup_addons
       tags: winsetup_addons
+
+- hosts: gitlab
+  roles:
+    - role: win_rdp_setup
+      tags: win_rdp_setup

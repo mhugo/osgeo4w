@@ -1,0 +1,16 @@
+- name: Check UAC settings
+  command: >
+    VBoxManage --nologo guestcontrol win10 run --username {{ win_username }} --password {{ win_password }}  --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --
+    -Command "(Get-ItemProperty -path hklm:SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System).EnableLUA"
+  register: enable_lua_out
+  become: yes
+
+- pause:
+    prompt: >
+      **** Warning ****
+      The Windows guest has UAC enabled,
+      that will freeze Ansible on some tasks that require administrator privileges.
+      Consider disabling it (google "disable uac windows") or manually validating UAC prompts on the guest screen.
+      Press Enter to continue.
+  when: enable_lua_out.stdout == "1"
+

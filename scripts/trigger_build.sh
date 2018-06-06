@@ -39,9 +39,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-P=$(grep ^"set P=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
-V=$(grep ^"set V=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
-B=$(grep ^"set B=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
+if [ -e $DIR/../packages/$1/package.sh ]; then
+    P=$(grep ^"P=" $DIR/../packages/$1/package.sh | cut -d'=' -f2)
+    V=$(grep ^"V=" $DIR/../packages/$1/package.sh | cut -d'=' -f2)
+    B=$(grep ^"B=" $DIR/../packages/$1/package.sh | cut -d'=' -f2)
+else
+    P=$(grep ^"set P=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
+    V=$(grep ^"set V=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
+    B=$(grep ^"set B=" $DIR/../packages/$1/package.cmd | cut -d'=' -f2)
+fi
 
 PKG_BIN=$P-$V-$B.tar.bz2
 

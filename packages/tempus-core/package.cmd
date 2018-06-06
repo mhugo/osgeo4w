@@ -2,7 +2,7 @@
 :: package name
 set P=tempus-core
 :: version
-set V=2.6.1
+set V=2.6.2
 :: package version
 set B=1
 

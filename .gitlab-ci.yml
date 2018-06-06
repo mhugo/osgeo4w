@@ -2,7 +2,9 @@
 package:
   stage: build
   script:
-      - cmd /s /c "cd packages\\${PACKAGE_NAME} && package.cmd ${DELIVERY_ENV}"
+      - cd packages/${PACKAGE_NAME}
+      - if [ -x package.sh ]; then /bin/bash ./package.sh ${DELIVERY_ENV}; else cmd /c "package.cmd ${DELIVERY_ENV}"; fi
+      - cd ..
       - scp scripts/genini scripts/gen_setup_ini.sh ci@hekla.oslandia.net:~/
       - ssh ci@hekla.oslandia.net ./gen_setup_ini.sh ${DELIVERY_ENV}
   only:

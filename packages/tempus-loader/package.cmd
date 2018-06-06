@@ -6,7 +6,7 @@ set V=1.2.2
 :: package version
 set B=1
 :: building dependencies
-set BUILD_DEPS=python-core setuptools
+set BUILD_DEPS=python-core setuptools python-pglite
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1

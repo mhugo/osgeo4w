@@ -12,4 +12,4 @@ if [ "$1" = "test" ]; then
     RELEASE_PATH=/mnt/osgeo4w_ftp/www/extra.test/${ARCH}/release/extra
 fi
 
-scp -rv "${P}/*" ${RELEASE_HOST}:${RELEASE_PATH}
+scp -r "${P}/*" ${RELEASE_HOST}:${RELEASE_PATH}

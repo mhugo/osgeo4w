@@ -161,5 +161,5 @@ rm -rf apps etc bin
 
 tar -cjf $R/$P/$P-core/$P-core-$V-$B-src.tar.bz2 ini.bat make-bat-for-py.bat package.sh postinstall.bat
 
-. ../__inc__/deploy_packages.sh $1 x86_64 $R
+. ../__inc__/deploy_packages.sh $1 x86_64 $(pwd)/$R
 

@@ -7,8 +7,6 @@ fi
 echo "Installing Python binaries ..."
 cygstart.exe -w msiexec /i python-2.7.15.amd64.msi /passive
 
-umask 022
-
 set -e
 
 P=xpython

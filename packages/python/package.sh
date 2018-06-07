@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -e python-2.7.15.amd64.msi ]; then
     wget https://www.python.org/ftp/python/2.7.15/python-2.7.15.amd64.msi
@@ -11,7 +11,7 @@ umask 022
 
 set -e
 
-P=python
+P=xpython
 V=2.7.15
 B=1
 
@@ -161,4 +161,5 @@ rm -rf apps etc bin
 
 tar -cjf $R/$P/$P-core/$P-core-$V-$B-src.tar.bz2 ini.bat make-bat-for-py.bat package.sh postinstall.bat
 
-scp -r $R/$P ci@hekla:/mnt/osgeo4w_ftp/www/extra.test/x86_64/release/extra
+. ../__inc__/deploy_packages.sh $1 x86_64 $R
+

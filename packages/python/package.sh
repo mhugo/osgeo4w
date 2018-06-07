@@ -9,7 +9,7 @@ cygstart.exe -w msiexec /i python-2.7.15.amd64.msi /passive
 
 set -e
 
-P=xpython
+P=python
 V=2.7.15
 B=1
 

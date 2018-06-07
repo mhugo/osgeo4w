@@ -47,8 +47,8 @@ cat <<EOF >$R/$P/$P-help/setup.hint
 sdesc: "Python documentation in a Windows compiled help file"
 ldesc: "Python documentation in a Windows compiled help file"
 category: Commandline_Utilities
-requires: python-core
-external-source: python-core
+requires: ${P}-core
+external-source: ${P}-core
 EOF
 
 echo "Packaging $P-devel-$V-$B.tar.bz2 ..."
@@ -61,8 +61,8 @@ cat <<EOF >$R/$P/$P-devel/setup.hint
 sdesc: "Python library and header files"
 ldesc: "Python library and header files"
 category: Libs
-requires: python-core
-external-source: python-core
+requires: ${P}-core
+external-source: ${P}-core
 EOF
 
 echo "Packaging $P-test-$V-$B.tar.bz2 ..."
@@ -84,8 +84,8 @@ cat <<EOF >$R/$P/$P-test/setup.hint
 sdesc: "Python self tests"
 ldesc: "Python self tests"
 category: Libs
-requires: python-core
-external-source: python-core
+requires: ${P}-core
+external-source: ${P}-core
 EOF
 
 echo "Packaging $P-tcltk-$V-$B.tar.bz2 ..."
@@ -104,8 +104,8 @@ cat <<EOF >$R/$P/$P-tcltk/setup.hint
 sdesc: "Python Tkinter and IDLE"
 ldesc: "Python Tkinter and IDLE"
 category: Commandline_Utilities
-requires: python-core
-external-source: python-core
+requires: ${P}-core
+external-source: ${P}-core
 EOF
 
 echo "Packaging $P-tools-$V-$B.tar.bz2 ..."
@@ -118,8 +118,8 @@ cat <<EOF >$R/$P/$P-tools/setup.hint
 sdesc: "Python Tkinter and IDLE"
 ldesc: "Python Tkinter and IDLE"
 category: Commandline_Utilities
-requires: python-core
-external-source: python-core
+requires: ${P}-core
+external-source: ${P}-core
 EOF
 
 echo "Packaging $P-core-$V-$B.tar.bz2 ..."

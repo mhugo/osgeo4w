@@ -5,11 +5,12 @@ set P=tempus-core
 set V=2.6.2
 :: package version
 set B=1
+:: build dependencies
+set BUILD_DEPS=boost-devel-vc14
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1
 
-c:\osgeo4w64\bin\osgeo4w-setup.exe -s %OSGEO4W_REPO% -k -q -P boost-devel-vc14 || goto :error
 if "%1"=="test" (
 wget --progress=bar:force https://gitlab.com/Oslandia/tempus_core/repository/master/archive.tar.bz2 -O tempus.tar.bz2 || goto :error
 ) else (

@@ -30,6 +30,7 @@ for p in core help devel test tcltk tools; do
 done
 
 mv apps/Python27/{python,pythonw}.exe bin
+mv apps/Python27/python27.dll bin
 cp make-bat-for-py.bat bin
 cp ini.bat etc/ini/python-core.bat
 cp postinstall.bat etc/postinstall/python-core.bat

@@ -43,7 +43,7 @@ tar -cjf $R/$P/$P-help/$P-help-$V-$B.tar.bz2 \
 	apps/Python27/NEWS.txt \
 	apps/Python27/README.txt
 
-cat <<EOF >$R/python/python-help/setup.hint
+cat <<EOF >$R/$P/$P-help/setup.hint
 sdesc: "Python documentation in a Windows compiled help file"
 ldesc: "Python documentation in a Windows compiled help file"
 category: Commandline_Utilities

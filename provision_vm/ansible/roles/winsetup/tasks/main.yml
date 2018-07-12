@@ -51,7 +51,7 @@
     force: no
 
 - name: install dependencies from OSGeo4W
-  win_command: C:/Users/{{ ansible_user }}/Downloads/osgeo4w-setup-x86_64.exe -g -q -A -R C:\OSGeo4W64 -a x86_64 -k -O -s http://osgeo4w-oslandia.com/mirror -P setup -P shell -P setuptools -p "{{ http_proxy | urlsplit('netloc') | default("")  }}"
+  win_command: C:/Users/{{ ansible_user }}/Downloads/osgeo4w-setup-x86_64.exe -g -q -A -R C:\OSGeo4W64 -a x86_64 -k -O -s http://osgeo4w-oslandia.com/mirror -P setup -P shell -P setuptools -p "{{ (http_proxy | urlsplit('netloc')) if http_proxy is defined else ""  }}"
 
 - name: install cygwin
   win_chocolatey:

@@ -18,8 +18,8 @@
   command: VBoxManage modifyvm win10 --natpf1 "{{ item }}"
   when: (vm_infos.stdout | regex_search('Forwarding\(\d\)="' + item + '"')) == None
   with_items:
-    - "winrm,tcp,,5985,,5985"
-    - "guestssh,tcp,,2222,,22"
+    - "winrm,tcp,127.0.0.1,5985,,5985"
+    - "guestssh,tcp,127.0.0.1,2222,,22"
 
 - name: Turn VBox VRDE on
   command: VBoxManage modifyvm win10 --vrde on

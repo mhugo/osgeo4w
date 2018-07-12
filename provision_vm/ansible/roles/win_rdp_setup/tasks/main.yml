@@ -38,7 +38,7 @@
   command: VBoxManage controlvm win10 natpf1 "{{ item }}"
   when: (vm_infos.stdout | regex_search('Forwarding\(\d\)="' + item + '"')) == None
   with_items:
-    - "rdp,tcp,,3389,,3389"
+    - "rdp,tcp,127.0.0.1,3389,,3389"
 
 - name: Turn VBox VRDE off
   command: VBoxManage controlvm win10 vrde off

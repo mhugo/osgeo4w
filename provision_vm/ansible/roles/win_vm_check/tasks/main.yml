@@ -1,3 +1,14 @@
+- name: Get info about win10 vm
+  command: VBoxManage showvminfo --machinereadable win10
+  register: vm_infos
+  failed_when: no
+  changed_when: no
+
+- name: Start the VM
+  command: >
+    vboxmanage startvm win10 --type headless
+  when: not (vm_infos.stdout | regex_search('VMState="running"'))
+
 - name: Check UAC settings
   command: >
     VBoxManage --nologo guestcontrol win10 run --username {{ win_username }} --password {{ win_password }}  --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --

@@ -1,6 +1,3 @@
-# install gitlab + virtualbox and the VM
-# see play-gitlab to install only gitlab
-# see play-vm to install only virtualbox and the VM
 - hosts: gitlab
   vars:
     - ansible_become: yes
@@ -17,9 +14,3 @@
       tags: gitlab-runner
     - role: virtualbox
       tags: virtualbox
-    - role: win_vm_from_iso
-      tags: win_vm_from_iso
-    - role: win_vm_installation
-      tags: win_vm_installation
-    - role: win_vm_from_iso2
-      tags: win_vm_from_iso2

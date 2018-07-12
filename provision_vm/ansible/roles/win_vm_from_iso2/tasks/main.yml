@@ -1,0 +1,25 @@
+- name: Install or start vm
+  command: >
+    VBoxManage unattended install win10
+    --start-vm=headless
+    --iso={{ win_iso }}
+    --user={{ win_username }}  --password={{ win_password }}
+    --install-additions --additions-iso={{virtualbox_base_folder}}/VBoxGuestAdditions_5.2.6.iso
+    --time-zone=UTC
+    {{ '--image-index=' + win_image_index if win_image_index is defined else '' }}
+    --image-index=8
+    {{ '--key=' + win_key if win_key is defined else '' }}
+  register: install_vm_result
+  failed_when: "install_vm_result.rc != 0 and not (install_vm_result.stderr | regex_search('Machine .* is currently running'))"
+  changed_when: "install_vm_result.rc == 0"
+
+- pause:
+    prompt: >
+      **** Warning ****
+      The Windows guest is being installed.
+      You will have to connect to it via RDP (port 3389) to see the installation progress.
+      Press Enter when the installation is done.
+
+- name: Take snapshot
+  command: VBoxManage snapshot win10 take "win10_installed"
+  when: (vm_infos.stdout | regex_search('SnapshotName.*="win10_installed"')) == None

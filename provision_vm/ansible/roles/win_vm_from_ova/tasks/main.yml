@@ -18,12 +18,6 @@
   command: vboxmanage import {{ win_ova }} --vsys 0 --vmname win10 --ostype Windows10_64 --memory {{ win_memory }}
   when: (vm_list.stdout | regex_search('"win10"')) == None  
 
-- name: Get info about the VM
-  command: VBoxManage showvminfo win10 --machinereadable
-  register: vm_infos
-  failed_when: no
-  changed_when: no
-
 - name: Take snapshot
   command: VBoxManage snapshot win10 take "win10_installed"
   when: (vm_infos.stdout | regex_search('SnapshotName.*="win10_installed"')) == None

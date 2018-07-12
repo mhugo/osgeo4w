@@ -1,0 +1,41 @@
+# install windows VM and populate it
+
+- hosts: gitlab
+  vars:
+    - ansible_become: yes
+  roles:
+    - role: win_vm_from_iso
+      tags: win_vm_from_iso
+      when: windows_install_type == "iso"
+    - role: win_vm_from_ova
+      tags: win_vm_from_ova
+      when: windows_install_type == "ova"
+    - role: win_vm_installation
+      tags: win_vm_installation
+    - role: win_vm_from_iso2
+      tags: win_vm_from_iso2
+      when: windows_install_type == "iso"
+    - role: win_vm_check
+      tags: win_vm_check
+    - role: win_ansible_setup
+      tags: win_ansible_setup
+    - role: win_rdp_setup
+      tags: win_rdp_setup
+
+- hosts: windows
+  roles:
+    - role: winsetup
+      tags: winsetup
+
+- hosts: gitlab
+  roles:
+    - role: win_ssh_setup
+      tags: win_ssh_setup
+    - role: post_vm_install
+      tags: post_vm_install
+      
+- hosts: windows
+  roles:
+    - role: winsetup_addons
+      tags: winsetup_addons
+

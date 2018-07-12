@@ -36,7 +36,7 @@
 - name: Create the IDE controller
   command: VBoxManage storagectl win10 --name "IDE Controller" --add ide --controller PIIX4
   when: (vm_infos.stdout | regex_search('storagecontrollername\d="IDE Controller"')) == None
-
+  
 - name: Attach the installation iso
   command: VBoxManage storageattach win10 --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium {{ win_iso }}
   when: (vm_infos.stdout | regex_search('"IDE Controller-\d-\d"="' + win_iso + '"')) == None
@@ -48,22 +48,4 @@
     dest: /usr/share/virtualbox/UnattendedTemplates
     state: link
 
-- name: Install or start vm
-  command: >
-    VBoxManage unattended install win10
-    --start-vm=headless
-    --iso={{ win_iso }}
-    --user={{ win_username }}  --password={{ win_password }}
-    --install-additions --additions-iso={{virtualbox_base_folder}}/VBoxGuestAdditions_5.2.6.iso
-    --time-zone=UTC
-    {{ '--image-index=' + win_image_index if win_image_index is defined else '' }}
-    --image-index=8
-    {{ '--key=' + win_key if win_key is defined else '' }}
-  register: install_vm_result
-  failed_when: "install_vm_result.rc != 0 and not (install_vm_result.stderr | regex_search('Machine .* is currently running'))"
-  changed_when: "install_vm_result.rc == 0"
-
-- name: Take snapshot
-  command: VBoxManage snapshot win10 take "win10_installed"
-  when: (vm_infos.stdout | regex_search('SnapshotName.*="win10_installed"')) == None
 

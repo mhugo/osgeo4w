@@ -10,7 +10,7 @@
   become: yes
 
 - name: Copy ansible authorization script from virtualbox host to windows guest
-  command: vboxmanage guestcontrol win10 copyto --username {{ win_username }} --password {{ win_password }} --target-directory 'c:/Users/{{ win_username }}/Documents' {{ virtualbox_base_folder }}/win_ansible_setup.ps1
+  command: vboxmanage guestcontrol win10 copyto --username {{ win_username }} --password {{ win_password }} --target-directory 'c:/Users/{{ win_username }}/Documents/win_ansible_setup.ps1' {{ virtualbox_base_folder }}/win_ansible_setup.ps1
   when: "(ansible_setup.stdout | regex_search('Value: done')) == None"
   become: yes
 
@@ -24,7 +24,7 @@
 - name: Execute ansible authorization script
   command: >
     VBoxManage --nologo guestcontrol win10 run --username {{ win_username }} --password {{ win_password }}  --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --
-    -Command "Start-Process powershell -ArgumentList '-file c:/Users/{{ win_username }}/Documents/win_ansible_setup.ps1' -Verb runas"
+    -Command "Start-Process powershell -ArgumentList '-file c:/Users/{{ win_username }}/Documents/win_ansible_setup.ps1' -Verb runas -Wait"
   when: "(ansible_setup.stdout | regex_search('Value: done')) == None"
   become: yes
 

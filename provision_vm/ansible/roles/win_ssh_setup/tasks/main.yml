@@ -1,0 +1,41 @@
+- name: Check SSH setup on windows
+  command: vboxmanage guestproperty get win10 ssh_setup
+  register: ssh_setup
+  changed_when: no
+  become: yes
+
+- name: Copy SSH setup script to virtualbox host
+  template: src=cygwin_ssh_setup.sh dest={{ virtualbox_base_folder }}/cygwin_ssh_setup.sh
+  when: "(ssh_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Copy SSH setup script from virtualbox host to windows guest
+  command: vboxmanage guestcontrol win10 copyto --username {{ win_username }} --password {{ win_password }} --target-directory 'c:/Users/{{ win_username }}/Documents/cygwin_ssh_setup.sh' {{ virtualbox_base_folder }}/cygwin_ssh_setup.sh
+  when: "(ssh_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Authorize script execution
+  command: >
+    vboxmanage guestcontrol win10 run --username {{ win_username }} --password {{ win_password }} --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --
+    -Command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass -Force"
+  when: "(ssh_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Execute SSH setup script
+  command: >
+    VBoxManage --nologo guestcontrol win10 run --username {{ win_username }} --password {{ win_password }}  --exe "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" --
+    -Command "Start-Process C:/cygwin64/bin/bash.exe -ArgumentList '--login c:/Users/{{ win_username }}/Documents/cygwin_ssh_setup.sh' -Verb runas -Wait"
+  when: "(ssh_setup.stdout | regex_search('Value: done')) == None"
+  become: yes
+
+- name: Copy gitlab-runner public SSH key to VM
+  command: >
+    sshpass -p {{ win_password }} ssh-copy-id -o StrictHostKeyChecking=no {{ win_username }}@localhost -p 2222
+  become: yes
+  become_user: gitlab-runner
+  when: "(ssh_setup.stdout | regex_search('Value: done')) == None"
+
+- name: Mark SSH setup as done on vm
+  command: vboxmanage guestproperty set win10 ssh_setup done
+  when: "(ssh_setup.stdout | regex_search('Value: done')) == None"
+  become: yes

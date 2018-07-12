@@ -11,6 +11,7 @@
     - nginx
     - git
     - python-pip
+    - sshpass
 
 - name: ensure Lets Encrypt certbot client is here
   git:

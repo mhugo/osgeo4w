@@ -11,4 +11,4 @@ package:
       - triggers
   tags:
       - win10
-      - oslandia
+      - osgeo4w

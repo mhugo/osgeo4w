@@ -15,7 +15,7 @@
       --virtualbox-base-name win10
       --executor virtualbox
       --ssh-user {{ win_username }}
-      --ssh-identity-file /home/gitlab-runner/.ssh/id_rsa
+      --ssh-password {{ win_password }}
       --virtualbox-base-snapshot win10_ready4ci
   when: ( runners.stderr | regex_search('win10_' + (runner_host_name | default(ansible_hostname)))) == None
   become: yes

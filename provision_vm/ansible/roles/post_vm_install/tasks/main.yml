@@ -42,3 +42,13 @@
   command: VBoxManage snapshot win10 take "win10_ready4ci"
   when: (vm_infos.stdout | regex_search('SnapshotName.*="win10_ready4ci"')) == None
   become: yes
+
+- debug:
+    msg: "variable fetch {{ fetch_osgeo4w_mirror }} {{ fetch_osgeo4w_mirror | bool }}"
+
+- name: Fetch a local mirror of the OSGeo4W repository
+  command: >
+    rsync -av {{ osgeo4w_rsync }} /usr/share/nginx/html/osgeo4w
+  become: yes
+  become_user: windows
+  when: fetch_osgeo4w_mirror | bool

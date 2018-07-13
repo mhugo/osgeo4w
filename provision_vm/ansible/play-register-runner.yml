@@ -1,0 +1,6 @@
+# Register the Runner
+
+- hosts: gitlab
+  roles:
+    - role: runner_registration
+      tags: runner_registration

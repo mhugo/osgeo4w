@@ -19,8 +19,8 @@
       tags: win_vm_check
     - role: win_ansible_setup
       tags: win_ansible_setup
-    - role: win_rdp_setup
-      tags: win_rdp_setup
+    #- role: win_rdp_setup
+    #  tags: win_rdp_setup
 
 - hosts: windows
   roles:

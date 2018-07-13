@@ -11,7 +11,7 @@
       --name win10_{{ runner_host_name | default(ansible_hostname) }}
       --url {{ gitlab_url }}
       --registration-token {{ runner_registration_token }}
-      --tag-list osgeo4w,win10,{{ runner_host_name | default(ansible_hostname) }}
+      --tag-list osgeo4w,win10
       --virtualbox-base-name win10
       --executor virtualbox
       --ssh-user {{ win_username }}

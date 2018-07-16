@@ -1,6 +1,9 @@
-# Ansible provisioning scripts for QGIS CI
+# Ansible provisioning scripts for OSGeo4W CI
 
-Ansible version == `2.4.2.0`.
+This set of Ansibl scripts are able to instal and configure:
+- a Gitlab instance on a Linux machine
+- VirtualBox with a Windows 10 virtual machine (VM) preconfigured for the compilation of OSGeo4W packages
+- all the glue necessary to make the virtual machine manageable by gitlab-ci
 
 Ansible is based on Python, so it is recommended to setup a virtual env
 in this directory before anything else. This will keep all updated
@@ -19,114 +22,75 @@ Now you can install dependencies with:
 
     pip install -r requirements.txt
 
-Oslandia specific readme : [readme-osl.md](readme-osl.md)
-
 ### Setup
 
-This setup is done with ansible, in 2 phases:
-- phase 1 provisions the linux machine, configures the vm and its auto-installation and starts it.
-- phase 2 provisions the windows machine, once it is up and running.
+This setup is done with Ansible, in different steps:
+- step 1 provisions the Linux machine, configures the VM and its auto-installation and starts it.
+- step 2 provisions the Windows machine, once it is up and running.
+- step 3 registers the Windows machine to the Gitlab instance and requires a registration token
 
 #### Configure ansible connection:
 
-1. Either: 
-- change "esg" in `./hosts` to a ssh-accessible machine name and copy `host_vars/example.yml` to `host_vars/<hostname>.yml`
-- or add an entry for "esg" in your ~/.ssh/config
+Have a detailed look at the sample host configuration file `hosts.sample`, copy it to `hosts` and set
+all the required configuration parameters.
 
-To check that this steps is correctly configured, you can execute
+To check that this step is correctly configured, you can test the connection to the host by typing:
 
 ```bash
 <path_to_venv>/bin/ansible -vvv -i hosts -m ping gitlab
 ```
 
-2. Customize all parameters in `host_vars/<hostname>.yml`
+### CI server (linux + gitlab + virtualbox + bootstrap the vm)
 
-### ci server (linux + gitlab + virtualbox + bootstrap the vm)
-
-Provisioning the Linux server and boostrap the windows installation with ansible: 
+Provisioning the Linux server and boostrap the windows installation with Ansible: 
 
 ```bash
-ansible-playbook -i hosts -e win_username=<windows username> -e win_password=<windows password> play-ci.yml
+ansible-playbook -i hosts -e win_username=<windows username> -e win_password=<windows password> play-gitlab.yml -K
 ```
 
-Once this playbook complete, you need to wait for the windows installation to
-finish. At this point, you should be able to connect to it with rdp. One way to
-achieve it:
+This will ask first for the 'sudo' password on the Linux machine.
 
-- open a ssh tunnel: 
-```bash
-ssh -L 3389:localhost:3389 <user>@<hostname>
-```
-- connect to localhost:3389 with a rdp client
+Once this playbook complete, you need to wait for the Windows installation to
+finish. You will need to watch for the Windows installation to complete
+by a graphical connection to the virtual machine, either by using the native virtualbox Graphical User Interface, or,
+in headless mode, using an RDP client to the virtual machine.
 
-### Windows vm (build machine)
+During installation, the VirtualBox RDP server is enabled on port 6666. So you will be able to connect to the
+running instance using an RDP client on this port (`rdesktop` or `remmina` under Linux for instance).
+
+### Windows VM (build machine)
 
 Before running this step, check that:
 - The virtualbox extension pack is installed (`vboxmanage list extpacks` should list at least one, with `Usable: true`)
 - the VM installation is complete
-- the guest additions are installed in the vm (check the system tray icon).
+- the guest additions are installed in the VM (check the system tray icon).
 
-Open a ssh tunnel to allow ansible to connect to the windows machine via winrm:
+On the "gitlab" machine, open an ssh tunnel to allow ansible to connect to the windows machine via winrm:
 ```bash
 ssh -L 5985:localhost:5985 <user>@<hostname>
 ```
 
-We'll have to authorize some scripts to run to the vm. To be able to do so,
+We'll have to authorize some scripts to run to the VM. To be able to do so,
 connect to the vm via RDP. You'll need to click on "yes" on each administrative
 prompt that might appear.
 
 Then run:
 ```bash
-ansible-playbook -i hosts -e win_username=<windows username> -e win_password=<windows password> play-win.yml
+ansible-playbook -i hosts -e win_username=<windows username> -e win_password=<windows password> play-vm.yml -K
 ```
 
-### Registering the windows vm to gitlab-runner
+### Registering the windows VM to gitlab-runner
 
-This part is not yet automated.
+This third part requires a "runner registration token" that is randomly generated on each gitlab installation.
+There is currently no way to automate the retrieval of this token using the Gitlab API.
 
-Now that the win10 vm is ready, we need to register it to the gitlab instance:
+So once the previous steps are completed, connect to the gitlab instance through its web interface with the
+"root" user and get a runner registration token. Runners can be registered either as shared runners for all the
+gitlab projects, as group runners or for a specific project.
 
-The VM needs to have a ssh daemon running to allow connections from the gitlab-runner.
-Here are some manual steps to execute inside the VM:
+Complete your `hosts` file with the runner registration token (variable `runner_registration_token`).
 
-- start the ssh daemon inside the vm. On a admin cygwin shell on the windows vm:
+Then run:
+```bash
+ansible-playbook -i hosts -e win_username=<windows username> -e win_password=<windows password> play-register-runner.yml -K
 ```
-ssh-host-config --cygwin ntsec --yes
-net start sshd
-```
-- Add the ssh public key to ~/.ssh/known_hosts (of the VM)
-On the gitlab host
-
-```
-su - gitlab-runner
-ssh-copy-id -i ~/.ssh/id_rsa <vm_username>@localhost -p 2222
-```
-and test connection from the linux host: 
-
-```
-ssh <vm_username>@localhost -p 2222
-```
-
-- Update the snapshot which is now ready for the Continuous integration
-```
-VBoxManage snapshot win10 take "win10_ready4ci"
-```
-
-- get the registration token from this page :
-  https://<gitlab_url>/admin/runners and register a runner on the linux host:
-
-```
-gitlab-runner register --non-interactive --name win10 \
-  --url <gitlab_url> \
-  --registration-token <the token> \
-  --virtualbox-base-name win10 \
-  --executor virtualbox \
-  --ssh-user oslandia \
-  --ssh-identity-file /home/gitlab-runner/.ssh/id_rsa \
-  --virtualbox-base-snapshot win10_ready4ci
-```
-
-ref:
-
-  - https://docs.gitlab.com/runner/executors/virtualbox.html#how-it-works
-  - https://git.oslandia.net/Oslandia-infra/devtools/tree/master/virtual/windows_ci

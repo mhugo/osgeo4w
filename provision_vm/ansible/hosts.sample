@@ -1,0 +1,93 @@
+[gitlab]
+# change this for the domain or ip of the target Linux server where
+# Gitlab should be installed
+hekla_TO_BE_COMPLETED
+
+[gitlab:vars]
+# used for gitlab & nginx conf
+hostname=TO_BE_COMPLETED
+# whether to setup ssl for gitlab
+setup_ssl=yes
+# for ssl setup, email used for the certbot
+email4certbot=
+
+# postgresql
+pg_version=9.6
+# docker
+docker_directory=/home/docker
+# gitlab
+gitlab_user=gitlab
+# the password MUST HAVE at least 8 characters
+gitlab_pass=TO_BE_COMPLETED
+gitlab_database=gitlab
+# the password MUST HAVE at least 8 characters
+gitlab_root_password=TO_BE_COMPLETED
+
+# generate passwords by pwgen -Bsv1 64
+gitlab_secrets_db_key_base=TO_BE_COMPLETED
+gitlab_secrets_otp_key_base=TO_BE_COMPLETED
+gitlab_secrets_secret_key_base=TO_BE_COMPLETED
+gitlab_backup_schedule=daily
+gitlab_backup_expiry=604800 # 7 days
+
+# gitlab email configuration, to send notificaions
+smtp_host=
+smtp_user=
+gitlab_email=
+gitlab_email_address=
+gitlab_email_display_name=
+
+# Proxy configuration, if needed
+#http_proxy=
+#https_proxy=
+
+#
+# Virtualbox configuration
+#
+# where, on the host disk, the Windows 10 files will be created 
+virtualbox_base_folder=/home/vbox
+# the size, in Mbytes of the Windows 10 disk
+win_disk_size=40000
+# the size in Mbytes of the available RAM for the Windows 10 VM
+win_memory=8192
+
+# The type of Windows installation, either "iso" or "ova"
+windows_install_type=iso
+# the location of the Windows 10 iso file to be installed
+#win_iso=TO_BE_COMPLETED
+# or the location of the Windows 10 ova file to be imported
+#win_ova=TO_BE_COMPLETED
+
+# optional, installation key of windows 10
+# win_key=
+# to force macaddress, optional
+# win_macaddress=
+
+# URL of the gitlab instance, for the runner registration
+gitlab_url=https://gitlab.com
+# to be complete once gitlab is installed
+runner_registration_token=TO_BE_COMPLETED
+
+# Whether to populate a local mirror of the OSGeo4W distribution
+fetch_osgeo4w_mirror=yes
+
+[windows]
+# localhost because connection is made through an ssh port forwarding
+localhost
+
+[windows:vars]
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_scheme=http
+ansible_port=5985
+ansible_user={{ win_username }}
+ansible_password={{ win_password }}
+
+# whether to install MSVC "community edition"
+install_msvc=yes
+# whether to install MSVC "professional edition"
+install_msvc_pro=no
+
+# Proxy configuration, if needed
+#http_proxy=
+#https_proxy=

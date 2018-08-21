@@ -2,9 +2,9 @@
 :: package name
 set P=python3-fourmy
 :: version
-set V=0.0.1
+set V=0.0.2
 :: package version
-set B=2
+set B=1
 
 set HERE=%CD%
 

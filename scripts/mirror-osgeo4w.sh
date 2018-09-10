@@ -37,7 +37,7 @@ echo "Starting sync..."
 
     echo "$(date): Deleting obsolete files [$?]"
 
-    find . -type f | sed -e "s/^\.//" | fgrep -v -f /tmp/osgeo4w-files2 | sed -e "s/^/\./" | xargs echo rm -v
+    find . -type f | sed -e "s/^\.//" | fgrep -v -f /tmp/osgeo4w-files2 | sed -e "s/^/\./" | xargs rm -v
     
     echo "$(date): Syncing done [$?]"
 )

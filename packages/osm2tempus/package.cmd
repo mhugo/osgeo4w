@@ -6,7 +6,7 @@ set V=1.1.1
 :: package version
 set B=1
 :: dependencies
-set BUILD_DEPS=tempus-core boost-devel-vc14 zlib protobuf
+set BUILD_DEPS=tempus-core boost-devel-vc14 zlib protobuf libpq
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1

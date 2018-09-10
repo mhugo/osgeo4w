@@ -2,4 +2,4 @@ sdesc: "osm2tempus"
 ldesc: "OpenStreetMap data importer for Tempus"
 maintainer: Hugo Mercier
 category: Libs
-requires: tempus-core
+requires: tempus-core protobuf libpq

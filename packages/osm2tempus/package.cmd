@@ -2,7 +2,7 @@
 :: package name
 set P=osm2tempus
 :: version
-set V=1.1.0
+set V=1.1.1
 :: package version
 set B=1
 

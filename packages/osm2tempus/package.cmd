@@ -17,7 +17,7 @@ cd osm2tempus-*
 call ci\windows\build_gitlab.bat || goto :error
 
 :: binary archive
-tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install || goto :error
+tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install etc || goto :error
 
 :: source archive
 tar -C %HERE% --transform 's,^,osgeo4w/,' -cvjf %PKG_SRC% package.cmd setup.hint || goto :error

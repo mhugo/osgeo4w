@@ -17,6 +17,8 @@ cd osm2tempus-*
 call ci\windows\build_gitlab.bat || goto :error
 
 :: binary archive
+mkdir etc
+xcopy /s ..\..\etc etc
 tar --transform 's,install,apps/tempus,' -cvjf %PKG_BIN% install etc || goto :error
 
 :: source archive

@@ -2,7 +2,7 @@
 :: package name
 set P=osm2tempus
 :: version
-set V=1.1.1
+set V=1.1.2
 :: package version
 set B=2
 :: dependencies
@@ -11,7 +11,11 @@ set BUILD_DEPS=tempus-core boost-devel-vc14 zlib protobuf libpq
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1
 
+if "%1"=="test" (
+wget --progress=bar:force https://gitlab.com/Oslandia/osm2tempus/repository/master/archive.tar.bz2 -O osm2tempus.tar.bz2 || goto :error
+) else (
 wget --progress=bar:force https://gitlab.com/Oslandia/osm2tempus/repository/archive.tar.bz2?ref=v%V% -O osm2tempus.tar.bz2 || goto :error
+)
 tar xjf osm2tempus.tar.bz2
 cd osm2tempus-*
 call ci\windows\build_gitlab.bat || goto :error

@@ -2,7 +2,7 @@
 :: package name
 set P=python-tempus-loader
 :: version
-set V=1.2.2
+set V=1.2.3
 :: package version
 set B=1
 :: building dependencies

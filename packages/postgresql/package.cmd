@@ -16,6 +16,10 @@ set PATH=C:\strawberry\perl\bin;%PATH%
 ::-- Add python to the path
 set PATH=%PATH%;c:\osgeo4w64\bin
 
+:: Perl introduced a regression by the removal of "." in @INC in 5.28
+:: And Install.pl relies on it. The following variable set to 1 resets the original behaviour
+set PERL_USE_UNSAFE_INC=1
+
 wget --progress=bar:force https://ftp.postgresql.org/pub/source/v9.6.2/postgresql-9.6.2.tar.bz2 || goto :error
 tar xjvf postgresql-9.6.2.tar.bz2 || goto :error
 

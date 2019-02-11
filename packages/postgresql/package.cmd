@@ -21,6 +21,7 @@ tar xjvf postgresql-9.6.2.tar.bz2 || goto :error
 copy config.pl postgresql-9.6.2\src\tools\msvc
 set HERE=%CD%
 cd postgresql-9.6.2\src\tools\msvc
+call c:\osgeo4w64\bin\py3_env.bat || goto :error
 call build.bat || goto :error
 
 :: make sure the install dir is empty before installing

@@ -5,6 +5,8 @@ set P=postgresql
 set V=9.6.2
 :: package version
 set B=1
+:: build dependencies
+set BUILD_DEPS=python3-devel
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1

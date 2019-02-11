@@ -4,7 +4,7 @@ set P=postgresql
 :: version
 set V=9.6.2
 :: package version
-set B=1
+set B=2
 :: build dependencies
 set BUILD_DEPS=python3-devel
 

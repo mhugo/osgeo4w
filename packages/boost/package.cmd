@@ -4,7 +4,7 @@ set P=boost-vc14
 :: version
 set V=1.63.0
 :: package version
-set B=3
+set B=4
 
 ::--------- Prepare the environment
 call ..\__inc__\prepare_env.bat %1
